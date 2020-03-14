@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Role } from './modules/profile/role';
+import { Role } from '../modules/profile/role';
 import { map } from 'rxjs/operators';
 import { AuthenticationService } from './authentication/authentication.service';
 

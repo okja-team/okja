@@ -12,7 +12,7 @@ import { NgModule } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { TranslateConfigService } from './translate-config.service';
+import { TranslateConfigService } from './services/translate-config.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 

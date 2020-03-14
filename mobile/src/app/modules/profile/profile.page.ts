@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { ProfileService } from 'src/app/profile.service';
+import { ProfileService } from 'src/app/services/profile.service';
 import { Role } from './role';
 
 @Component({
