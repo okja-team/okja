@@ -1,0 +1,26 @@
+{
+    "LOGIN_PAGE": {
+        "TITLE": "Effettua il log in"
+    },
+    "MAP_PAGE": {
+        "TITLE": "Map"
+    },
+    "CARDS_PAGE": {
+        "TITLE": "Lista di aiutanti"
+    },
+    "SETTINGS_PAGE": {
+        "TITLE": "Impostazioni",
+        "PRIVACY": "Informazioni sulla privacy",
+        "DELETE": "Elimina il tuo account",
+        "LANGUAGE_SELECT": {
+            "PLACEHOLDER": "Scegli lingua",
+            "LABEL": "Cambia lingua",
+            "OK_BUTTON": "Scegli",
+            "CANCEL_BUTTON": "Annulla",
+            "LIST": {
+                "IT": "Italiano",
+                "EN": "Inglese"
+            }
+        }
+    }
+}
