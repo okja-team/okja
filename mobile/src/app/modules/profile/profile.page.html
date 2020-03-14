@@ -7,7 +7,7 @@
 <ion-content>
   <ion-card class="registrazione-card">
     <ion-card-header>
-      <ion-card-title class="title">Ciao! Se sei in quarantena<br/>posso darti una mano</ion-card-title>
+      <ion-card-title class="title">Ciao! Se sei in quarantena<br />posso darti una mano</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-item>
@@ -27,13 +27,12 @@
         <ion-input></ion-input>
       </ion-item>
       <ion-item>
-      <ion-list class="list-full">
+        <ion-list class="list-full">
           <ion-label>Posso aiutarti con:</ion-label>
           <ion-item>
             <ion-label>Spesa</ion-label>
             <ion-toggle [(ngModel)]="spesa"></ion-toggle>
           </ion-item>
-        
           <ion-item>
             <ion-label>Farmacia</ion-label>
             <ion-toggle [(ngModel)]="farmacia"></ion-toggle>
@@ -43,7 +42,6 @@
             <ion-label>Posta</ion-label>
             <ion-toggle [(ngModel)]="posta"></ion-toggle>
           </ion-item>
-        
           <ion-item>
             <ion-label>Compagnia</ion-label>
             <ion-toggle [(ngModel)]="compagnia"></ion-toggle>
@@ -51,7 +49,15 @@
         </ion-list>
       </ion-item>
 
-      <ion-button class="list-full button">Registrati</ion-button>
+      
+      <ion-item *ngFor="let entry of rolesCollection">
+        <ion-label>{{entry.type}}</ion-label>
+        <ion-checkbox slot="end"
+          [(ngModel)]="entry.active"></ion-checkbox>
+      </ion-item>
+
+      <ion-button class="list-full button"
+        (click)="saveProfile()">Registrati</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
