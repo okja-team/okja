@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    height: 100vh;
+
+    .card {
+        margin: auto;
+
+        .button {
+            width: 100%;
+        }
+    }
+}
