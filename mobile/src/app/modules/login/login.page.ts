@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { AuthenticationService } from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
     this.authService.SignIn(email.value, password.value)
       .then((res) => {
         if (this.authService.isEmailVerified) {
-          //this.router.navigate(['dashboard']);
+          this.router.navigate(['profile']);
           window.alert('login OK');
         } else {
           window.alert('Email is not verified');
@@ -30,6 +30,10 @@ export class LoginPage implements OnInit {
       }).catch((error) => {
         window.alert(error.message);
       });
+  }
+
+  goToRegistration(){
+    this.router.navigate(['/registration']);
   }
 
 }

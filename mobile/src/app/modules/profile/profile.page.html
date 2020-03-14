@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profilo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="registrazione-card">
+    <ion-card-header>
+      <ion-card-title class="title">Ciao! Se sei in quarantena<br/>posso darti una mano</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label class="width-30">Nome</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="width-30">Cognome</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="width-30">Indirizzo</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="width-30">Contatto</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-list class="list-full">
+          <ion-label>Posso aiutarti con:</ion-label>
+          <ion-item>
+            <ion-label>Spesa</ion-label>
+            <ion-toggle [(ngModel)]="spesa"></ion-toggle>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label>Farmacia</ion-label>
+            <ion-toggle [(ngModel)]="farmacia"></ion-toggle>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Posta</ion-label>
+            <ion-toggle [(ngModel)]="posta"></ion-toggle>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label>Compagnia</ion-label>
+            <ion-toggle [(ngModel)]="compagnia"></ion-toggle>
+          </ion-item>
+        </ion-list>
+      </ion-item>
+
+      <ion-button class="list-full button">Registrati</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

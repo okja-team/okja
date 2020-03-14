@@ -36,6 +36,18 @@
     <ion-row>
       <ion-col>
         <ion-button type="submit"
+          (click)="goToRegistration()"
+          expand="block">
+          Register
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+  <form>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit"
           color="danger"
           (click)="authService.GoogleAuth()"
           expand="block">

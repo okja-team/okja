@@ -1,4 +1,4 @@
-import { AuthenticationService } from '../authentication/authentication.service';
+import { AuthenticationService } from '../../authentication/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -26,10 +26,11 @@ export class RegistrationPage implements OnInit {
   signUp(email, password) {
     this.authService.RegisterUser(email.value, password.value)
       .then((res) => {
-        window.alert('success registration');
+        // Do something here
+        this.authService.SendVerificationMail()
+        this.router.navigate(['verify-email']);
       }).catch((error) => {
         window.alert(error.message);
       });
   }
-
 }
