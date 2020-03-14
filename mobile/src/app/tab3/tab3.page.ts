@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TranslateConfigService } from '../translate-config.service';
+
 
 @Component({
   selector: 'app-tab3',
@@ -7,6 +9,19 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  selectedLanguage: string;
 
+  constructor(private translateConfigService: TranslateConfigService){
+    this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
+  }
+
+  languageChanged() {
+    this.translateConfigService.setLanguage(this.selectedLanguage);
+  }
+
+  private openPrivacyPage() {
+  }
+
+  private deleteButton() {
+  }
 }
