@@ -80,7 +80,7 @@ export class AuthenticationService {
         return this.ngFireAuth.auth.signInWithPopup(provider)
             .then((result) => {
                 this.ngZone.run(() => {
-                    this.router.navigate(['attivazione']);
+                    this.router.navigate(['profile']);
                 })
                 this.SetUserData(result.user);
             }).catch((error) => {
@@ -109,6 +109,14 @@ export class AuthenticationService {
             localStorage.removeItem('user');
             this.router.navigate(['login']);
         });
+    }
+
+    GetCurrentUser() {
+        if (this.isLoggedIn) {
+            return this.ngFireAuth.auth.currentUser;
+        } else {
+            return null;
+        }
     }
 
 }
