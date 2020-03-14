@@ -1,4 +1,7 @@
 .registrazione-card {
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
 
     ion-card-header {
         padding: 0;
@@ -23,4 +26,9 @@
         padding-left: 20px;
         margin: auto;
     }
+}
+
+.container {
+    height: 100vh;
+    display: flex;
 }
