@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrazione',
@@ -12,7 +13,13 @@ export class RegistrazionePage implements OnInit {
   public compagnia = false;
   public posta = false;
 
-  constructor() { }
+  constructor(
+    private readonly router: Router
+  ) { }
+  
+  public registrati() : void {
+    this.router.navigate(["/"]);
+  }
 
   ngOnInit() {
   }
