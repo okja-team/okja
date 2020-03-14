@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-attivazione',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AttivazionePage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private readonly router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  public registrati(): void {
+    this.router.navigate(["/registrazione"]);
   }
 
 }
