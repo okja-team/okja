@@ -8,9 +8,13 @@ import { Router } from '@angular/router';
 })
 export class AttivazionePage implements OnInit {
 
+  public isDarkMode = false;
+
   constructor(
     private readonly router: Router
-  ) { }
+  ) {
+    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+   }
 
   ngOnInit() {
   }

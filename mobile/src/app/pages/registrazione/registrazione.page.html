@@ -1,8 +1,8 @@
 <ion-content>
-  <div class="container">
+  <div class="container" [ngClass]="{ 'dark-background': isDarkMode }" >
     <ion-card class="registrazione-card">
       <ion-card-header>
-        <img src="assets/img/abbiamo-bisogno-del-tuo-aiuto.png" />
+        <img [src]="img" />
       </ion-card-header>
       <ion-card-content>
         <ion-item>
@@ -26,22 +26,22 @@
             <ion-label>Posso aiutarti con:</ion-label>
             <ion-item>
               <ion-label>Spesa</ion-label>
-              <ion-toggle [(ngModel)]="spesa"></ion-toggle>
+              <ion-toggle value="user.getCapability(aiuti.Spesa)" (ionChange)="user.setCapability(aiuti.Spesa, $event.detail.checked)"></ion-toggle>
             </ion-item>
           
             <ion-item>
               <ion-label>Farmacia</ion-label>
-              <ion-toggle [(ngModel)]="farmacia"></ion-toggle>
+              <ion-toggle value="user.getCapability(aiuti.Farmacia)" (ionChange)="user.setCapability(aiuti.Farmacia, $event.detail.checked)"></ion-toggle>
             </ion-item>
   
             <ion-item>
               <ion-label>Posta</ion-label>
-              <ion-toggle [(ngModel)]="posta"></ion-toggle>
+              <ion-toggle value="user.getCapability(aiuti.Posta)" (ionChange)="user.setCapability(aiuti.Posta, $event.detail.checked)"></ion-toggle>
             </ion-item>
           
             <ion-item>
               <ion-label>Compagnia</ion-label>
-              <ion-toggle [(ngModel)]="compagnia"></ion-toggle>
+              <ion-toggle value="user.getCapability(aiuti.Compagnia)" (ionChange)="user.setCapability(aiuti.Compagnia, $event.detail.checked)"></ion-toggle>
             </ion-item>
           </ion-list>
         </ion-item>
