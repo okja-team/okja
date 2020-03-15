@@ -9,7 +9,8 @@
 
 <ion-content>
 
-  <agm-map [usePanning]="true"
+  <agm-map *ngIf="showingCurrent"
+    [usePanning]="true"
     [latitude]="lat"
     [longitude]="lng"
     [zoom]="12"
