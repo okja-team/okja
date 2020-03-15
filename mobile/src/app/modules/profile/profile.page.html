@@ -16,11 +16,11 @@
       </ion-item>
       <ion-item>
         <ion-label class="width-30">{{ 'PROFILE_PAGE.SURNAME' | translate }}</ion-label>
-        <ion-input></ion-input>
+        <ion-input [(ngModel)]="profile.surname"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label class="width-30">{{ 'PROFILE_PAGE.ADDRESS' | translate }}</ion-label>
-        <ion-input></ion-input>
+        <ion-input [(ngModel)]="profile.address"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label class="width-30">{{ 'PROFILE_PAGE.PHONE' | translate }}</ion-label>
