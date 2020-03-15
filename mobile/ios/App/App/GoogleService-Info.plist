@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>780413736030-v4q0m057r80c33ffln19a5ldpvvsmthf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.780413736030-v4q0m057r80c33ffln19a5ldpvvsmthf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>780413736030-1oj3vd4phg15r298qmvvo5vg5ovh7mlv.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBY3le-X0Lhlg0tPRpqpCAkqyn1wZaD3g0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>780413736030</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.okja.i4you</string>
+	<key>PROJECT_ID</key>
+	<string>okja-e6a08</string>
+	<key>STORAGE_BUCKET</key>
+	<string>okja-e6a08.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:780413736030:ios:956258440fd2808adc50cf</string>
+	<key>DATABASE_URL</key>
+	<string>https://okja-e6a08.firebaseio.com</string>
+</dict>
+</plist>
