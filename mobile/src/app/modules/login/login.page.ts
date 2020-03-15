@@ -10,12 +10,16 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 
 export class LoginPage implements OnInit {
 
+  public isDarkMode = false;
+
   constructor(
     public authService: AuthenticationService,
     public router: Router
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
 
   logIn(email, password) {
     this.authService.SignIn(email.value, password.value)

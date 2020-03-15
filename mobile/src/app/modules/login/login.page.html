@@ -1,59 +1,67 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Sign in User</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <form>
-    <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="text"
-        #email
-        required></ion-input>
-    </ion-item>
+  <div class="container" [ngClass]="{'dark-background': isDarkMode}">
+    <div class="card-container">
+      <h1>Log in</h1>
 
-    <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password"
-        #password
-        required></ion-input>
-    </ion-item>
+      <!--FOR TESTING PURPOSE ONLY-->
+      <ion-card>
+        <form>
+          <ion-item lines="full">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="text"
+              #email
+              required></ion-input>
+          </ion-item>
+      
+          <ion-item lines="full">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password"
+              #password
+              required></ion-input>
+          </ion-item>
+      
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit"
+                (click)="logIn(email, password)"
+                expand="block">Login</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
 
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit"
-          (click)="logIn(email, password)"
-          expand="block">Login</ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
+        <form>
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit"
+                (click)="goToRegistration()"
+                expand="block">
+                Register
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-card>
+    <!--FOR TESTING PURPOSE ONLY-->
 
-  <form>
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit"
-          (click)="goToRegistration()"
-          expand="block">
-          Register
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
-
-  <form>
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit"
-          color="danger"
-          (click)="authService.GoogleAuth()"
-          expand="block">
-          Login with Google
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
+      <!--TODO: FACEBOOK AUTH-->
+      <ion-card (click)="authService.GoogleAuth()">
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <!--TOOD: CAMBAIRE CON IMMAGINE INTERNA-->
+            <img src="https://cdn.clipart.email/1adeeae8cb44653d468181f9364eb888_free-facebook-png-transparent-download-free-clip-art-free-clip-_900-520.jpeg" />
+          </ion-avatar>
+          <ion-text>Log in con Facebook</ion-text>
+        </ion-item>
+      </ion-card>
+      <ion-card (click)="authService.GoogleAuth()">
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <!--TOOD: CAMBAIRE CON IMMAGINE INTERNA-->
+            <img src="https://p7.hiclipart.com/preview/249/19/631/google-logo-g-suite-google-guava-google-plus.jpg" />
+          </ion-avatar>
+          <ion-text>Log in con Google</ion-text>
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>
