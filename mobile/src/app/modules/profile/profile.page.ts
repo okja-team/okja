@@ -3,7 +3,9 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-profile',
@@ -28,9 +30,12 @@ export class ProfilePage implements OnInit {
     private loadingCtrl: LoadingController,
     private auth: AuthenticationService,
     private profileService: ProfileService,
+    private translateConfigService: TranslateConfigService,
     private navCtrl: NavController,
     private router: Router
-  ) { }
+  ) {
+    this.translateConfigService.getDefaultLanguage();
+  }
 
   ngOnInit() {
     this.profile = new Profile();
@@ -51,7 +56,7 @@ export class ProfilePage implements OnInit {
   async saveProfile() {
 
     const loading = await this.loadingCtrl.create({
-      message: "saving your profile",
+      message: this.translateConfigService.translateInstant("PROFILE_PAGE.LOADER_MESSAGE"),
       spinner: 'crescent',
     });
     loading.present();
@@ -64,6 +69,10 @@ export class ProfilePage implements OnInit {
     }
 
     loading.dismiss();
+  }
+
+  messageSubmit() : String{
+    return this.hasProfile ? "SAVE" : "SIGN_UP";
   }
 
   goToHome() {
