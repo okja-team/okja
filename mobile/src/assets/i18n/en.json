@@ -24,6 +24,7 @@
         "TITLE": "Settings",
         "PRIVACY": "Privacy information",
         "DELETE": "Delete your account",
+        "LOGOUT": "Logout",
         "LANGUAGE_SELECT": {
             "PLACEHOLDER": "Choose language",
             "LABEL": "Change language",

@@ -31,6 +31,7 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "angularfire2": "^5.4.2",
+    "capacitor-firebase-auth": "^0.3.0",
     "cordova-plugin-nativegeocoder": "^3.2.2",
     "core-js": "^2.5.4",
     "firebase": "^7.11.0",

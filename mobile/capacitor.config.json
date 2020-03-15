@@ -1,8 +1,23 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.okja.i4you",
   "appName": "mobile",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
-  "cordova": {}
+  "cordova": {},
+  "plugins": {
+    "CapacitorFirebaseAuth": {
+      "providers": [
+        "google.com"
+      ],
+      "languageCode": "en",
+      "nativeAuth": false,
+      "permissions": {
+        "google": [
+          "profile",
+          "https://www.googleapis.com/auth/drive"
+        ]
+      }
+    }
+  }
 }

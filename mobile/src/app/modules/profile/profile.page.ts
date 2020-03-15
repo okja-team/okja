@@ -112,7 +112,7 @@ export class ProfilePage implements OnInit {
   public async saveProfile() {
     const profile = this.getProfileFromForm();
     const loading = await this.loadingCtrl.create({
-      message: this.translateConfigService.translateInstant("PROFILE_PAGE.LOADER_MESSAGE"),
+      message: this.translateConfigService.translateInstant('PROFILE_PAGE.LOADER_MESSAGE'),
       spinner: 'crescent',
     });
     loading.present();
