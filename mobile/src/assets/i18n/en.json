@@ -2,6 +2,10 @@
     "LOGIN_PAGE": {
         "TITLE": "Log In"
     },
+    "PROFILE": {
+        "PAGE_NAME": "Profile",
+        "TITLE": "Hi! If you are in quarantine <br/> I can help you out"
+    },
     "MAP_PAGE": {
         "TITLE": "Map"
     },
