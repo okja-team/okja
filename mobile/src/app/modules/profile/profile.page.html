@@ -31,9 +31,9 @@
           </ion-segment-button>
         </ion-segment>
 
-        <ion-item *ngIf="user?.isHelper">
+        <ion-item>
         <ion-list class="list-full">
-            <ion-label>Posso aiutarti con:</ion-label>
+            <ion-label>{{ user.isHelper ? 'Posso aiutarti con:' : 'Avrei bisogno di aiuto con:'  }}</ion-label>
             <ion-item>
               <ion-label>Spesa</ion-label>
               <ion-toggle value="user?.getCapability(aiuti.Spesa)" (ionChange)="user.setCapability(aiuti.Spesa, $event.detail.checked)"></ion-toggle>
