@@ -49,7 +49,7 @@ export class PositionPikerPage implements OnInit {
             this.lat = parseFloat(result[0].latitude);
             this.lng = parseFloat(result[0].longitude);
           })
-          this.showingCurrent = false;
+          this.showingCurrent = true;
         })
         .catch((error: any) => console.log(error));
     }
