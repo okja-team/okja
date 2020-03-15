@@ -1,23 +1,24 @@
 <ion-header>
   <ion-toolbar>
+    <img class="center ion-margin" src="../../../assets/images/claim_no_logo.svg">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Register User</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-title class="ion-text-center ion-margin">{{ 'REGISTRATION_PAGE.TITLE' | translate }}</ion-title>
   <form>
     <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">{{ 'REGISTRATION_PAGE.EMAIL' | translate }}</ion-label>
       <ion-input type="text"
         #email
         required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">{{ 'REGISTRATION_PAGE.PASSWORD' | translate }}</ion-label>
       <ion-input type="password"
         #password
         required></ion-input>
@@ -34,7 +35,10 @@
       <ion-col>
         <ion-button type="submit"
           (click)="signUp(email, password)"
-          expand="block">Register</ion-button>
+          expand="block"
+        >
+        {{ 'REGISTRATION_PAGE.REGISTER' | translate }}
+      </ion-button>
       </ion-col>
     </ion-row>
   </form>

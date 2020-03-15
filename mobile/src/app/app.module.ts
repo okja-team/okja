@@ -44,7 +44,7 @@ export function LanguageLoader(http: HttpClient) {
       }
     }),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAP_Xy-1QSclKYAvxSmAZO2BuFAWWAlOZQ',
+      apiKey: 'AIzaSyAP_Xy-AIzaSyAicXNHiKHv7433PfEOr4IkUTpeabfu_pE',
       libraries: ['places']
     }),
   ],

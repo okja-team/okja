@@ -6,6 +6,8 @@ export class Profile {
     constructor() {
         this.id = null;
         this.name = '';
+        this.surname = '';
+        this.address = '';
         this.phone = '+39';
         this.published = false;
         Object.values(RoleType).forEach(v => {
@@ -16,6 +18,8 @@ export class Profile {
 
     id: string;
     name: string;
+    surname: string;
+    address: string;
     phone: string;
     published: boolean;
     activity: Role[] = [];

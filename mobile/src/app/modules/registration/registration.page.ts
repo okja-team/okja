@@ -1,6 +1,7 @@
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 @Component({
   selector: 'app-registration',
@@ -18,8 +19,11 @@ export class RegistrationPage implements OnInit {
 
   constructor(
     public authService: AuthenticationService,
-    public router: Router
-  ) { }
+    public router: Router,
+    private translateConfigService: TranslateConfigService
+  ) {
+    this.translateConfigService.getDefaultLanguage();
+  }
 
   ngOnInit() { }
 
