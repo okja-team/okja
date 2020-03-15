@@ -1,9 +1,11 @@
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { auth } from 'firebase/app';
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, ɵɵinjectPipeChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './user.interface';
+import { ProfileService } from '../profile.service';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +18,9 @@ export class AuthenticationService {
         public afStore: AngularFirestore,
         public ngFireAuth: AngularFireAuth,
         public router: Router,
-        public ngZone: NgZone
+        public ngZone: NgZone,
+        public profileService: ProfileService,
+        public navCtrl: NavController
     ) {
         this.ngFireAuth.authState.subscribe(user => {
             if (user) {
@@ -79,8 +83,13 @@ export class AuthenticationService {
     AuthLogin(provider) {
         return this.ngFireAuth.auth.signInWithPopup(provider)
             .then((result) => {
-                this.ngZone.run(() => {
-                    this.router.navigate(['profile']);
+                this.ngZone.run(async () => {
+                    const hasProfile = await this.profileService.hasProfile();
+                    if (hasProfile) {
+                        this.navCtrl.navigateRoot('home/tabs/tab1');
+                    } else {
+                        this.router.navigate(['profile']);
+                    }
                 })
                 this.SetUserData(result.user);
             }).catch((error) => {
@@ -111,12 +120,12 @@ export class AuthenticationService {
         });
     }
 
-    GetCurrentUser() {
-        if (this.isLoggedIn) {
-            return this.ngFireAuth.auth.currentUser;
-        } else {
-            return null;
-        }
-    }
+    // GetCurrentUser() {
+    //     if (this.isLoggedIn) {
+    //         return this.ngFireAuth.auth.currentUser;
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
 }

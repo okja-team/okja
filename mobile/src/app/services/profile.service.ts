@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from './authentication/authentication.service';
 import { Profile } from '../models/profile';
 
 @Injectable({
@@ -22,27 +21,30 @@ export class ProfileService {
   constructor(
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
-    private authService: AuthenticationService) {
+  ) {
 
+  }
+
+  async hasProfile(): Promise<boolean> {
+    return new Promise<boolean>((res, rej) => {
+      this.getProfile().subscribe(p => {
+        if (p) {
+          res(true);
+        } else {
+          res(false);
+        }
+      })
+    });
   }
 
 
   getProfile() {
-    const userId = this.authService.GetCurrentUser().uid;
+    const userId = this.afAuth.auth.currentUser.uid;
     this.profileDoc = this.db.collection('users').doc(userId).collection('profiles').doc<Profile>('profile');
     this.profile = this.profileDoc.valueChanges();
     return this.profile;
   }
 
-  // getPubblishedProfile() {
-  //   //const userId = this.authService.GetCurrentUser().uid;
-  //   this.publishedProfileColl = this.db.collection<Profile>('active_profiles');
-  //   this.publishedProfile = this.publishedProfileColl.valueChanges();
-  //   return this.publishedProfile;
-  // }
-  // updateProfile(profile: Profile) {
-  //   return this.profileDoc.update(Object.assign({}, profile));
-  // }
   deleteProfile(profile) {
     this.profileDoc.delete();
   }
@@ -51,13 +53,13 @@ export class ProfileService {
   }
 
   publishProfile(profile: Profile) {
-    const userId = this.authService.GetCurrentUser().uid;
+    const userId = this.afAuth.auth.currentUser.uid;
     this.publishProfileDoc = this.db.collection('active_profiles').doc(userId);
     return this.publishProfileDoc.set(Object.assign({}, profile));
   }
 
   unpublishProfile(profile: Profile) {
-    const userId = this.authService.GetCurrentUser().uid;
+    const userId = this.afAuth.auth.currentUser.uid;
     this.publishProfileDoc = this.db.collection('active_profiles').doc(userId);
     return this.publishProfileDoc.delete();
   }

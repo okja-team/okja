@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -19,13 +19,15 @@ export class ProfilePage implements OnInit {
   // public rolesCollection: Role[] = [];
 
   public profile: Profile;
+  public hasProfile: boolean;
 
   public publishProfile: Profile[];
 
   constructor(
     private loadingCtrl: LoadingController,
     private auth: AuthenticationService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -37,6 +39,9 @@ export class ProfilePage implements OnInit {
     this.profileService.getProfile().subscribe(p => {
       if (p) {
         this.profile = p;
+        this.hasProfile = true;
+      } else {
+        this.hasProfile = false;
       }
     });
   }
@@ -57,6 +62,10 @@ export class ProfilePage implements OnInit {
     }
 
     loading.dismiss();
+  }
+
+  goToHome() {
+    this.navCtrl.navigateRoot('home/tabs/tab1');
   }
 
 }
