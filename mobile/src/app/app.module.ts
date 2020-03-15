@@ -15,7 +15,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateConfigService } from './services/translate-config.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -41,13 +42,18 @@ export function LanguageLoader(http: HttpClient) {
         useFactory: (LanguageLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAP_Xy-1QSclKYAvxSmAZO2BuFAWWAlOZQ',
+      libraries: ['places']
+    }),
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AngularFirestoreModule,
     TranslateConfigService,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

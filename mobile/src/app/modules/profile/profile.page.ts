@@ -3,6 +3,7 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +28,8 @@ export class ProfilePage implements OnInit {
     private loadingCtrl: LoadingController,
     private auth: AuthenticationService,
     private profileService: ProfileService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -66,6 +68,10 @@ export class ProfilePage implements OnInit {
 
   goToHome() {
     this.navCtrl.navigateRoot('home/tabs/tab1');
+  }
+
+  setPosition(){
+    this.router.navigate(['position-piker']);
   }
 
 }

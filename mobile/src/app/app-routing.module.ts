@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./modules/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'position-piker',
+    loadChildren: () => import('./modules/position-piker/position-piker.module').then( m => m.PositionPikerPageModule)
   }
 
 ];

@@ -9,6 +9,7 @@ import { Profile } from '../models/profile';
 })
 export class ProfileService {
 
+  // public currentProfile: Profile;
   private profile: Observable<Profile>;
   private profileDoc: AngularFirestoreDocument<Profile>;
 
