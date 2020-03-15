@@ -24,7 +24,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.router.navigate(["/attivazione"]);
+      //this.router.navigate(['/login']);
     });
   }
 }

@@ -3,16 +3,29 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'home',
+    // pathMatch: 'full',
+    loadChildren: () => import('./modules/tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'registration',
+    loadChildren: () => import('./modules/registration/registration.module').then( m => m.RegistrationPageModule)
+  },
+  {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./modules/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'registrazione',
-    loadChildren: () => import('./pages/registrazione/registrazione.module').then( m => m.RegistrazionePageModule)
+    path: 'verify-email',
+    loadChildren: () => import('./modules/verify-email/verify-email.module').then( m => m.VerifyEmailPageModule)
   },
   {
-    path: 'attivazione',
-    loadChildren: () => import('./pages/attivazione/attivazione.module').then( m => m.AttivazionePageModule)
+    path: 'profile',
+    loadChildren: () => import('./modules/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'position-piker',
+    loadChildren: () => import('./modules/position-piker/position-piker.module').then( m => m.PositionPikerPageModule)
   }
 
 ];

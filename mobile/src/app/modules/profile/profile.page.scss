@@ -1,0 +1,35 @@
+.profile-card {
+    .title {
+        font-size: 23px;
+    }
+
+    ion-card-content {
+        padding-left: 0;
+    }
+
+    .width-30 {
+        width: 30vw;
+    }
+
+    .list-full {
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .button {
+        padding-left: 20px;
+        margin: auto;
+        margin-bottom: 5px;
+    }
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    background-color: rgb(231, 240, 253);
+}
+
+.dark-background {
+    background-color: #000000;
+}
