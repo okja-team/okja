@@ -6,7 +6,13 @@
         "TITLE": "Map"
     },
     "CARDS_PAGE": {
-        "TITLE": "Helpers list"
+        "TITLE": "Helpers list",
+        "HELPS_WITH": "Helps with:",
+        "CONTACT": "Contact",
+        "FILTERS": {
+            "TYPE_FILTER": "Type",
+            "DISTANCE_FILTER": "Distance"
+        }
     },
     "SETTINGS_PAGE": {
         "TITLE": "Settings",
@@ -22,5 +28,8 @@
                 "EN": "English"
             }
         }
+    },
+    "COMMON": {
+        "UNIT_DISTANCE": "km"
     }
 }
