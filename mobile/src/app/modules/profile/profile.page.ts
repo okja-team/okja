@@ -5,6 +5,7 @@ import { Aiuti } from 'src/app/models/enums/aiuti.enum';
 import { ModalController, LoadingController, AlertController, ToastController } from '@ionic/angular';
 import { LocationSelectionPage } from '../location-selection/location-selection.page';
 import { ProfileService } from 'src/app/services/profile.service';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +28,8 @@ export class ProfilePage {
     private readonly profileService: ProfileService,
     private readonly loadingCtrl: LoadingController,
     private readonly alertCtrl: AlertController,
-    private readonly toast: ToastController
+    private readonly toast: ToastController,
+    private readonly translateConfigService: TranslateConfigService,
 
   ) {
     this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -46,7 +48,7 @@ export class ProfilePage {
 
    private async saveProfile(): Promise<void> {
     const loading = await this.loadingCtrl.create({
-      message: "saving your profile",
+      message: this.translateConfigService.translateInstant('PROFILE_PAGE.LOADER_MESSAGE'),
       spinner: 'crescent',
     });
     loading.present();

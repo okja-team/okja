@@ -1,23 +1,24 @@
 <ion-header>
   <ion-toolbar>
+    <img class="center ion-margin" src="../../../assets/images/claim_no_logo.svg">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Sign in User</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-title class="ion-text-center ion-margin">{{ 'LOGIN_PAGE.TITLE' | translate }}</ion-title>
   <form>
     <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">{{ 'LOGIN_PAGE.EMAIL' | translate }}</ion-label>
       <ion-input type="text"
         #email
         required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">{{ 'LOGIN_PAGE.PASSWORD' | translate }}</ion-label>
       <ion-input type="password"
         #password
         required></ion-input>
@@ -27,19 +28,10 @@
       <ion-col>
         <ion-button type="submit"
           (click)="logIn(email, password)"
-          expand="block">Login</ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
-
-  <form>
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit"
-          (click)="goToRegistration()"
-          expand="block">
-          Register
-        </ion-button>
+          expand="block"
+        >
+        {{ 'LOGIN_PAGE.SIGN_IN' | translate }}
+      </ion-button>
       </ion-col>
     </ion-row>
   </form>
@@ -51,9 +43,16 @@
           color="danger"
           (click)="authService.GoogleAuth()"
           expand="block">
-          Login with Google
+          {{ 'LOGIN_PAGE.SIGN_IN_GOOGLE' | translate }}
         </ion-button>
       </ion-col>
     </ion-row>
   </form>
+  <ion-footer class="ion-text-center">
+    <ion-toolbar>
+      <ion-text>
+        <p>{{ 'LOGIN_PAGE.SIGN_UP' | translate }} <ion-text (click)="goToRegistration()" color="tertiary">{{ 'LOGIN_PAGE.SIGN_UP_LINK' | translate }}</ion-text></p>
+      </ion-text>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>

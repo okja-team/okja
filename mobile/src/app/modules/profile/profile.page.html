@@ -6,63 +6,63 @@
       </ion-card-header>
       <ion-card-content>
         <ion-item>
-          <ion-label class="width-30">Nome</ion-label>
+          <ion-label class="width-30">{{ 'PROFILE_PAGE.NAME' | translate }}</ion-label>
           <ion-input value="{{ user?.nome }}" placeholder="Mario" onIonChange="e => user.nome = e.detail.value"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label class="width-30">Cognome</ion-label>
+          <ion-label class="width-30">{{ 'PROFILE_PAGE.SURNAME' | translate }}</ion-label>
           <ion-input value="{{ user?.cognome }}" placeholder="Rossi" onIonChange="e => user.cognome = e.detail.value"></ion-input>
         </ion-item>
         <ion-item (click)="openLocationSelector()">
-          <ion-label class="width-30">Indirizzo</ion-label>
+          <ion-label class="width-30">{{ 'PROFILE_PAGE.ADDRESS' | translate }}</ion-label>
           <ion-input value="{{ user?.indirizzo }}" placeholder="via Roma 1, Milano" onIonChange="e => user.indirizzo = e.detail.value"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label class="width-30">Contatto</ion-label>
+          <ion-label class="width-30">{{ 'PROFILE_PAGE.PHONE' | translate }}</ion-label>
           <ion-input value="{{ user?.contatto }}" placeholder="321 00 00 000" onIonChange="e => user.contatto = e.detail.value"></ion-input>
         </ion-item>
         
         <ion-segment value="user?.isHelper.toString()" (ionChange)="segmentChanged($event)">
           <ion-segment-button value="false">
-            <ion-label>Ho bisogno di aiuto</ion-label>
+            <ion-label>{{ 'PROFILE_PAGE.BISOGNO_AIUTO' | translate }}</ion-label>
           </ion-segment-button>
           <ion-segment-button value="true">
-            <ion-label>Posso aiutare</ion-label>
+            <ion-label>{{ 'PROFILE_PAGE.POSSO_AIUTARE' | translate }}</ion-label>
           </ion-segment-button>
         </ion-segment>
 
         <ion-item>
         <ion-list class="list-full">
-            <ion-label>{{ user.isHelper ? 'Posso aiutarti con:' : 'Avrei bisogno di aiuto con:'  }}</ion-label>
+            <ion-label>{{ (user.isHelper ? 'PROFILE_PAGE.MESSAGE_HELPER' : 'PROFILE_PAGE.MESSAGE_HELP') | translate }}</ion-label>
             <ion-item>
-              <ion-label>Spesa</ion-label>
+              <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}</ion-label>
               <ion-toggle value="user?.getCapability(aiuti.Spesa)" (ionChange)="user.setCapability(aiuti.Spesa, $event.detail.checked)"></ion-toggle>
             </ion-item>
           
             <ion-item>
-              <ion-label>Farmacia</ion-label>
+              <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FARMACY' | translate }}</ion-label>
               <ion-toggle value="user?.getCapability(aiuti.Farmacia)" (ionChange)="user.setCapability(aiuti.Farmacia, $event.detail.checked)"></ion-toggle>
             </ion-item>
   
             <ion-item>
-              <ion-label>Posta</ion-label>
+              <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.MAIL' | translate }}</ion-label>
               <ion-toggle value="user?.getCapability(aiuti.Posta)" (ionChange)="user.setCapability(aiuti.Posta, $event.detail.checked)"></ion-toggle>
             </ion-item>
           
             <ion-item>
-              <ion-label>Compagnia</ion-label>
+              <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.COMPANY' | translate }}</ion-label>
               <ion-toggle value="user?.getCapability(aiuti.Compagnia)" onIonChange="e => user.published = e.detail.checked"></ion-toggle>
             </ion-item>
           </ion-list>
         </ion-item>
 
         <ion-item *ngIf="user?.isHelper" class="important-statement">
-          <ion-label>Sono attualmente disponibile</ion-label>
+          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.AVAILABLE' | translate }}</ion-label>
           <ion-toggle value="user?.published" (ionChange)="user.setCapability(aiuti.Posta, $event.detail.checked)"></ion-toggle>
         </ion-item>
   
-        <ion-button class="list-full button" (click)="registrati()">Registrati</ion-button>
-        <ion-button class="list-full button" color="danger" (click)="indietro()">Non Ora</ion-button>
+        <ion-button class="list-full button" (click)="registrati()">{{ 'PROFILE_PAGE.ROLE_TYPE.SIGN_UP' | translate }}</ion-button>
+        <ion-button class="list-full button" color="danger" (click)="indietro()">{{ 'PROFILE_PAGE.ROLE_TYPE.CLOSE' | translate }}</ion-button>
       </ion-card-content>
     </ion-card>
   </div>
