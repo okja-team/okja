@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
-import { Role } from './role';
+import { Profile } from 'src/app/models/profile';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,33 +11,35 @@ import { Role } from './role';
 })
 export class ProfilePage implements OnInit {
 
-  public spesa = false;
-  public farmacia = false;
-  public compagnia = false;
-  public posta = false;
+  // public spesa = false;
+  // public farmacia = false;
+  // public compagnia = false;
+  // public posta = false;
 
-  public rolesCollection: Role[] = [];
+  // public rolesCollection: Role[] = [];
+
+  public profile: Profile;
+
+  public publishProfile: Profile[];
 
   constructor(
     private loadingCtrl: LoadingController,
+    private auth: AuthenticationService,
     private profileService: ProfileService
   ) { }
 
   ngOnInit() {
+    this.profile = new Profile();
+
   }
 
   ionViewWillEnter() {
-    this.profileService.refreshAndGetRoleCollectionForCurrentUser().subscribe(roles => {
-      this.rolesCollection = roles;
-      if (this.rolesCollection.length === 0) {
-        this.rolesCollection.push(
-          { id: null, type: 'pharmacy', active: false },
-          { id: null, type: 'food', active: false }
-        )
+    this.profileService.getProfile().subscribe(p => {
+      if (p) {
+        this.profile = p;
       }
     });
   }
-
 
   async saveProfile() {
 
@@ -46,16 +49,14 @@ export class ProfilePage implements OnInit {
     });
     loading.present();
 
-    for (let i = 0; i < this.rolesCollection.length; i++) {
-      if (this.rolesCollection[i].id) {
-        this.profileService.updateRole(this.rolesCollection[i]);
-      } else {
-        this.profileService.addRole(this.rolesCollection[i]).then(roleDoc => {
-          this.rolesCollection[i].id = roleDoc.id;
-        });
-      }
-      loading.dismiss();
+    this.profileService.addProfile(this.profile);
+    if (this.profile.published) {
+      this.profileService.publishProfile(this.profile);
+    } else {
+      this.profileService.unpublishProfile(this.profile);
     }
+
+    loading.dismiss();
   }
 
 }

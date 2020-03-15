@@ -12,7 +12,7 @@
     <ion-card-content>
       <ion-item>
         <ion-label class="width-30">Nome</ion-label>
-        <ion-input></ion-input>
+        <ion-input [(ngModel)]="profile.name"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label class="width-30">Cognome</ion-label>
@@ -24,12 +24,12 @@
       </ion-item>
       <ion-item>
         <ion-label class="width-30">Contatto</ion-label>
-        <ion-input></ion-input>
+        <ion-input [(ngModel)]="profile.phone"></ion-input>
       </ion-item>
       <ion-item>
         <ion-list class="list-full">
           <ion-label>Posso aiutarti con:</ion-label>
-          <ion-item>
+          <!-- <ion-item>
             <ion-label>Spesa</ion-label>
             <ion-toggle [(ngModel)]="spesa"></ion-toggle>
           </ion-item>
@@ -45,16 +45,24 @@
           <ion-item>
             <ion-label>Compagnia</ion-label>
             <ion-toggle [(ngModel)]="compagnia"></ion-toggle>
+          </ion-item> -->
+          <ion-item *ngFor="let entry of profile.activity">
+            <ion-label>{{entry.type}}</ion-label>
+            <ion-checkbox slot="end"
+              [(ngModel)]="entry.active"></ion-checkbox>
           </ion-item>
         </ion-list>
+
       </ion-item>
 
-      
-      <ion-item *ngFor="let entry of rolesCollection">
-        <ion-label>{{entry.type}}</ion-label>
+      <ion-item>
+        <ion-label>SONO DISPONIBILE</ion-label>
         <ion-checkbox slot="end"
-          [(ngModel)]="entry.active"></ion-checkbox>
+          [(ngModel)]="profile.published"></ion-checkbox>
       </ion-item>
+
+
+
 
       <ion-button class="list-full button"
         (click)="saveProfile()">Registrati</ion-button>
