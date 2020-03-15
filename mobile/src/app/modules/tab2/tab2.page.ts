@@ -47,4 +47,7 @@ export class Tab2Page implements OnInit {
     this.callNumber.callNumber(phoneNumber, true);
   }
 
+  onClickInfo(id: string) {
+  }
+
 }

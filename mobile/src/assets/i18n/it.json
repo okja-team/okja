@@ -9,6 +9,7 @@
         "TITLE": "Lista di aiutanti",
         "HELPS_WITH": "Aiuta con:",
         "CONTACT": "Contatta",
+        "INFO": "Info",
         "FILTERS": {
             "TYPE_FILTER": "Tipologia",
             "DISTANCE_FILTER": "Distanza"
@@ -21,8 +22,6 @@
         "LANGUAGE_SELECT": {
             "PLACEHOLDER": "Scegli lingua",
             "LABEL": "Cambia lingua",
-            "OK_BUTTON": "Scegli",
-            "CANCEL_BUTTON": "Annulla",
             "LIST": {
                 "IT": "Italiano",
                 "EN": "Inglese"
@@ -30,6 +29,12 @@
         }
     },
     "COMMON": {
-        "UNIT_DISTANCE": "km"
+        "UNIT_DISTANCE": "km",
+        "ACTIVITY_TYPES": {
+            "FOOD": "Spesa",
+            "PHARMACY": "Medicine"
+        },
+        "OK_BUTTON": "Scegli",
+        "CANCEL_BUTTON": "Annulla"
     }
 }

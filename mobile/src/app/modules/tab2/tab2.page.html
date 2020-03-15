@@ -16,8 +16,10 @@
   <div>
     <ion-item>
       <ion-label>{{ 'CARDS_PAGE.FILTERS.TYPE_FILTER' | translate }}</ion-label>
-      <ion-select multiple="true">
-        <ion-select-option *ngFor="let activity of activityFilter">{{ activity.type }}</ion-select-option>
+      <ion-select multiple="true"
+      okText="{{ 'COMMON.OK_BUTTON' | translate }}"
+      cancelText="{{ 'COMMON.CANCEL_BUTTON' | translate }}">
+        <ion-select-option *ngFor="let activity of activityFilter">{{ 'COMMON.ACTIVITY_TYPES.' + activity.type.toUpperCase() | translate }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -39,13 +41,19 @@
           <h2>{{ helper.name }}</h2>
           <p>{{ 'CARDS_PAGE.HELPS_WITH' | translate }}</p>
           <ion-chip *ngFor="let role of helper.activity"> 
-            <ion-label>{{ role.type }}</ion-label>
+            <ion-label>{{ 'COMMON.ACTIVITY_TYPES.' + role.type.toUpperCase() | translate }}</ion-label>
           </ion-chip>
         </ion-label>
       </ion-item>
-      <ion-item-divider (click)="onClickPhone(helper.phone)">
-        <ion-icon name="call-outline" slot="end"></ion-icon>
-        <ion-label>{{ 'CARDS_PAGE.CONTACT' | translate }}</ion-label>
+      <ion-item-divider>
+        <ion-item-divider (click)="onClickInfo(helper.id)">
+          <ion-label slot="start">{{ 'CARDS_PAGE.INFO' | translate }}</ion-label>
+          <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
+        </ion-item-divider>
+        <ion-item-divider (click)="onClickPhone(helper.phone)">
+          <ion-label slot="end">{{ 'CARDS_PAGE.CONTACT' | translate }}</ion-label>
+          <ion-icon name="call-outline" slot="end" color="primary"></ion-icon>
+        </ion-item-divider>
       </ion-item-divider>
     </ion-card>
   </ion-list>

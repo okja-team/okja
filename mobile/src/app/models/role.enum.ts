@@ -1,4 +1,4 @@
 export enum RoleType {
     Food = 'food',
-    Pharmacy = 'farmacy',
+    Pharmacy = 'pharmacy',
 }

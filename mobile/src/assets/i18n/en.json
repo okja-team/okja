@@ -9,6 +9,7 @@
         "TITLE": "Helpers list",
         "HELPS_WITH": "Helps with:",
         "CONTACT": "Contact",
+        "INFO": "Info",
         "FILTERS": {
             "TYPE_FILTER": "Type",
             "DISTANCE_FILTER": "Distance"
@@ -21,8 +22,6 @@
         "LANGUAGE_SELECT": {
             "PLACEHOLDER": "Choose language",
             "LABEL": "Change language",
-            "OK_BUTTON": "Ok",
-            "CANCEL_BUTTON": "Cancel",
             "LIST": {
                 "IT": "Italian",
                 "EN": "English"
@@ -30,6 +29,12 @@
         }
     },
     "COMMON": {
-        "UNIT_DISTANCE": "km"
+        "UNIT_DISTANCE": "km",
+        "ACTIVITY_TYPES": {
+            "FOOD": "Food",
+            "PHARMACY": "Pharmacy"
+        },
+        "OK_BUTTON": "Ok",
+        "CANCEL_BUTTON": "Cancel"
     }
 }
