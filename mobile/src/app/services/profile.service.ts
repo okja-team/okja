@@ -1,58 +1,64 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Role } from '../modules/profile/role';
-import { map } from 'rxjs/operators';
 import { AuthenticationService } from './authentication/authentication.service';
+import { Profile } from '../models/profile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
-  private rolesCollection: AngularFirestoreCollection<Role>;
-  private roles: Observable<Role[]>;
+  private profile: Observable<Profile>;
+  private profileDoc: AngularFirestoreDocument<Profile>;
+
+  // private publishedProfile: Observable<Profile[]>;
+  // private publishedProfileColl: AngularFirestoreCollection<Profile>;
+
+  private publishProfileDoc: AngularFirestoreDocument<Profile>;
+
 
   constructor(
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
     private authService: AuthenticationService) {
-    // let currentUser = this.authService.GetCurrentUser();
-    // if (this.afAuth.auth.currentUser) {
-    //   let user = this.afAuth.auth.currentUser.uid;
-    // }
 
-    // if (currentUser) {
-    //   this.refreshRolesCollection(currentUser.uid);
-    // }
-  }
-  refreshRolesCollection(userId) {
-    this.rolesCollection = this.db.collection('users').doc(userId).collection<Role>('roles');
-    this.roles = this.rolesCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
   }
 
-  refreshAndGetRoleCollectionForCurrentUser() {
-    this.refreshRolesCollection(this.authService.GetCurrentUser().uid);
-    return this.roles;
+
+  getProfile() {
+    const userId = this.authService.GetCurrentUser().uid;
+    this.profileDoc = this.db.collection('users').doc(userId).collection('profiles').doc<Profile>('profile');
+    this.profile = this.profileDoc.valueChanges();
+    return this.profile;
   }
 
-  getRole() {
-    return this.roles;
+  // getPubblishedProfile() {
+  //   //const userId = this.authService.GetCurrentUser().uid;
+  //   this.publishedProfileColl = this.db.collection<Profile>('active_profiles');
+  //   this.publishedProfile = this.publishedProfileColl.valueChanges();
+  //   return this.publishedProfile;
+  // }
+  // updateProfile(profile: Profile) {
+  //   return this.profileDoc.update(Object.assign({}, profile));
+  // }
+  deleteProfile(profile) {
+    this.profileDoc.delete();
   }
-  updateRole(role) {
-    return this.rolesCollection.doc(role.id).update(role);
+  addProfile(profile: Profile) {
+    return this.profileDoc.set(Object.assign({}, profile));
   }
-  deleteRole(role) {
-    this.rolesCollection.doc(role.id).delete();
+
+  publishProfile(profile: Profile) {
+    const userId = this.authService.GetCurrentUser().uid;
+    this.publishProfileDoc = this.db.collection('active_profiles').doc(userId);
+    return this.publishProfileDoc.set(Object.assign({}, profile));
   }
-  addRole(role) {
-    return this.rolesCollection.add(role);
+
+  unpublishProfile(profile: Profile) {
+    const userId = this.authService.GetCurrentUser().uid;
+    this.publishProfileDoc = this.db.collection('active_profiles').doc(userId);
+    return this.publishProfileDoc.delete();
   }
 }
