@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { RegistrazionePageRoutingModule } from './registrazione-routing.module';
 
 import { RegistrazionePage } from './registrazione.page';
+import { LocationSelectionPageModule } from 'src/app/pages/location-selection/location-selection.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistrazionePageRoutingModule
+    RegistrazionePageRoutingModule,
+    LocationSelectionPageModule
   ],
   declarations: [RegistrazionePage]
 })
