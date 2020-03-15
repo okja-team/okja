@@ -14,7 +14,7 @@ export class PositionPikerPage implements OnInit {
   public coords;
 
   public lat: any; public lng: any;
-  showingCurrent: boolean = true;
+  showingCurrent: boolean = false;
   address: string;
   constructor(
     private nativeGeocoder: NativeGeocoder,
@@ -24,15 +24,19 @@ export class PositionPikerPage implements OnInit {
   }
 
   ngOnInit() {
-    this.setCurrentPosition();
+  }
 
+
+  ionViewDidEnter() {
+    this.setCurrentPosition();
   }
 
   async setCurrentPosition() {
-    const coordinates = await Geolocation.getCurrentPosition();
+    this.coords = await Geolocation.getCurrentPosition();
     this.ngZone.run(() => {
-      this.lat = coordinates.coords.latitude;
-      this.lng = coordinates.coords.longitude;
+      this.lat = this.coords.coords.latitude;
+      this.lng = this.coords.coords.longitude;
+      window.alert(this.lat + " " + this.lng);
     })
     this.showingCurrent = true;
   }
