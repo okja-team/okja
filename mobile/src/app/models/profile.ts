@@ -10,19 +10,21 @@ export class Profile {
         public phone?: string,
         public published?: boolean,
         public activity?: Role[],
-        public position?: any,
+        public position?: { lat: string, lng: string },
         public id?: string
     ) {
         this.id = this.id || null;
         this.name = this.name || '';
+        this.surName = this.surName || '';
+        this.address = this.address || '';
         this.phone = this.phone || '+39';
         this.published = this.published || false;
         this.activity = this.activity || [];
+        this.position = this.position || { lat: '', lng: '' };
         Object.values(RoleType).forEach(roleType => {
             if (!this.activity.find(act => act.type === roleType)) {
                 this.activity.push({ type: roleType, active: false });
             }
         });
-        this.position = this.position || '';
     }
 }
