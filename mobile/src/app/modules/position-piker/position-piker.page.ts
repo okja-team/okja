@@ -11,7 +11,6 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class PositionPikerPage implements OnInit {
 
-  public coords;
 
   public lat: any; public lng: any;
   showingCurrent: boolean = false;
@@ -28,16 +27,15 @@ export class PositionPikerPage implements OnInit {
 
 
   ionViewDidEnter() {
-    this.setCurrentPosition();
+    this.getSavedPosition();
   }
 
   async setCurrentPosition() {
-    this.coords = await Geolocation.getCurrentPosition();
+    const position = await Geolocation.getCurrentPosition();
     this.ngZone.run(() => {
-      this.lat = this.coords.coords.latitude;
-      this.lng = this.coords.coords.longitude;
-      window.alert(this.lat + " " + this.lng);
-    })
+      this.lat = position.coords.latitude;
+      this.lng = position.coords.longitude;
+    });
     this.showingCurrent = true;
   }
 
@@ -71,32 +69,24 @@ export class PositionPikerPage implements OnInit {
       if (p.published) {
         this.profileService.publishProfile(p);
       }
-    })
+    });
+  }
+
+  onDragEnd(event) {
+    this.lat = event.coords.lat;
+    this.lng = event.coords.lng;
+  }
+
+  getSavedPosition() {
+    this.profileService.getProfile().subscribe(p => {
+      if (p && p.position && p.position.lat && p.position.lng) {
+        this.lat = p.position.lat;
+        this.lng = p.position.lng;
+        this.showingCurrent = true;
+      } else {
+        this.setCurrentPosition();
+      }
+    });
   }
 }
-
-// async getCoordinate() {
-//   const coordinates = await Geolocation.getCurrentPosition();
-//   this.coords = coordinates.coords;
-//   this.lat = coordinates.coords.latitude;
-//   this.lng = coordinates.coords.longitude;
-
-// }
-
-// reverseGeocode() {
-//   let options: NativeGeocoderOptions = {
-//     useLocale: true,
-//     maxResults: 5
-//   };
-//   this.nativeGeocoder.reverseGeocode(this.coords, this.coords, options)
-//     .then((result: NativeGeocoderResult[]) => console.log(JSON.stringify(result[0])))
-//     .catch((error: any) => console.log(error));
-// }
-
-// forwardGeocode() {
-//   this.nativeGeocoder.forwardGeocode(this.address, options)
-//     .then((result: NativeGeocoderResult[]) => {
-//       console.log('lat=' + result[0].latitude + 'long=' + result[0].longitude);
-//     })
-//     .catch((error: any) => console.log(error));
 

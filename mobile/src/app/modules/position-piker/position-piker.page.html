@@ -17,7 +17,8 @@
     [disableDefaultUI]="false">
     <agm-marker [latitude]="lat"
       [longitude]="lng"
-      [markerDraggable]=true></agm-marker>
+      [markerDraggable]=true
+      (dragEnd)="onDragEnd($event)"></agm-marker>
   </agm-map>
   <ion-grid class="status-grid">
     <ion-row>
