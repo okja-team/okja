@@ -9,4 +9,4 @@ npx cap copy
 npx cap open android
 
 ## Android LiveReload
-ionic cordova run android -l
+ionic capacitor run android -l
