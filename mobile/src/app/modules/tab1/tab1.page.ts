@@ -1,6 +1,3 @@
-
-/// <reference types="@types/googlemaps" />
-
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActiveProfileService } from 'src/app/active-profile.service';

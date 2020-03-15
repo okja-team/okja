@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "780413736030",
+    "firebase_url": "https://okja-e6a08.firebaseio.com",
+    "project_id": "okja-e6a08",
+    "storage_bucket": "okja-e6a08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780413736030:android:99d682a4ef5b0243dc50cf",
+        "android_client_info": {
+          "package_name": "com.okja.i4you"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780413736030-nshn3rcrs3jm4jksjuv0rhannj5lbe2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4iiPSbU3zihLzHqR5-Oy_F1WdEMMmD8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780413736030-nshn3rcrs3jm4jksjuv0rhannj5lbe2m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "780413736030-v4q0m057r80c33ffln19a5ldpvvsmthf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.okja.i4you"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
