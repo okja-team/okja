@@ -9,6 +9,10 @@
         padding-left: 0;
     }
 
+    ion-card-header {
+        padding: 0;
+    }
+
     .width-30 {
         width: 30vw;
     }
@@ -25,6 +29,7 @@
     }
 
     ion-segment {
+        margin-top: 20px;
         margin-bottom: 20px;
     }
 

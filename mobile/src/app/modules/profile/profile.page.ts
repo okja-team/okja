@@ -20,8 +20,6 @@ export class ProfilePage {
   public isDarkMode = false;
   public img: string;
 
-  public isHelper = false;
-
   constructor(
     private readonly router: Router,
     private readonly modal: ModalController,
@@ -42,6 +40,7 @@ export class ProfilePage {
         this.user = p;
        } else {
          this.user = new Profile();
+         console.log(this.user.isHelper);
        }
      });
    }
@@ -89,7 +88,7 @@ export class ProfilePage {
   }
 
   public segmentChanged(event: CustomEvent): void {
-    this.user.isHelper = event.detail.value === 'true';
+    this.user.isHelper = event.detail.value === 'helper';
   }
 
   private async showToast(): Promise<void> {
