@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { RegistrationPageRoutingModule } from './registration-routing.module';
 
@@ -13,7 +14,8 @@ import { RegistrationPage } from './registration.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistrationPageRoutingModule
+    RegistrationPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [RegistrationPage]
 })
