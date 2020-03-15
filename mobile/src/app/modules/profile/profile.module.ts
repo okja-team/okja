@@ -6,9 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ProfilePageRoutingModule } from './profile-routing.module';
-
 import { ProfilePage } from './profile.page';
-import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
