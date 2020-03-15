@@ -1,34 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Profilo</ion-title>
+    <ion-title class="ion-text-center">{{ 'PROFILE_PAGE.TITLE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card class="registrazione-card">
     <ion-card-header>
-      <ion-card-title class="title">Ciao! Se sei in quarantena<br />posso darti una mano</ion-card-title>
+      <ion-card-title class="title">{{ 'PROFILE_PAGE.FIRST_MESSAGE' | translate }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-label class="width-30">Nome</ion-label>
+        <ion-label class="width-30">{{ 'PROFILE_PAGE.NAME' | translate }}</ion-label>
         <ion-input [(ngModel)]="profile.name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label class="width-30">Cognome</ion-label>
+        <ion-label class="width-30">{{ 'PROFILE_PAGE.SURNAME' | translate }}</ion-label>
         <ion-input></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label class="width-30">Indirizzo</ion-label>
+        <ion-label class="width-30">{{ 'PROFILE_PAGE.ADDRESS' | translate }}</ion-label>
         <ion-input></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label class="width-30">Contatto</ion-label>
+        <ion-label class="width-30">{{ 'PROFILE_PAGE.PHONE' | translate }}</ion-label>
         <ion-input [(ngModel)]="profile.phone"></ion-input>
       </ion-item>
       <ion-item>
         <ion-list class="list-full">
-          <ion-label>Posso aiutarti con:</ion-label>
+          <ion-label>{{ 'PROFILE_PAGE.MESSAGE_HELP' | translate }}</ion-label>
           <!-- <ion-item>
             <ion-label>Spesa</ion-label>
             <ion-toggle [(ngModel)]="spesa"></ion-toggle>
@@ -47,7 +47,7 @@
             <ion-toggle [(ngModel)]="compagnia"></ion-toggle>
           </ion-item> -->
           <ion-item *ngFor="let entry of profile.activity">
-            <ion-label>{{entry.type}}</ion-label>
+            <ion-label>{{('PROFILE_PAGE.ROLE_TYPE.' + entry.type) | translate}}</ion-label>
             <ion-checkbox slot="end"
               [(ngModel)]="entry.active"></ion-checkbox>
           </ion-item>
@@ -56,22 +56,19 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>SONO DISPONIBILE</ion-label>
+        <ion-label>{{ 'PROFILE_PAGE.AVAILABLE' | translate }}</ion-label>
         <ion-checkbox slot="end"
           [(ngModel)]="profile.published"></ion-checkbox>
       </ion-item>
 
-
-
-
       <ion-button class="list-full button"
-        (click)="saveProfile()">Registrati</ion-button>
+        (click)="saveProfile()">{{ ('PROFILE_PAGE.' + messageSubmit()) | translate }}</ion-button>
       <ion-button *ngIf="hasProfile"
         class="list-full button"
-        (click)="goToHome()">CHIUDI</ion-button>
+        (click)="goToHome()">{{ 'PROFILE_PAGE.CLOSE' | translate }}</ion-button>
       <ion-button
         class="list-full button"
-        (click)="setPosition()">POSITION</ion-button>
+        (click)="setPosition()">{{ 'PROFILE_PAGE.POSITION' | translate }}</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
