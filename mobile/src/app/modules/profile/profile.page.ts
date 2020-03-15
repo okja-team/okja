@@ -3,10 +3,12 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RoleType } from 'src/app/models/role.enum';
 import { Role } from 'src/app/models/role';
+
 
 @Component({
   selector: 'app-profile',
@@ -31,6 +33,7 @@ export class ProfilePage implements OnInit {
     private loadingCtrl: LoadingController,
     private auth: AuthenticationService,
     private profileService: ProfileService,
+    private translateConfigService: TranslateConfigService,
     private navCtrl: NavController,
     private router: Router
   ) {
@@ -42,7 +45,7 @@ export class ProfilePage implements OnInit {
       phone: new FormControl('+39'),
       isAvailable: new FormControl(false)
     };
-
+    this.translateConfigService.getDefaultLanguage();
     Object.values(RoleType).forEach(roleType => {
       this.activities.push({ active: false, type: roleType });
       group[roleType] = new FormControl(false);
@@ -109,7 +112,7 @@ export class ProfilePage implements OnInit {
   public async saveProfile() {
     const profile = this.getProfileFromForm();
     const loading = await this.loadingCtrl.create({
-      message: 'saving your profile',
+      message: this.translateConfigService.translateInstant("PROFILE_PAGE.LOADER_MESSAGE"),
       spinner: 'crescent',
     });
     loading.present();
@@ -122,6 +125,10 @@ export class ProfilePage implements OnInit {
     }
 
     loading.dismiss();
+  }
+
+  public messageSubmit(): string {
+    return this.hasProfile ? 'SAVE' : 'SIGN_UP';
   }
 
   public goToHome() {
