@@ -1,6 +1,18 @@
 {
     "LOGIN_PAGE": {
-        "TITLE": "Effettua il log in"
+        "TITLE": "Effettua il log in",
+        "SIGN_IN_GOOGLE": "Accedi con Google",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "SIGN_UP_LINK": "Registrati",
+        "SIGN_UP": "Non hai un acocunt?",
+        "SIGN_IN": "Accedi"
+    },
+    "REGISTRATION_PAGE": {
+        "TITLE": "Registrazione utente",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "REGISTER": "Registrami"
     },
     "MAP_PAGE": {
         "TITLE": "Map"
@@ -21,6 +33,20 @@
                 "IT": "Italiano",
                 "EN": "Inglese"
             }
+        }
+    },
+    "PROFILE_PAGE":{
+        "TITLE": "Profilo",
+        "FIRST_MESSAGE": "Ciao! Se sei in quarantena posso darti una mano",
+        "NAME": "Nome",
+        "SURNAME": "Cognome",
+        "ADDRESS": "Indirizzo",
+        "PHONE": "Contatto",
+        "MESSAGE_HELP": "Posso aiutarti con:",
+        "AVAILABLE": "SONO DISPONIBILE",
+        "ROLE_TYPE": {
+            "food": "cibo",
+            "farmacy": "farmacia"
         }
     }
 }

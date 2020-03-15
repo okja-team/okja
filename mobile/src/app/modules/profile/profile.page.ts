@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,8 +26,11 @@ export class ProfilePage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     private auth: AuthenticationService,
-    private profileService: ProfileService
-  ) { }
+    private profileService: ProfileService,
+    private translateConfigService: TranslateConfigService
+  ) {
+    this.translateConfigService.getDefaultLanguage();
+  }
 
   ngOnInit() {
     this.profile = new Profile();
