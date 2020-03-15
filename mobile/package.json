@@ -30,6 +30,7 @@
     "@ionic/pwa-elements": "^1.5.1",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
+    "@types/googlemaps": "^3.39.3",
     "angularfire2": "^5.4.2",
     "cordova-plugin-nativegeocoder": "^3.2.2",
     "core-js": "^2.5.4",
