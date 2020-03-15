@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +22,7 @@ export class ProfilePage implements OnInit {
   // public rolesCollection: Role[] = [];
 
   public profile: Profile;
+  public hasProfile: boolean;
 
   public publishProfile: Profile[];
 
@@ -27,7 +30,9 @@ export class ProfilePage implements OnInit {
     private loadingCtrl: LoadingController,
     private auth: AuthenticationService,
     private profileService: ProfileService,
-    private translateConfigService: TranslateConfigService
+    private translateConfigService: TranslateConfigService,
+    private navCtrl: NavController,
+    private router: Router
   ) {
     this.translateConfigService.getDefaultLanguage();
   }
@@ -41,6 +46,9 @@ export class ProfilePage implements OnInit {
     this.profileService.getProfile().subscribe(p => {
       if (p) {
         this.profile = p;
+        this.hasProfile = true;
+      } else {
+        this.hasProfile = false;
       }
     });
   }
@@ -48,7 +56,7 @@ export class ProfilePage implements OnInit {
   async saveProfile() {
 
     const loading = await this.loadingCtrl.create({
-      message: "saving your profile",
+      message: this.translateConfigService.translateInstant("PROFILE_PAGE.LOADER_MESSAGE"),
       spinner: 'crescent',
     });
     loading.present();
@@ -61,6 +69,18 @@ export class ProfilePage implements OnInit {
     }
 
     loading.dismiss();
+  }
+
+  messageSubmit() : String{
+    return this.hasProfile ? "SAVE" : "SIGN_UP";
+  }
+
+  goToHome() {
+    this.navCtrl.navigateRoot('home/tabs/tab1');
+  }
+
+  setPosition(){
+    this.router.navigate(['position-piker']);
   }
 
 }

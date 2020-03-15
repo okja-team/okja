@@ -47,6 +47,11 @@
         "ROLE_TYPE": {
             "food": "cibo",
             "farmacy": "farmacia"
-        }
+        },
+        "SAVE": "Salva",
+        "SIGN_UP": "Registra",
+        "CLOSE": "Chiudi",
+        "POSITION": "Posizione",
+        "LOADER_MESSAGE": "Salvataggio profilo in corso"
     }
 }

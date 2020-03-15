@@ -20,4 +20,7 @@ export class TranslateConfigService {
     this.translate.use(setLang);
   }
 
+  translateInstant(key: string) : string{
+    return this.translate.instant(key);
+  }
 }

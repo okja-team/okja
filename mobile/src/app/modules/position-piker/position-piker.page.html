@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>position-piker</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <agm-map [usePanning]="true"
+    [latitude]="lat"
+    [longitude]="lng"
+    [zoom]="12"
+    [disableDefaultUI]="false">
+    <agm-marker [latitude]="lat"
+      [longitude]="lng"
+      [markerDraggable]=true></agm-marker>
+  </agm-map>
+  <ion-grid class="status-grid">
+    <ion-row>
+      <ion-col *ngIf="showingCurrent">
+        Showing Current Location
+      </ion-col>
+      <ion-col *ngIf="!showingCurrent">
+        Showing Geocoded Location
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button color="success"
+    (click)="setCurrentPosition()"
+    expand="full"
+    class="ion-margin">Show My Location
+  </ion-button>
+
+  <ion-item>
+    <ion-label position="stacked">Enter Address to Geocode</ion-label>
+    <ion-input type="text"
+      [(ngModel)]="address"
+      name="address"></ion-input>
+  </ion-item>
+  <ion-row class="ion-padding-horizontal ion-padding-top"
+    *ngIf="!showingCurrent">
+    <ion-text class="coords">My Latitude : {{lat}}</ion-text>
+  </ion-row>
+  <ion-row class="ion-padding-horizontal"
+    *ngIf="!showingCurrent">
+    <ion-text class="coords">My Longitude : {{lng}}</ion-text>
+  </ion-row>
+  <ion-button color="success"
+    (click)="geocode()"
+    expand="full"
+    class="ion-margin">
+    Geocode Address</ion-button>
+  <ion-button color="success"
+    (click)="savePosition()"
+    expand="full"
+    class="ion-margin">
+    SALVA</ion-button>
+
+
+</ion-content>

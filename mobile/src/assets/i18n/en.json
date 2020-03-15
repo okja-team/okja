@@ -47,6 +47,11 @@
         "ROLE_TYPE": {
             "food": "food",
             "farmacy": "farmacy"
-        }
+        },
+        "SAVE": "Save",
+        "SIGN_UP": "Sign up",
+        "CLOSE": "Close",
+        "POSITION": "Position",
+        "LOADER_MESSAGE": "Saving your profile"
     }
 }
