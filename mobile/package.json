@@ -33,6 +33,7 @@
     "cordova-plugin-nativegeocoder": "^3.2.2",
     "core-js": "^2.5.4",
     "firebase": "^7.11.0",
+    "ngx-take-until-destroy": "^5.4.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
