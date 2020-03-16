@@ -2,6 +2,7 @@
     "LOGIN_PAGE": {
         "TITLE": "Effettua il log in",
         "SIGN_IN_GOOGLE": "Accedi con Google",
+        "SIGN_IN_FACEBOOK": "Accedi con Facebook",
         "EMAIL": "Email",
         "PASSWORD": "Password",
         "SIGN_UP_LINK": "Registrati",

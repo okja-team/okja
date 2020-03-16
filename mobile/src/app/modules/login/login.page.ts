@@ -13,8 +13,8 @@ import { LoadingController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   constructor(
-    public authService: AuthenticationService,
-    public router: Router,
+    private authService: AuthenticationService,
+    private router: Router,
     private translateConfigService: TranslateConfigService,
     private loadingCtrl: LoadingController,
   ) {
@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() { }
 
-  logIn(email, password) {
+  public login(email, password) {
     this.authService.SignIn(email.value, password.value)
       .then((res) => {
         if (this.authService.isEmailVerified) {
@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
       });
   }
 
-  async loginWithSocial() {
+  public async loginWithSocial() {
     const loading = await this.loadingCtrl.create({
       message: '',
       spinner: 'crescent',
