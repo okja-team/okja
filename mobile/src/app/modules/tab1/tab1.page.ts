@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActiveProfileService } from 'src/app/active-profile.service';
-import { Profile } from 'src/app/models/profile';
+import { ActiveProfileService } from 'active-profile.service';
+import { Profile } from 'models/profile';
 import { AgmMap } from '@agm/core';
 
 @Component({

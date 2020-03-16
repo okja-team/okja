@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { AuthenticationService } from 'services/authentication/authentication.service';
+import { TranslateConfigService } from 'services/translate-config.service';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -11,6 +11,7 @@ import { LoadingController } from '@ionic/angular';
 })
 
 export class LoginPage implements OnInit {
+  private loadingElement: HTMLIonLoadingElement;
 
   constructor(
     private authService: AuthenticationService,
@@ -21,7 +22,16 @@ export class LoginPage implements OnInit {
     this.translateConfigService.getDefaultLanguage();
   }
 
-  ngOnInit() { }
+  async ngOnInit() {
+    await this.setLoading();
+  }
+
+  private async setLoading() {
+    this.loadingElement = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
+  }
 
   public login(email, password) {
     this.authService.SignIn(email.value, password.value)
@@ -39,13 +49,10 @@ export class LoginPage implements OnInit {
   }
 
   public async loginWithSocial() {
-    const loading = await this.loadingCtrl.create({
-      message: '',
-      spinner: 'crescent',
-    });
-    loading.present();
+    
+    this.loadingElement.present();
     await this.authService.GoogleAuth();
-    loading.dismiss();
+    this.loadingElement.dismiss();
 
   }
 

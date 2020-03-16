@@ -1,8 +1,9 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Plugins, Toast } from '@capacitor/core';
-const { Geolocation } = Plugins;
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
-import { ProfileService } from 'src/app/services/profile.service';
+import { ProfileService } from 'services/profile.service';
+
+const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-position-piker',

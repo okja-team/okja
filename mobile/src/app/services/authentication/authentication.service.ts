@@ -1,37 +1,38 @@
+
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Injectable, NgZone } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from './user.interface';
-import { ProfileService } from '../profile.service';
 import { NavController, Platform } from '@ionic/angular';
 import { cfaSignIn, cfaSignOut } from 'capacitor-firebase-auth';
 import { auth } from 'firebase';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { UserDataService } from 'services/user-data/user-data.service';
+import { User } from 'services/user-data/user.interface';
+import { ProfileService } from 'services/profile.service';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthenticationService {
-    userData: any;
 
     private loginWithMobileSocial: boolean;
     constructor(
         public afStore: AngularFirestore,
         public ngFireAuth: AngularFireAuth,
         public router: Router,
-        public ngZone: NgZone,
         public profileService: ProfileService,
         public navCtrl: NavController,
-        private platform: Platform
+        private platform: Platform,
+        private userDataService: UserDataService
+
     ) {
         this.loginWithMobileSocial = false;
         this.ngFireAuth.authState.subscribe(user => {
             if (user) {
-                this.userData = user;
-                localStorage.setItem('user', JSON.stringify(this.userData));
+                localStorage.setItem('user', JSON.stringify(user));
                 JSON.parse(localStorage.getItem('user'));
             } else {
                 localStorage.setItem('user', null);
@@ -65,7 +66,7 @@ export class AuthenticationService {
                 window.alert('Password reset email has been sent, please check your inbox.');
             }).catch((error) => {
                 window.alert(error)
-            })
+            });
     }
 
     // Returns true when user is looged in
@@ -92,7 +93,7 @@ export class AuthenticationService {
     private mobileSocialAuth() {
         return cfaSignIn('google.com')
             .pipe(
-                tap(async (user: User) => {
+                tap(async (user: firebase.User) => {
                     this.loginWithMobileSocial = true;
                     this.signInSuccess(user);
                 }),
@@ -114,8 +115,8 @@ export class AuthenticationService {
         }
     }
 
-    private async signInSuccess(user: User) {
-        this.SetUserData(user);
+    private async signInSuccess(user: firebase.User) {
+        await this.setUserData(user);
         const hasProfile = await this.profileService.hasProfile();
         if (hasProfile) {
             this.navCtrl.navigateRoot('home/tabs/tab1');
@@ -129,23 +130,19 @@ export class AuthenticationService {
         this.router.navigate(['login']);
     }
 
-    // Store user in localStorage
-    SetUserData(user) {
-        const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${user.uid}`);
+    private async setUserData(user: firebase.User) {
         const userData: User = {
             uid: user.uid,
             email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
-            emailVerified: user.emailVerified
+            emailVerified: user.emailVerified,
+            phoneNumber: user.phoneNumber
         };
-        return userRef.set(userData, {
-            merge: true
-        });
+        await this.userDataService.setUser(userData);
     }
 
-    // Sign-out
-    SignOut(): Promise<void> {
+    signOut(): Promise<void> {
         if (this.loginWithMobileSocial) {
             return cfaSignOut().pipe(
                 tap(() => {
@@ -159,13 +156,5 @@ export class AuthenticationService {
             });
         }
     }
-
-    // GetCurrentUser() {
-    //     if (this.isLoggedIn) {
-    //         return this.ngFireAuth.auth.currentUser;
-    //     } else {
-    //         return null;
-    //     }
-    // }
 
 }

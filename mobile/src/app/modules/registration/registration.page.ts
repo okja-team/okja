@@ -1,7 +1,7 @@
-import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AuthenticationService } from 'services/authentication/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { TranslateConfigService } from 'services/translate-config.service';
 
 @Component({
   selector: 'app-registration',

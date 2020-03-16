@@ -1,6 +1,6 @@
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { AuthenticationService } from 'services/authentication/authentication.service';
 import { Component } from '@angular/core';
-import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { TranslateConfigService } from 'services/translate-config.service';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class Tab3Page {
   }
 
   logout() {
-    this.authService.SignOut();
+    this.authService.signOut();
   }
 
   private openPrivacyPage() {
