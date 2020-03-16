@@ -4,12 +4,8 @@
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "android-livereload": "ionic capacitor run android -l --external",
+    "ios-livereload": "ionic capacitor run ios -l --external"
   },
   "private": true,
   "dependencies": {
