@@ -26,8 +26,7 @@ const routes: Routes = [
   {
     path: 'position-piker',
     loadChildren: () => import('./modules/position-piker/position-piker.module').then( m => m.PositionPikerPageModule)
-  },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  }
 
 ];
 @NgModule({

@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { NavController, Platform } from '@ionic/angular';
 import { cfaSignIn, cfaSignOut } from 'capacitor-firebase-auth';
 import { auth } from 'firebase';
-import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { tap, catchError, take, exhaustMap, map } from 'rxjs/operators';
+import { of, Observable, from } from 'rxjs';
 import { UserDataService } from 'services/user-data/user-data.service';
 import { User } from 'services/user-data/user.interface';
 import { ProfileService } from 'services/profile.service';
@@ -30,15 +30,6 @@ export class AuthenticationService {
 
     ) {
         this.loginWithMobileSocial = false;
-        this.ngFireAuth.authState.subscribe(user => {
-            if (user) {
-                localStorage.setItem('user', JSON.stringify(user));
-                JSON.parse(localStorage.getItem('user'));
-            } else {
-                localStorage.setItem('user', null);
-                JSON.parse(localStorage.getItem('user'));
-            }
-        })
     }
 
     // Login in with email/password
@@ -65,33 +56,27 @@ export class AuthenticationService {
             .then(() => {
                 window.alert('Password reset email has been sent, please check your inbox.');
             }).catch((error) => {
-                window.alert(error)
+                window.alert(error);
             });
     }
 
-    // Returns true when user is looged in
-    get isLoggedIn(): boolean {
-        const user = JSON.parse(localStorage.getItem('user'));
-        return (user !== null && user.emailVerified !== false) ? true : false;
-    }
-
-    // Returns true when user's email is verified
-    get isEmailVerified(): boolean {
-        const user = JSON.parse(localStorage.getItem('user'));
-        return (user.emailVerified !== false) ? true : false;
-    }
-
-    // Sign in with Gmail
-    GoogleAuth(): Promise<User> {
+    public socialAuth(type: 'google.com'): Promise<User> {
         if (this.platform.is('capacitor')) {
-            return this.mobileSocialAuth().toPromise();
+            return this.mobileSocialAuth(type).toPromise();
         } else {
             return this.authLogin(new auth.GoogleAuthProvider());
         }
     }
 
-    private mobileSocialAuth() {
-        return cfaSignIn('google.com')
+    public checkAuth(): Observable<firebase.User> {
+        return this.ngFireAuth.authState.pipe(
+            exhaustMap(user => from(this.setUserData(user)).pipe(map(_ => user))),
+            take(1)
+        );
+    }
+
+    private mobileSocialAuth(type: 'google.com'): Observable<firebase.User> {
+        return cfaSignIn(type)
             .pipe(
                 tap(async (user: firebase.User) => {
                     this.loginWithMobileSocial = true;
@@ -115,6 +100,7 @@ export class AuthenticationService {
         }
     }
 
+    // TODO: remove
     private async signInSuccess(user: firebase.User) {
         await this.setUserData(user);
         const hasProfile = await this.profileService.hasProfile();
@@ -125,8 +111,9 @@ export class AuthenticationService {
         }
     }
 
+    // TODO: remove
     private signOutSuccess() {
-        localStorage.removeItem('user');
+        this.userDataService.removeUser();
         this.router.navigate(['login']);
     }
 
@@ -142,7 +129,7 @@ export class AuthenticationService {
         await this.userDataService.setUser(userData);
     }
 
-    signOut(): Promise<void> {
+    public signOut(): Promise<void> {
         if (this.loginWithMobileSocial) {
             return cfaSignOut().pipe(
                 tap(() => {

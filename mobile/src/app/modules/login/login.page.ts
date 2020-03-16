@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { LoadingController } from '@ionic/angular';
+import { UserDataService } from 'services/user-data/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginPage implements OnInit {
     private router: Router,
     private translateConfigService: TranslateConfigService,
     private loadingCtrl: LoadingController,
+    private userDataService: UserDataService
   ) {
     this.translateConfigService.getDefaultLanguage();
   }
@@ -36,7 +38,7 @@ export class LoginPage implements OnInit {
   public login(email, password) {
     this.authService.SignIn(email.value, password.value)
       .then((res) => {
-        if (this.authService.isEmailVerified) {
+        if (this.userDataService.isEmailVerified) {
           this.router.navigate(['profile']);
           window.alert('login OK');
         } else {
@@ -49,9 +51,8 @@ export class LoginPage implements OnInit {
   }
 
   public async loginWithSocial() {
-    
     this.loadingElement.present();
-    await this.authService.GoogleAuth();
+    await this.authService.socialAuth('google.com');
     this.loadingElement.dismiss();
 
   }
