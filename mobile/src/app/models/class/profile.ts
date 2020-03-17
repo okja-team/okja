@@ -1,5 +1,6 @@
-import { Aiuti } from '../enums/aiuti.enum';
+
 import { Position } from './profile-position';
+import { Roles } from '../enums/roles.enum';
 
 export class Profile {
     id: string;
@@ -7,13 +8,13 @@ export class Profile {
     cognome: string;
     indirizzo: string;
     contatto: string;
-    capabilities: Map<Aiuti,boolean>;
+    capabilities: Map<Roles, boolean>;
 
     isHelper: boolean;
 
     published: boolean;
 
-    position: Position
+    position: Position;
 
     constructor() {
         this.initCapabilities();
@@ -21,11 +22,11 @@ export class Profile {
         this.published = false;
     }
 
-    public setCapability(aiuto: Aiuti, value: boolean): void{
+    public setCapability(aiuto: Roles, value: boolean): void{
         this.capabilities.set(aiuto, value);
     }
 
-    public getCapability(aiuto: Aiuti): boolean {
+    public getCapability(aiuto: Roles): boolean {
         return this.capabilities.get(aiuto);
     }
 
@@ -35,10 +36,10 @@ export class Profile {
     }
 
     private initCapabilities(): void {
-        this.capabilities = new Map<Aiuti, boolean>();
-        this.capabilities.set(Aiuti.Spesa, false);
-        this.capabilities.set(Aiuti.Posta, false);
-        this.capabilities.set(Aiuti.Farmacia, false);
-        this.capabilities.set(Aiuti.Compagnia, false);
+        this.capabilities = new Map<Roles, boolean>();
+        this.capabilities.set(Roles.Spesa, false);
+        this.capabilities.set(Roles.Posta, false);
+        this.capabilities.set(Roles.Farmacia, false);
+        this.capabilities.set(Roles.Compagnia, false);
     }
 }

@@ -22,7 +22,7 @@
           <ion-input value="{{ user?.contatto }}" placeholder="321 00 00 000" onIonChange="e => user.contatto = e.detail.value"></ion-input>
         </ion-item>
         
-        <ng-container *ngIf="user">
+        <div class="segment-container" *ngIf="user">
           <ion-segment value="{{ user?.isHelper ? 'helper' : 'helped' }}" (ionChange)="segmentChanged($event)">
             <ion-segment-button value="helped">
               <ion-label>{{ 'PROFILE_PAGE.BISOGNO_AIUTO' | translate }}</ion-label>
@@ -31,11 +31,11 @@
               <ion-label>{{ 'PROFILE_PAGE.POSSO_AIUTARE' | translate }}</ion-label>
             </ion-segment-button>
           </ion-segment>
-        </ng-container>
+        </div>
 
-        <ion-item>
+        <ion-item *ngIf="user?.isHelper">
         <ion-list class="list-full">
-            <ion-label>{{ (user?.isHelper ? 'PROFILE_PAGE.MESSAGE_HELPER' : 'PROFILE_PAGE.MESSAGE_HELP') | translate }}</ion-label>
+            <ion-label>{{ 'PROFILE_PAGE.MESSAGE_HELPER' | translate }}</ion-label>
             <ion-item>
               <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}</ion-label>
               <ion-toggle value="user?.getCapability(aiuti.Spesa)" (ionChange)="user.setCapability(aiuti.Spesa, $event.detail.checked)"></ion-toggle>

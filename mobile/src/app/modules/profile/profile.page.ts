@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Profile } from 'src/app/models/class/profile';
-import { Aiuti } from 'src/app/models/enums/aiuti.enum';
 import { ModalController, LoadingController, AlertController, ToastController } from '@ionic/angular';
 import { LocationSelectionPage } from '../location-selection/location-selection.page';
 import { ProfileService } from 'src/app/services/profile.service';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { Roles } from 'src/app/models/enums/roles.enum';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +15,7 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 export class ProfilePage {
 
   public user: Profile;
-  public readonly aiuti = Aiuti;
+  public readonly aiuti = Roles;
 
   public isDarkMode = false;
   public img: string;

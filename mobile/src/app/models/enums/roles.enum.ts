@@ -1,4 +1,4 @@
-export enum Aiuti {
+export enum Roles {
     Spesa,
     Farmacia,
     Posta,
