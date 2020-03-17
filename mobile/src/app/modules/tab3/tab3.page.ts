@@ -1,6 +1,7 @@
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { AuthenticationService } from 'services/authentication/authentication.service';
 import { Component } from '@angular/core';
-import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { TranslateConfigService } from 'services/translate-config.service';
+import { LoadingController, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -10,18 +11,34 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 })
 export class Tab3Page {
 
-  selectedLanguage: string;
+  public selectedLanguage: string;
 
-  constructor(private translateConfigService: TranslateConfigService, private authService: AuthenticationService){
+  constructor(
+    private translateConfigService: TranslateConfigService,
+    private authService: AuthenticationService,
+    private navCtrl: NavController,
+    private loadingCtrl: LoadingController
+  ) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
   }
 
-  languageChanged() {
+  public languageChanged() {
     this.translateConfigService.setLanguage(this.selectedLanguage);
   }
 
-  logout() {
-    this.authService.SignOut();
+  public async logout() {
+    const loadingElement = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
+    loadingElement.present();
+    this.authService.logout().subscribe({
+      next: async () => {
+        await this.navCtrl.navigateBack(['login']);
+        loadingElement.dismiss();
+      },
+      complete: () => console.log('logout completed')
+    });
   }
 
   private openPrivacyPage() {

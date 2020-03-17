@@ -1,67 +1,21 @@
 <ion-content>
   <div class="container" [ngClass]="{'dark-background': isDarkMode}">
-    <div class="logo-container top">
-      <img class="logo" src="../../../assets/images/claim_no_logo.svg">
-    </div>
     <div class="card-container">
       <h1>{{ 'LOGIN_PAGE.TITLE' | translate }}</h1>
 
-      <!--FOR TESTING PURPOSE ONLY-->
-      <ion-card>
-        <form>
-          <ion-item lines="full">
-            <ion-label position="floating">{{ 'LOGIN_PAGE.EMAIL' | translate }}</ion-label>
-            <ion-input type="text"
-              #email
-              required></ion-input>
-          </ion-item>
-      
-          <ion-item lines="full">
-            <ion-label position="floating">{{ 'LOGIN_PAGE.PASSWORD' | translate }}</ion-label>
-            <ion-input type="password"
-              #password
-              required></ion-input>
-          </ion-item>
-      
-          <ion-row>
-            <ion-col>
-              <ion-button type="submit"
-                color="light"
-                (click)="logIn(email, password)"
-                expand="block">{{ 'LOGIN_PAGE.SIGN_IN' | translate }}</ion-button>
-            </ion-col>
-          </ion-row>
-        </form>
-      </ion-card>
-    <!--FOR TESTING PURPOSE ONLY-->
-
       <!--TODO: FACEBOOK AUTH-->
       <ion-card (click)="loginWithSocial()">
-        <ion-item lines="none" class="expanded">
-          <ion-avatar slot="start">
-            <!--TOOD: CAMBAIRE CON IMMAGINE INTERNA-->
-            <img src="https://cdn.clipart.email/1adeeae8cb44653d468181f9364eb888_free-facebook-png-transparent-download-free-clip-art-free-clip-_900-520.jpeg" />
-          </ion-avatar>
-          <ion-text>{{ 'LOGIN_PAGE.SIGN_IN_FACEBOOK' | translate }}</ion-text>
+        <ion-item lines="none">
+          <ion-icon class="facebook" name="logo-facebook"></ion-icon>
+          <ion-text>{{'LOGIN_PAGE.SIGN_IN_FACEBOOK' | translate}}</ion-text>
         </ion-item>
       </ion-card>
       <ion-card (click)="loginWithSocial()">
-        <ion-item lines="none"  class="expanded">
-          <ion-avatar slot="start">
-            <!--TOOD: CAMBAIRE CON IMMAGINE INTERNA-->
-            <img src="https://p7.hiclipart.com/preview/249/19/631/google-logo-g-suite-google-guava-google-plus.jpg" />
-          </ion-avatar>
+        <ion-item lines="none">
+          <ion-icon class="google" name="logo-google"></ion-icon>
           <ion-text>{{ 'LOGIN_PAGE.SIGN_IN_GOOGLE' | translate }}</ion-text>
         </ion-item>
       </ion-card>
-
     </div>
-        <div class="logo-container bottom">
-          <ion-button class="registration-button" type="submit"
-            (click)="goToRegistration()"
-            expand="block">
-            {{ 'LOGIN_PAGE.SIGN_UP' | translate }}
-          </ion-button>
-        </div>
   </div>
 </ion-content>
