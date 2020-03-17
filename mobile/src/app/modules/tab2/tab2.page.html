@@ -14,20 +14,20 @@
   </ion-header>
 
   <div>
-    <ion-item>
-      <ion-label>{{ 'CARDS_PAGE.FILTERS.TYPE_FILTER' | translate }}</ion-label>
-      <ion-select multiple="true"
+    <ion-item (ionChange)="onDistanceChange()">
+      <ion-label>{{ 'CARDS_PAGE.FILTERS.DISTANCE_FILTER' | translate }}</ion-label>
+      <ion-select [(ngModel)]="distanceFilter" value="brown" [value]="5"
       okText="{{ 'COMMON.OK_BUTTON' | translate }}"
       cancelText="{{ 'COMMON.CANCEL_BUTTON' | translate }}">
-        <ion-select-option *ngFor="let activity of activityFilter">{{ 'COMMON.ACTIVITY_TYPES.' + activity.type.toUpperCase() | translate }}</ion-select-option>
+        <ion-select-option value="1">1{{ 'COMMON.UNIT_DISTANCE' | translate }}</ion-select-option>
+        <ion-select-option value="5">5{{ 'COMMON.UNIT_DISTANCE' | translate }}</ion-select-option>
+        <ion-select-option value="10">10{{ 'COMMON.UNIT_DISTANCE' | translate }}</ion-select-option>
+        <ion-select-option value="9999">{{ 'CARDS_PAGE.FILTERS.NO_DISTANCE' | translate }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>{{ 'CARDS_PAGE.FILTERS.DISTANCE_FILTER' | translate }}</ion-label>
-      <ion-range min="0" max="10" pin snaps color="secondary">
-        <ion-label slot="start">0</ion-label>
-        <ion-label slot="end">10{{ 'COMMON.UNIT_DISTANCE' | translate }}</ion-label>
-      </ion-range>
+      <ion-button (click)="onFoodChange()" size="small" [color]="foodFilter ? 'primary' : 'light'">{{ 'COMMON.ACTIVITY_TYPES.FOOD' | translate }}</ion-button>
+      <ion-button (click)="onPharmacyChange()" size="small" [color]="pharmacyFilter ? 'primary' : 'light'">{{ 'COMMON.ACTIVITY_TYPES.PHARMACY' | translate }}</ion-button>
     </ion-item>
   </div>
 

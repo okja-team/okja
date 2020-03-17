@@ -6,13 +6,14 @@
         "TITLE": "Map"
     },
     "CARDS_PAGE": {
-        "TITLE": "Lista di aiutanti",
+        "TITLE": "Lista di volontari",
         "HELPS_WITH": "Aiuta con:",
         "CONTACT": "Contatta",
         "INFO": "Info",
         "FILTERS": {
             "TYPE_FILTER": "Tipologia",
-            "DISTANCE_FILTER": "Distanza"
+            "DISTANCE_FILTER": "Distanza",
+            "NO_DISTANCE": "Nessuna distanza"
         }
     },
     "SETTINGS_PAGE": {

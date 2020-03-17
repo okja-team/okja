@@ -17,7 +17,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { AgmCoreModule } from '@agm/core';
-import { CallNumber } from '@ionic-native/call-number/ngx';
 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -53,7 +52,6 @@ export function LanguageLoader(http: HttpClient) {
     AngularFirestoreModule,
     TranslateConfigService,
     NativeGeocoder,
-    CallNumber,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

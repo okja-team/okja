@@ -12,7 +12,8 @@
         "INFO": "Info",
         "FILTERS": {
             "TYPE_FILTER": "Type",
-            "DISTANCE_FILTER": "Distance"
+            "DISTANCE_FILTER": "Distance",
+            "NO_DISTANCE": "No distance"
         }
     },
     "SETTINGS_PAGE": {
