@@ -1,8 +1,7 @@
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { Component } from '@angular/core';
 import { TranslateConfigService } from 'services/translate-config.service';
-import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -17,7 +16,7 @@ export class Tab3Page {
   constructor(
     private translateConfigService: TranslateConfigService,
     private authService: AuthenticationService,
-    private router: Router,
+    private navCtrl: NavController,
     private loadingCtrl: LoadingController
   ) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
@@ -35,7 +34,7 @@ export class Tab3Page {
     loadingElement.present();
     this.authService.logout().subscribe({
       next: async () => {
-        await this.router.navigate(['login']);
+        await this.navCtrl.navigateBack(['login']);
         loadingElement.dismiss();
       },
       complete: () => console.log('logout completed')
