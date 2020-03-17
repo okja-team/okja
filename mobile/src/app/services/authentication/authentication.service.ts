@@ -70,7 +70,7 @@ export class AuthenticationService {
 
     public checkAuth(): Observable<firebase.User> {
         return this.ngFireAuth.authState.pipe(
-            exhaustMap(user => from(this.setUserData(user)).pipe(map(_ => user))),
+            exhaustMap(user => user ? from(this.setUserData(user)).pipe(map(_ => user)) : of(user)),
             take(1)
         );
     }
