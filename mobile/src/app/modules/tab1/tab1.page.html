@@ -16,10 +16,14 @@
   <app-explore-container name="Tab 1 page"></app-explore-container>
 
   <agm-map #AgmMap
+    (mapReady)="mapReady($event)"
+    [latitude]="lat" 
+    [longitude]="lng"
     [usePanning]="true"
     [zoom]="12"
     [disableDefaultUI]="false">
 
+    <ion-button id="Profile" (click)="goToProfile()">PROFILO</ion-button>
     <agm-marker *ngFor="let p of activeProfile"
       [latitude]="p.position.lat"
       [longitude]="p.position.lng"
@@ -28,5 +32,5 @@
   </agm-map>
 
 
-  <ion-button (click)="goToProfile()">PROFILO</ion-button>
+  <!--<ion-button (click)="goToProfile()">PROFILO</ion-button>-->
 </ion-content>
