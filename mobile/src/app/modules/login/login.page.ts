@@ -15,10 +15,10 @@ export class LoginPage implements OnInit {
   public isDarkMode = false;
 
   constructor(
-    public authService: AuthenticationService,
-    public router: Router,
-    private translateConfigService: TranslateConfigService,
-    private loadingCtrl: LoadingController,
+    private readonly authService: AuthenticationService,
+    private readonly router: Router,
+    private readonly translateConfigService: TranslateConfigService,
+    private readonly loadingCtrl: LoadingController,
   ) {
     this.translateConfigService.getDefaultLanguage();
   }

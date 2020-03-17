@@ -4,19 +4,51 @@
     background-color: rgb(231, 240, 253);
 }
 
+.logo {
+    margin: auto;
+    width: 75%;
+}
+
+.logo-container {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.top {
+    top: 0;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+.registration-button {
+    width: 80%;
+    margin: auto;
+}
+
 .card-container {
     margin: auto;
     h1 {
         text-align: center;
-        margin-bottom: 40px;
+        font-size: 20px;
+        margin-bottom: 20px;
     }
     ion-card {
-        margin-bottom: 10px;
-        ion-item {
+        margin: 7px;
+        .expanded {
             padding: 10px 15px;
         }
     }
+
+    ion-card:first-of-type {
+        margin-bottom: 25px;
+    }
 }
+
 
 .dark-background {
     background-color: #000000;
