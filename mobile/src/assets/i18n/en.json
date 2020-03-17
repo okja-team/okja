@@ -14,10 +14,6 @@
         "PASSWORD": "Password",
         "REGISTER": "Register"
     },
-    "PROFILE": {
-        "PAGE_NAME": "Profile",
-        "TITLE": "Hi! If you are in quarantine <br/> I can help you out"
-    },
     "MAP_PAGE": {
         "TITLE": "Map"
     },
@@ -28,6 +24,7 @@
         "TITLE": "Settings",
         "PRIVACY": "Privacy information",
         "DELETE": "Delete your account",
+        "LOGOUT": "Logout",
         "LANGUAGE_SELECT": {
             "PLACEHOLDER": "Choose language",
             "LABEL": "Change language",

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +17,11 @@ export class LoginPage implements OnInit {
   constructor(
     public authService: AuthenticationService,
     public router: Router,
-    private translateConfigService: TranslateConfigService
+    private translateConfigService: TranslateConfigService,
+    private loadingCtrl: LoadingController,
   ) {
     this.translateConfigService.getDefaultLanguage();
-   }
+  }
 
   ngOnInit() { 
     this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -40,7 +42,18 @@ export class LoginPage implements OnInit {
       });
   }
 
-  goToRegistration(){
+  async loginWithSocial() {
+    const loading = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
+    loading.present();
+    await this.authService.GoogleAuth();
+    loading.dismiss();
+
+  }
+
+  goToRegistration() {
     this.router.navigate(['/registration']);
   }
 

@@ -1,6 +1,8 @@
-
 <ion-content>
   <div class="container" [ngClass]="{'dark-background': isDarkMode}">
+    <div class="logo-container top">
+      <img class="logo" src="../../../assets/images/claim_no_logo.svg">
+    </div>
     <div class="card-container">
       <h1>{{ 'LOGIN_PAGE.TITLE' | translate }}</h1>
 
@@ -24,20 +26,9 @@
           <ion-row>
             <ion-col>
               <ion-button type="submit"
+                color="light"
                 (click)="logIn(email, password)"
                 expand="block">{{ 'LOGIN_PAGE.SIGN_IN' | translate }}</ion-button>
-            </ion-col>
-          </ion-row>
-        </form>
-
-        <form>
-          <ion-row>
-            <ion-col>
-              <ion-button type="submit"
-                (click)="goToRegistration()"
-                expand="block">
-                {{ 'LOGIN_PAGE.SIGN_UP' | translate }}
-              </ion-button>
             </ion-col>
           </ion-row>
         </form>
@@ -45,17 +36,17 @@
     <!--FOR TESTING PURPOSE ONLY-->
 
       <!--TODO: FACEBOOK AUTH-->
-      <ion-card (click)="authService.GoogleAuth()">
-        <ion-item lines="none">
+      <ion-card (click)="loginWithSocial()">
+        <ion-item lines="none" class="expanded">
           <ion-avatar slot="start">
             <!--TOOD: CAMBAIRE CON IMMAGINE INTERNA-->
             <img src="https://cdn.clipart.email/1adeeae8cb44653d468181f9364eb888_free-facebook-png-transparent-download-free-clip-art-free-clip-_900-520.jpeg" />
           </ion-avatar>
-          <ion-text>Log in con Facebook</ion-text>
+          <ion-text>{{ 'LOGIN_PAGE.SIGN_IN_FACEBOOK' | translate }}</ion-text>
         </ion-item>
       </ion-card>
-      <ion-card (click)="authService.GoogleAuth()">
-        <ion-item lines="none">
+      <ion-card (click)="loginWithSocial()">
+        <ion-item lines="none"  class="expanded">
           <ion-avatar slot="start">
             <!--TOOD: CAMBAIRE CON IMMAGINE INTERNA-->
             <img src="https://p7.hiclipart.com/preview/249/19/631/google-logo-g-suite-google-guava-google-plus.jpg" />
@@ -63,6 +54,14 @@
           <ion-text>{{ 'LOGIN_PAGE.SIGN_IN_GOOGLE' | translate }}</ion-text>
         </ion-item>
       </ion-card>
+
     </div>
+        <div class="logo-container bottom">
+          <ion-button class="registration-button" type="submit"
+            (click)="goToRegistration()"
+            expand="block">
+            {{ 'LOGIN_PAGE.SIGN_UP' | translate }}
+          </ion-button>
+        </div>
   </div>
 </ion-content>

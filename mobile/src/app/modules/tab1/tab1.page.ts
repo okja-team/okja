@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActiveProfileService } from 'src/app/active-profile.service';
+import { Profile } from 'src/app/models/profile';
+import { AgmMap } from '@agm/core';
 
 @Component({
   selector: 'app-tab1',
@@ -8,7 +11,32 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page {
 
-  constructor(public router: Router) { }
+  @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
+
+  activeProfile: Profile[] = [];
+
+  constructor(
+    public router: Router,
+    private activeProfileSerive: ActiveProfileService) { }
+
+  ionViewDidEnter() {
+    this.activeProfileSerive.getActiveProfile().subscribe(x => {
+      console.log(x);
+      this.activeProfile = x;
+      // this.repositionMap();
+    });
+  }
+
+  // repositionMap() {
+  //   console.log(this.agmMap);
+  //   this.agmMap.mapReady.subscribe(map => {
+  //     const bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds();
+  //     for (const mm of this.activeProfile) {
+  //       bounds.extend(new google.maps.LatLng(mm.position.lat, mm.position.lng));
+  //     }
+  //     map.fitBounds(bounds);
+  //   });
+  // }
 
   goToProfile() {
     this.router.navigate(['profile']);
