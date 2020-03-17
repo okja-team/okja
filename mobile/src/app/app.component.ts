@@ -24,10 +24,13 @@ export class AppComponent {
   }
 
   initializeApp() {
-    forkJoin([from(this.platform.ready()), this.authService.checkAuth()]).subscribe(data => {
-      this.statusBar.styleDefault();
-      this.router.navigate([data[1] ? 'home/tabs/tab1' : 'login']);
-      this.splashScreen.hide();
-    });
+    forkJoin([from(this.platform.ready()), this.authService.checkAuth()])
+      .subscribe({
+        next: data => {
+          this.statusBar.styleDefault();
+          this.router.navigate([data[1] ? 'home/tabs/tab1' : 'login']);
+          this.splashScreen.hide();
+        }
+      });
   }
 }

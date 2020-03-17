@@ -1,8 +1,8 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, from } from 'rxjs';
 import { User } from './user.interface';
-import { skipWhile } from 'rxjs/operators';
+import { skipWhile, tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class UserDataService {
@@ -27,15 +27,8 @@ export class UserDataService {
     return this.user$.asObservable().pipe(skipWhile(user => user === null));
   }
 
-  public async setUser(user: User): Promise<void> {
-    try {
-      await this.storeUser(user);
-      console.log(`[UserDataService] - user stored on firebase`, user);
-      this.user$.next(user);
-      console.log(`[UserDataService] - user stored in session`, user);
-    } catch (error) {
-      console.error(`[UserDataService] - error on store user`, error);
-    }
+  public setUser(user: User): Observable<void> {
+    return this.storeUser(user).pipe(tap(_ => this.user$.next(user)));
   }
 
   public removeUser() {
@@ -43,7 +36,7 @@ export class UserDataService {
     this.user$ = new BehaviorSubject(null);
   }
 
-  private storeUser(user: User): Promise<void> {
-    return this.afStore.doc(`users/${user.uid}`).set(user, { merge: true });
+  private storeUser(user: User): Observable<void> {
+    return from(this.afStore.doc(`users/${user.uid}`).set(user, { merge: true }));
   }
 }

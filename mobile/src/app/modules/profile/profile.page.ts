@@ -8,7 +8,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { RoleType } from 'models/role.enum';
 import { Role } from 'models/role';
 import { map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { UserDataService } from 'services/user-data/user-data.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 
@@ -21,7 +21,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 export class ProfilePage implements OnInit, OnDestroy {
 
   public activities: Role[];
-  public hasProfile: boolean;
+  public hasProfile$: Observable<boolean>;
 
   public profileForm: FormGroup;
 
@@ -34,6 +34,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.activities = [];
+    this.hasProfile$ = this.profileService.hasProfile();
     const group = {
       firstName: new FormControl(''),
       lastName: new FormControl(''),
@@ -121,10 +122,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     loading.dismiss();
   }
 
-  public messageSubmit(): string {
-    return this.hasProfile ? 'SAVE' : 'SIGN_UP';
-  }
-
   public goToHome() {
     this.navCtrl.navigateRoot('home/tabs/tab1');
   }
@@ -149,11 +146,9 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   private getProfileSwitchMap(profile: Profile) {
     if (profile) {
-      this.hasProfile = true;
       return of(profile);
     } else {
       return this.userDataService.getUser().pipe(map(user => {
-        this.hasProfile = false;
         profile = new Profile();
         profile.setProfileByUser(user);
         return profile;

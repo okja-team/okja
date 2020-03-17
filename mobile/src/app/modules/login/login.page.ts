@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { LoadingController } from '@ionic/angular';
-import { UserDataService } from 'services/user-data/user-data.service';
+import { ProfileService } from 'services/profile.service';
+import { exhaustMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,8 @@ import { UserDataService } from 'services/user-data/user-data.service';
 })
 
 export class LoginPage implements OnInit {
+  public isDarkMode = false;
+
   private loadingElement: HTMLIonLoadingElement;
 
   constructor(
@@ -19,12 +22,13 @@ export class LoginPage implements OnInit {
     private router: Router,
     private translateConfigService: TranslateConfigService,
     private loadingCtrl: LoadingController,
-    private userDataService: UserDataService
+    private profileService: ProfileService
   ) {
     this.translateConfigService.getDefaultLanguage();
   }
 
   async ngOnInit() {
+    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     await this.setLoading();
   }
 
@@ -35,30 +39,27 @@ export class LoginPage implements OnInit {
     });
   }
 
-  public login(email, password) {
-    this.authService.SignIn(email.value, password.value)
-      .then((res) => {
-        if (this.userDataService.isEmailVerified) {
-          this.router.navigate(['profile']);
-          window.alert('login OK');
-        } else {
-          window.alert('Email is not verified');
-          return false;
-        }
-      }).catch((error) => {
-        window.alert(error.message);
+  public async loginWithSocial() {
+    this.loadingElement.present();
+    this.authService.login('google.com')
+      .pipe(
+        exhaustMap(() => this.profileService.hasProfile()),
+        take(1)
+      )
+      .subscribe({
+        next: hasProfile => this.goToPage(hasProfile),
+        error: err => window.alert(`error on login: ${err}`),
+        complete: () => console.log('login complete')
       });
   }
 
-  public async loginWithSocial() {
-    this.loadingElement.present();
-    await this.authService.socialAuth('google.com');
+  private async goToPage(hasProfile: boolean) {
+    if (hasProfile) {
+      await this.router.navigate(['home/tabs/tab1']);
+    } else {
+      await this.router.navigate(['profile']);
+    }
     this.loadingElement.dismiss();
-
-  }
-
-  goToRegistration() {
-    this.router.navigate(['/registration']);
   }
 
 }

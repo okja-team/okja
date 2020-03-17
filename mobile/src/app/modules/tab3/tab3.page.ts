@@ -1,6 +1,8 @@
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { Component } from '@angular/core';
 import { TranslateConfigService } from 'services/translate-config.service';
+import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -10,18 +12,34 @@ import { TranslateConfigService } from 'services/translate-config.service';
 })
 export class Tab3Page {
 
-  selectedLanguage: string;
+  public selectedLanguage: string;
 
-  constructor(private translateConfigService: TranslateConfigService, private authService: AuthenticationService){
+  constructor(
+    private translateConfigService: TranslateConfigService,
+    private authService: AuthenticationService,
+    private router: Router,
+    private loadingCtrl: LoadingController
+  ) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
   }
 
-  languageChanged() {
+  public languageChanged() {
     this.translateConfigService.setLanguage(this.selectedLanguage);
   }
 
-  logout() {
-    this.authService.signOut();
+  public async logout() {
+    const loadingElement = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
+    loadingElement.present();
+    this.authService.logout().subscribe({
+      next: async () => {
+        await this.router.navigate(['login']);
+        loadingElement.dismiss();
+      },
+      complete: () => console.log('logout completed')
+    });
   }
 
   private openPrivacyPage() {

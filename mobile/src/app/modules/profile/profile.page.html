@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="ion-text-center">{{ 'PROFILE_PAGE.TITLE' | translate }}</ion-title>
+    <ion-title class="ion-text-center">
+      {{ 'PROFILE_PAGE.TITLE' | translate }}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,19 +16,27 @@
     <ion-card-content>
       <form [formGroup]="profileForm">
         <ion-item>
-          <ion-label class="width-30">{{ 'PROFILE_PAGE.NAME' | translate }}</ion-label>
+          <ion-label class="width-30">
+            {{ 'PROFILE_PAGE.NAME' | translate }}
+          </ion-label>
           <ion-input formControlName="firstName"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label class="width-30">{{ 'PROFILE_PAGE.SURNAME' | translate }}</ion-label>
+          <ion-label class="width-30">
+            {{ 'PROFILE_PAGE.SURNAME' | translate }}
+          </ion-label>
           <ion-input formControlName="lastName"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label class="width-30">{{ 'PROFILE_PAGE.ADDRESS' | translate }}</ion-label>
+          <ion-label class="width-30">
+            {{ 'PROFILE_PAGE.ADDRESS' | translate }}
+          </ion-label>
           <ion-input formControlName="address"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label class="width-30">{{ 'PROFILE_PAGE.PHONE' | translate }}</ion-label>
+          <ion-label class="width-30">
+            {{ 'PROFILE_PAGE.PHONE' | translate }}
+          </ion-label>
           <ion-input formControlName="phone"></ion-input>
         </ion-item>
         <ion-item>
@@ -50,36 +60,35 @@
               <ion-toggle [(ngModel)]="compagnia"></ion-toggle>
             </ion-item> -->
             <ion-item *ngFor="let entry of activities">
-              <ion-label>{{('PROFILE_PAGE.ROLE_TYPE.' + entry.type) | translate}}</ion-label>
-              <ion-checkbox
-                slot="end"
-                [formControlName]="entry.type"
-              ></ion-checkbox>
+              <ion-label>
+                {{('PROFILE_PAGE.ROLE_TYPE.' + entry.type) | translate}}
+              </ion-label>
+              <ion-checkbox slot="end" [formControlName]="entry.type">
+              </ion-checkbox>
             </ion-item>
           </ion-list>
         </ion-item>
 
         <ion-item>
           <ion-label>{{ 'PROFILE_PAGE.AVAILABLE' | translate }}</ion-label>
-          <ion-checkbox
-            slot="end"
-            formControlName="isAvailable"
-          ></ion-checkbox>
+          <ion-checkbox slot="end" formControlName="isAvailable"></ion-checkbox>
         </ion-item>
       </form>
 
-      <ion-button class="list-full button" (click)="saveProfile()"
-        >{{ ('PROFILE_PAGE.' + messageSubmit()) | translate }}</ion-button
-      >
+      <ion-button class="list-full button" (click)="saveProfile()">
+        {{ ((hasProfile$ | async) ? 'PROFILE_PAGE.SAVE' :
+        'PROFILE_PAGE.SIGN_UP') | translate }}
+      </ion-button>
       <ion-button
-        *ngIf="hasProfile"
+        *ngIf="hasProfile$ | async"
         class="list-full button"
         (click)="goToHome()"
-        >{{ 'PROFILE_PAGE.CLOSE' | translate }}</ion-button
       >
-      <ion-button class="list-full button" (click)="setPosition()"
-        >{{ 'PROFILE_PAGE.POSITION' | translate }}</ion-button
-      >
+        {{ 'PROFILE_PAGE.CLOSE' | translate }}
+      </ion-button>
+      <ion-button class="list-full button" (click)="setPosition()">
+        {{ 'PROFILE_PAGE.POSITION' | translate }}
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

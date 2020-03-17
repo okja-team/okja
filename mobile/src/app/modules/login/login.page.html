@@ -3,51 +3,6 @@
     <div class="card-container">
       <h1>{{ 'LOGIN_PAGE.TITLE' | translate }}</h1>
 
-      <!--FOR TESTING PURPOSE ONLY-->
-      <ion-card>
-        <form>
-          <ion-item lines="full">
-            <ion-label position="floating"
-              >{{ 'LOGIN_PAGE.EMAIL' | translate }}</ion-label
-            >
-            <ion-input type="text" #email required></ion-input>
-          </ion-item>
-
-          <ion-item lines="full">
-            <ion-label position="floating"
-              >{{ 'LOGIN_PAGE.PASSWORD' | translate }}</ion-label
-            >
-            <ion-input type="password" #password required></ion-input>
-          </ion-item>
-
-          <ion-row>
-            <ion-col>
-              <ion-button
-                type="submit"
-                (click)="login(email, password)"
-                expand="block"
-                >{{ 'LOGIN_PAGE.SIGN_IN' | translate }}</ion-button
-              >
-            </ion-col>
-          </ion-row>
-        </form>
-
-        <form>
-          <ion-row>
-            <ion-col>
-              <ion-button
-                type="submit"
-                (click)="goToRegistration()"
-                expand="block"
-              >
-                {{ 'LOGIN_PAGE.SIGN_UP' | translate }}
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </form>
-      </ion-card>
-      <!--FOR TESTING PURPOSE ONLY-->
-
       <!--TODO: FACEBOOK AUTH-->
       <ion-card (click)="loginWithSocial()">
         <ion-item lines="none">
