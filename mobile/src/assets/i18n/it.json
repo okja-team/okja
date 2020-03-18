@@ -1,6 +1,19 @@
 {
     "LOGIN_PAGE": {
-        "TITLE": "Effettua il log in"
+        "TITLE": "Effettua il Log In",
+        "SIGN_IN_GOOGLE": "Accedi con Google",
+        "SIGN_IN_FACEBOOK": "Accedi con Facebook",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "SIGN_UP_LINK": "Registrati",
+        "SIGN_UP": "Non hai un acocunt?",
+        "SIGN_IN": "Accedi"
+    },
+    "REGISTRATION_PAGE": {
+        "TITLE": "Registrazione utente",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "REGISTER": "Registrami"
     },
     "MAP_PAGE": {
         "TITLE": "Map"
@@ -20,6 +33,7 @@
         "TITLE": "Impostazioni",
         "PRIVACY": "Informazioni sulla privacy",
         "DELETE": "Elimina il tuo account",
+        "LOGOUT": "Logout",
         "LANGUAGE_SELECT": {
             "PLACEHOLDER": "Scegli lingua",
             "LABEL": "Cambia lingua",
@@ -28,6 +42,25 @@
                 "EN": "Inglese"
             }
         }
+    },
+    "PROFILE_PAGE":{
+        "TITLE": "Profilo",
+        "FIRST_MESSAGE": "Ciao! Se sei in quarantena posso darti una mano",
+        "NAME": "Nome",
+        "SURNAME": "Cognome",
+        "ADDRESS": "Indirizzo",
+        "PHONE": "Contatto",
+        "MESSAGE_HELP": "Posso aiutarti con:",
+        "AVAILABLE": "SONO DISPONIBILE",
+        "ROLE_TYPE": {
+            "food": "cibo",
+            "farmacy": "farmacia"
+        },
+        "SAVE": "Salva",
+        "SIGN_UP": "Registra",
+        "CLOSE": "Chiudi",
+        "POSITION": "Posizione",
+        "LOADER_MESSAGE": "Salvataggio profilo in corso"
     },
     "COMMON": {
         "UNIT_DISTANCE": "km",

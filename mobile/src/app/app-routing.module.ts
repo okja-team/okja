@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./modules/registration/registration.module').then( m => m.RegistrationPageModule)
   },
   {
-    path: '',
+    path: 'login',
     loadChildren: () => import('./modules/login/login.module').then( m => m.LoginPageModule)
   },
   {
@@ -26,7 +26,8 @@ const routes: Routes = [
   {
     path: 'position-piker',
     loadChildren: () => import('./modules/position-piker/position-piker.module').then( m => m.PositionPikerPageModule)
-  }
+  },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 
 ];
 @NgModule({

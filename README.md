@@ -3,6 +3,9 @@ I for you è un'applicazione che consente di mettere in contatto, in maniera fac
 
 ---
 
+![BannerI4You](https://user-images.githubusercontent.com/1813054/76839307-932d5b00-6835-11ea-888a-86d0932b16cf.png)
+
+
 #### Slack Channel
 [join to our team on slack](https://join.slack.com/t/okja-team/shared_invite/zt-csqhmgo7-i8iqciFMlE~xxfS6BC1IBw)
 

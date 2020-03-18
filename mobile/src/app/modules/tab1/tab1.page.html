@@ -14,5 +14,19 @@
   </ion-header>
 
   <app-explore-container name="Tab 1 page"></app-explore-container>
+
+  <agm-map #AgmMap
+    [usePanning]="true"
+    [zoom]="12"
+    [disableDefaultUI]="false">
+
+    <agm-marker *ngFor="let p of activeProfile"
+      [latitude]="p.position.lat"
+      [longitude]="p.position.lng"
+      [agmFitBounds]="true"
+      [markerDraggable]=false></agm-marker>
+  </agm-map>
+
+
   <ion-button (click)="goToProfile()">PROFILO</ion-button>
 </ion-content>

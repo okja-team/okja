@@ -42,8 +42,8 @@ export function LanguageLoader(http: HttpClient) {
       }
     }),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAP_Xy-1QSclKYAvxSmAZO2BuFAWWAlOZQ',
-      libraries: ['places']
+      apiKey: environment.GMaps.apiKey,
+      libraries: environment.GMaps.libraries
     }),
   ],
   providers: [

@@ -1,6 +1,18 @@
 {
     "LOGIN_PAGE": {
-        "TITLE": "Log In"
+        "TITLE": "Log In",
+        "SIGN_IN_GOOGLE": "Login with Google",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "SIGN_UP_LINK": "SIGN UP",
+        "SIGN_UP": "Don't have an account?",
+        "SIGN_IN": "Login"
+    },
+    "REGISTRATION_PAGE": {
+        "TITLE": "Register User",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "REGISTER": "Register"
     },
     "MAP_PAGE": {
         "TITLE": "Map"
@@ -20,6 +32,7 @@
         "TITLE": "Settings",
         "PRIVACY": "Privacy information",
         "DELETE": "Delete your account",
+        "LOGOUT": "Logout",
         "LANGUAGE_SELECT": {
             "PLACEHOLDER": "Choose language",
             "LABEL": "Change language",
@@ -28,6 +41,25 @@
                 "EN": "English"
             }
         }
+    },
+    "PROFILE_PAGE":{
+        "TITLE": "Profile",
+        "FIRST_MESSAGE": "Hi! If you are stuck in, I can help you out",
+        "NAME": "Name",
+        "SURNAME": "Surname",
+        "ADDRESS": "Address",
+        "PHONE": "Phone",
+        "MESSAGE_HELP": "I can help you with:",
+        "AVAILABLE": "I'M AVAILABLE",
+        "ROLE_TYPE": {
+            "food": "food",
+            "farmacy": "farmacy"
+        },
+        "SAVE": "Save",
+        "SIGN_UP": "Sign up",
+        "CLOSE": "Close",
+        "POSITION": "Position",
+        "LOADER_MESSAGE": "Saving your profile"
     },
     "COMMON": {
         "UNIT_DISTANCE": "km",

@@ -3,21 +3,28 @@ import { RoleType } from './role.enum';
 
 export class Profile {
 
-    constructor() {
-        this.id = null;
-        this.name = '';
-        this.phone = '+39';
-        this.published = false;
-        Object.values(RoleType).forEach(v => {
-            this.activity.push({ type: v, active: false });
-        })
-        this.position = '';
+    constructor(
+        public name?: string,
+        public surName?: string,
+        public address?: string,
+        public phone?: string,
+        public published?: boolean,
+        public activity?: Role[],
+        public position?: { lat: string, lng: string },
+        public id?: string
+    ) {
+        this.id = this.id || null;
+        this.name = this.name || '';
+        this.surName = this.surName || '';
+        this.address = this.address || '';
+        this.phone = this.phone || '+39';
+        this.published = this.published || false;
+        this.activity = this.activity || [];
+        this.position = this.position || { lat: '', lng: '' };
+        Object.values(RoleType).forEach(roleType => {
+            if (!this.activity.find(act => act.type === roleType)) {
+                this.activity.push({ type: roleType, active: false });
+            }
+        });
     }
-
-    id: string;
-    name: string;
-    phone: string;
-    published: boolean;
-    activity: Role[] = [];
-    position: any;
 }

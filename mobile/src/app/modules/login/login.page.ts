@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,20 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 
 export class LoginPage implements OnInit {
 
+  public isDarkMode = false;
+
   constructor(
-    public authService: AuthenticationService,
-    public router: Router,
-    private translateConfigService: TranslateConfigService
+    private readonly authService: AuthenticationService,
+    private readonly router: Router,
+    private readonly translateConfigService: TranslateConfigService,
+    private readonly loadingCtrl: LoadingController,
   ) {
-    const lang = this.translateConfigService.getDefaultLanguage();
-    this.translateConfigService.setLanguage(lang);
+    this.translateConfigService.getDefaultLanguage();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
 
   logIn(email, password) {
     this.authService.SignIn(email.value, password.value)
@@ -37,7 +42,18 @@ export class LoginPage implements OnInit {
       });
   }
 
-  goToRegistration(){
+  async loginWithSocial() {
+    const loading = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
+    loading.present();
+    await this.authService.GoogleAuth();
+    loading.dismiss();
+
+  }
+
+  goToRegistration() {
     this.router.navigate(['/registration']);
   }
 

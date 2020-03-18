@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { Component } from '@angular/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
@@ -10,12 +11,16 @@ export class Tab3Page {
 
   selectedLanguage: string;
 
-  constructor(private translateConfigService: TranslateConfigService){
+  constructor(private translateConfigService: TranslateConfigService, private authService: AuthenticationService){
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
   }
 
   languageChanged() {
     this.translateConfigService.setLanguage(this.selectedLanguage);
+  }
+
+  logout() {
+    this.authService.SignOut();
   }
 
   private openPrivacyPage() {
