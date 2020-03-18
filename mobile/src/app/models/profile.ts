@@ -1,5 +1,6 @@
 import { Role } from './role';
 import { RoleType } from './role.enum';
+import { User } from 'services/user-data/user.interface';
 
 export class Profile {
 
@@ -26,5 +27,14 @@ export class Profile {
                 this.activity.push({ type: roleType, active: false });
             }
         });
+    }
+
+    public setProfileByUser(user: User) {
+        if (user) {
+            user.displayName.split(' ').forEach((partialName, index) => {
+                index === 0 ? this.name = partialName : this.surName += partialName + ' ';
+            });
+            this.phone = user.phoneNumber || '+39';
+        }
     }
 }

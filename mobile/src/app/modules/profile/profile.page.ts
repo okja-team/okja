@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
-import { ProfileService } from 'src/app/services/profile.service';
-import { Profile } from 'src/app/models/profile';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
-import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { ProfileService } from 'services/profile.service';
+import { Profile } from 'models/profile';
+import { TranslateConfigService } from 'services/translate-config.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
-import { RoleType } from 'src/app/models/role.enum';
-import { Role } from 'src/app/models/role';
+import { RoleType } from 'models/role.enum';
+import { Role } from 'models/role';
+import { map, switchMap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { UserDataService } from 'services/user-data/user-data.service';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 
 @Component({
@@ -15,29 +18,23 @@ import { Role } from 'src/app/models/role';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
-
-  // public spesa = false;
-  // public farmacia = false;
-  // public compagnia = false;
-  // public posta = false;
-
-  // public rolesCollection: Role[] = [];
+export class ProfilePage implements OnInit, OnDestroy {
 
   public activities: Role[];
-  public hasProfile: boolean;
+  public hasProfile$: Observable<boolean>;
 
   public profileForm: FormGroup;
 
   constructor(
     private loadingCtrl: LoadingController,
-    private auth: AuthenticationService,
+    private userDataService: UserDataService,
     private profileService: ProfileService,
     private translateConfigService: TranslateConfigService,
     private navCtrl: NavController,
     private router: Router
   ) {
     this.activities = [];
+    this.hasProfile$ = this.profileService.hasProfile();
     const group = {
       firstName: new FormControl(''),
       lastName: new FormControl(''),
@@ -95,19 +92,17 @@ export class ProfilePage implements OnInit {
     return this.profileForm.get('isAvailable').value;
   }
 
+  // --------------- HOOK METHODS ---------------//
+  // --------------------------------------------//
+
   ngOnInit() {
+    this.subscriptions();
   }
 
-  ionViewWillEnter() {
-    this.profileService.getProfile().subscribe(profile => {
-      if (profile) {
-        this.populateProfileForm(profile);
-        this.hasProfile = true;
-      } else {
-        this.hasProfile = false;
-      }
-    });
-  }
+  ngOnDestroy(): void { }
+
+  // -------------- PUBLIC METHODS --------------//
+  // --------------------------------------------//
 
   public async saveProfile() {
     const profile = this.getProfileFromForm();
@@ -127,16 +122,38 @@ export class ProfilePage implements OnInit {
     loading.dismiss();
   }
 
-  public messageSubmit(): string {
-    return this.hasProfile ? 'SAVE' : 'SIGN_UP';
-  }
-
   public goToHome() {
     this.navCtrl.navigateRoot('home/tabs/tab1');
   }
 
   public setPosition() {
     this.router.navigate(['position-piker']);
+  }
+
+  // ------------- PRIVATE METHODS --------------//
+  // --------------------------------------------//
+
+  private subscriptions() {
+    this.profileService.getProfile()
+      .pipe(
+        switchMap(profile => this.getProfileSwitchMap(profile)),
+        untilDestroyed(this)
+      )
+      .subscribe({
+        next: profile => this.populateProfileForm(profile)
+      });
+  }
+
+  private getProfileSwitchMap(profile: Profile) {
+    if (profile) {
+      return of(profile);
+    } else {
+      return this.userDataService.getUser().pipe(map(user => {
+        profile = new Profile();
+        profile.setProfileByUser(user);
+        return profile;
+      }));
+    }
   }
 
   private populateProfileForm(profile: Profile) {

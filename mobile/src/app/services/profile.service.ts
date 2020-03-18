@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Profile } from '../models/profile';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,16 +27,11 @@ export class ProfileService {
 
   }
 
-  async hasProfile(): Promise<boolean> {
-    return new Promise<boolean>((res, rej) => {
-      this.getProfile().subscribe(p => {
-        if (p) {
-          res(true);
-        } else {
-          res(false);
-        }
-      })
-    });
+  public hasProfile(): Observable<boolean> {
+    return this.getProfile()
+      .pipe(
+        map(profile => !!profile)
+      );
   }
 
 

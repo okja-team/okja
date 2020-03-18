@@ -4,6 +4,8 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
+import { forkJoin, from } from 'rxjs';
+import { AuthenticationService } from 'services/authentication/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -15,16 +17,20 @@ export class AppComponent {
     private readonly platform: Platform,
     private readonly splashScreen: SplashScreen,
     private readonly statusBar: StatusBar,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly authService: AuthenticationService
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-      //this.router.navigate(['/login']);
-    });
+    forkJoin([from(this.platform.ready()), this.authService.checkAuth()])
+      .subscribe({
+        next: data => {
+          this.statusBar.styleDefault();
+          this.router.navigate([data[1] ? 'home/tabs/tab1' : 'login']);
+          this.splashScreen.hide();
+        }
+      });
   }
 }

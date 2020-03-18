@@ -1,19 +1,20 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { Plugins, Toast } from '@capacitor/core';
-const { Geolocation } = Plugins;
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
-import { ProfileService } from 'src/app/services/profile.service';
+import { ProfileService } from 'services/profile.service';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+
+const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-position-piker',
   templateUrl: './position-piker.page.html',
   styleUrls: ['./position-piker.page.scss'],
 })
-export class PositionPikerPage implements OnInit {
-
+export class PositionPikerPage implements OnInit, OnDestroy {
 
   public lat: any; public lng: any;
-  showingCurrent: boolean = false;
+  showingCurrent = false;
   address: string;
   constructor(
     private nativeGeocoder: NativeGeocoder,
@@ -25,6 +26,8 @@ export class PositionPikerPage implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+  }
 
   ionViewDidEnter() {
     this.getSavedPosition();
@@ -40,8 +43,8 @@ export class PositionPikerPage implements OnInit {
   }
 
   async geocode() {
-    if (this.address != "") {
-      let options: NativeGeocoderOptions = {
+    if (this.address !== '') {
+      const options: NativeGeocoderOptions = {
         useLocale: true,
         maxResults: 5
       };
@@ -54,8 +57,7 @@ export class PositionPikerPage implements OnInit {
           this.showingCurrent = true;
         })
         .catch((error: any) => console.log(error));
-    }
-    else {
+    } else {
       await Toast.show({
         text: 'Please add address to Geocode'
       });
@@ -63,13 +65,15 @@ export class PositionPikerPage implements OnInit {
   }
 
   savePosition() {
-    this.profileService.getProfile().subscribe(p => {
-      p.position = { lat: this.lat, lng: this.lng };
-      this.profileService.addProfile(p);
-      if (p.published) {
-        this.profileService.publishProfile(p);
-      }
-    });
+    this.profileService.getProfile()
+      .pipe(untilDestroyed(this))
+      .subscribe(p => {
+        p.position = { lat: this.lat, lng: this.lng };
+        this.profileService.addProfile(p);
+        if (p.published) {
+          this.profileService.publishProfile(p);
+        }
+      });
   }
 
   onDragEnd(event) {
@@ -78,15 +82,17 @@ export class PositionPikerPage implements OnInit {
   }
 
   getSavedPosition() {
-    this.profileService.getProfile().subscribe(p => {
-      if (p && p.position && p.position.lat && p.position.lng) {
-        this.lat = p.position.lat;
-        this.lng = p.position.lng;
-        this.showingCurrent = true;
-      } else {
-        this.setCurrentPosition();
-      }
-    });
+    this.profileService.getProfile()
+      .pipe(untilDestroyed(this))
+      .subscribe(p => {
+        if (p && p.position && p.position.lat && p.position.lng) {
+          this.lat = p.position.lat;
+          this.lng = p.position.lng;
+          this.showingCurrent = true;
+        } else {
+          this.setCurrentPosition();
+        }
+      });
   }
 }
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { AuthenticationService } from 'services/authentication/authentication.service';
+import { TranslateConfigService } from 'services/translate-config.service';
 import { LoadingController } from '@ionic/angular';
+import { ProfileService } from 'services/profile.service';
+import { exhaustMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -11,50 +13,53 @@ import { LoadingController } from '@ionic/angular';
 })
 
 export class LoginPage implements OnInit {
-
   public isDarkMode = false;
 
+  private loadingElement: HTMLIonLoadingElement;
+
   constructor(
-    private readonly authService: AuthenticationService,
-    private readonly router: Router,
-    private readonly translateConfigService: TranslateConfigService,
-    private readonly loadingCtrl: LoadingController,
+    private authService: AuthenticationService,
+    private router: Router,
+    private translateConfigService: TranslateConfigService,
+    private loadingCtrl: LoadingController,
+    private profileService: ProfileService
   ) {
     this.translateConfigService.getDefaultLanguage();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    await this.setLoading();
   }
 
-  logIn(email, password) {
-    this.authService.SignIn(email.value, password.value)
-      .then((res) => {
-        if (this.authService.isEmailVerified) {
-          this.router.navigate(['profile']);
-          window.alert('login OK');
-        } else {
-          window.alert('Email is not verified');
-          return false;
-        }
-      }).catch((error) => {
-        window.alert(error.message);
-      });
-  }
-
-  async loginWithSocial() {
-    const loading = await this.loadingCtrl.create({
+  private async setLoading() {
+    this.loadingElement = await this.loadingCtrl.create({
       message: '',
       spinner: 'crescent',
     });
-    loading.present();
-    await this.authService.GoogleAuth();
-    loading.dismiss();
-
   }
 
-  goToRegistration() {
-    this.router.navigate(['/registration']);
+  public async loginWithSocial() {
+    this.loadingElement.present();
+    this.authService.login('google.com')
+      .pipe(
+        exhaustMap(() => this.profileService.hasProfile()),
+        take(1)
+      )
+      .subscribe({
+        next: hasProfile => this.goToPage(hasProfile),
+        error: err => window.alert(`error on login: ${err}`),
+        complete: () => console.log('login complete')
+      });
+  }
+
+  private async goToPage(hasProfile: boolean) {
+    if (hasProfile) {
+      await this.router.navigate(['home/tabs/tab1']);
+    } else {
+      await this.router.navigate(['profile']);
+    }
+    this.loadingElement.dismiss();
   }
 
 }
