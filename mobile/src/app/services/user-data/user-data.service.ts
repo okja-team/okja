@@ -2,7 +2,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, from } from 'rxjs';
 import { User } from './user.interface';
-import { skipWhile, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class UserDataService {
@@ -24,7 +24,7 @@ export class UserDataService {
   }
 
   public getUser(): Observable<User> {
-    return this.user$.asObservable().pipe(skipWhile(user => user === null));
+    return this.user$.asObservable();
   }
 
   public setUser(user: User): Observable<void> {

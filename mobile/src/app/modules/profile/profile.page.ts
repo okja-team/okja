@@ -11,6 +11,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { UserDataService } from 'services/user-data/user-data.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { AppRoutingPaths } from 'enums';
 
 
 @Component({
@@ -123,11 +124,11 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   public goToHome() {
-    this.navCtrl.navigateRoot('home/tabs/tab1');
+    this.navCtrl.navigateRoot(AppRoutingPaths.Home);
   }
 
   public setPosition() {
-    this.router.navigate(['position-piker']);
+    this.router.navigate([AppRoutingPaths.PositionPiker]);
   }
 
   // ------------- PRIVATE METHODS --------------//

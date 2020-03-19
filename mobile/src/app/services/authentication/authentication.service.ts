@@ -33,10 +33,16 @@ export class AuthenticationService {
     }
 
     public checkAuth(): Observable<firebase.User> {
-        return this.ngFireAuth.authState.pipe(
-            exhaustMap(user => user ? from(this.setUserData(user)).pipe(map(_ => user)) : of(user)),
-            take(1)
-        );
+        return this.userDataService.getUser()
+            .pipe(exhaustMap(
+                storedUser =>
+                    storedUser ?
+                        // return the value setted in the service (session)
+                        of(storedUser as firebase.User) :
+                        // call the firebaseAuthService for retrieve the auth information
+                        this.checkFirebaseAuth()),
+                take(1)
+            );
     }
 
     public login(type: 'google.com'): Observable<void> {
@@ -68,6 +74,18 @@ export class AuthenticationService {
                     this.userDataService.removeUser();
                     this.loginWithMobileSocial = false;
                 })
+            );
+    }
+
+    private checkFirebaseAuth(): Observable<firebase.User> {
+        return this.ngFireAuth.authState
+            .pipe(
+                exhaustMap(
+                    user =>
+                        user ?
+                            from(this.setUserData(user)).pipe(map(_ => user)) :
+                            of(user)),
+                take(1)
             );
     }
 

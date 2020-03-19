@@ -19,9 +19,7 @@ export class PositionPikerPage implements OnInit, OnDestroy {
   constructor(
     private nativeGeocoder: NativeGeocoder,
     private ngZone: NgZone,
-    private profileService: ProfileService) {
-
-  }
+    private profileService: ProfileService) { }
 
   ngOnInit() {
   }

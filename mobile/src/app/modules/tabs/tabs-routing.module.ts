@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AppRoutingPaths } from 'enums';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: AppRoutingPaths.Tabs,
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: AppRoutingPaths.Tab1,
         children: [
           {
             path: '',
@@ -18,7 +19,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab2',
+        path: AppRoutingPaths.Tab2,
         children: [
           {
             path: '',
@@ -28,7 +29,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab3',
+        path: AppRoutingPaths.Tab3,
         children: [
           {
             path: '',
@@ -36,17 +37,12 @@ const routes: Routes = [
               import('../tab3/tab3.module').then(m => m.Tab3PageModule)
           }
         ]
-      },
-      {
-        path: 'home',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
       }
     ]
   },
   {
-    path: 'home',
-    redirectTo: '/tabs/tab1',
+    path: '',
+    redirectTo: 'tabs/tab1',
     pathMatch: 'full'
   }
 ];

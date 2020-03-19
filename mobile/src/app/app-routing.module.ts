@@ -1,22 +1,27 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard, StackPageGuard } from 'guards';
+import { AppRoutingPaths } from 'enums';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./modules/tabs/tabs.module').then(m => m.TabsPageModule)
+    path: AppRoutingPaths.Home,
+    loadChildren: () => import('./modules/tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'login',
+    path: AppRoutingPaths.Login,
     loadChildren: () => import('./modules/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'profile',
-    loadChildren: () => import('./modules/profile/profile.module').then( m => m.ProfilePageModule)
+    path: AppRoutingPaths.Profile,
+    loadChildren: () => import('./modules/profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'position-piker',
-    loadChildren: () => import('./modules/position-piker/position-piker.module').then( m => m.PositionPikerPageModule)
+    path: AppRoutingPaths.PositionPiker,
+    loadChildren: () => import('./modules/position-piker/position-piker.module').then( m => m.PositionPikerPageModule),
+    canActivate: [AuthGuard, StackPageGuard]
   }
 
 ];

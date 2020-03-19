@@ -5,6 +5,7 @@ import { TranslateConfigService } from 'services/translate-config.service';
 import { LoadingController } from '@ionic/angular';
 import { ProfileService } from 'services/profile.service';
 import { exhaustMap, take } from 'rxjs/operators';
+import { AppRoutingPaths } from 'enums';
 
 @Component({
   selector: 'app-login',
@@ -55,9 +56,9 @@ export class LoginPage implements OnInit {
 
   private async goToPage(hasProfile: boolean) {
     if (hasProfile) {
-      await this.router.navigate(['home/tabs/tab1']);
+      await this.router.navigate([AppRoutingPaths.Home]);
     } else {
-      await this.router.navigate(['profile']);
+      await this.router.navigate([AppRoutingPaths.Profile]);
     }
     this.loadingElement.dismiss();
   }
