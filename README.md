@@ -1,5 +1,5 @@
 # I for you
-I for you è un'applicazione che consente di mettere in contatto, in maniera facile e veloce, persone che possono offrire supporto pratico, in questo momento di emergeza, a coloro che hanno più bisogno, che si trovano in difficoltà o che sono da soli.
+**I for you** is an application that allows you to get in touch quickly and easily with people who can offer practical support, in this moment of emergence, to those who need it most, who are in difficulty or who are alone .
 
 ---
 
