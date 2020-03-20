@@ -63,7 +63,7 @@
               {{('PROFILE_PAGE.ROLE_TYPE.' + entry.type) | translate}}
             </ion-label>
             <ion-checkbox slot="end"
-              [formControlName]="entry.type">
+              [(ngModel)]="entry.type">
             </ion-checkbox>
           </ion-item>
         </ion-list>
