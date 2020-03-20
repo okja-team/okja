@@ -37,6 +37,8 @@ steps:
     tasks: 'assemble$(androidVariant)'
 - task: AndroidSigning@3
   inputs:
+    apksign: true
+    zipalign: true
     apkFiles: 'mobile/android/**/*.apk'
     apksignerKeystoreFile: 'iforyou-release.keystore'
     apksignerKeystorePassword: '$(androidKeystorePassword)'
