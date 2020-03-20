@@ -17,7 +17,6 @@ steps:
     script: |
       npm install ionic
       npm install capacitor
-
       
       ionic build -prod
       npx cap copy android
