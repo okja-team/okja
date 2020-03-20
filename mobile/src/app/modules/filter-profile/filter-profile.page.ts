@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Profile } from 'src/app/models/profile';
-import { RoleType } from 'src/app/models/role.enum';
+import { Profile } from 'models/profile';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  selector: 'app-filter-profile',
+  templateUrl: 'filter-profile.page.html',
+  styleUrls: ['filter-profile.page.scss']
 })
-export class Tab2Page implements OnInit {
+export class FilterProfilePage implements OnInit {
 
   public helpers: Profile[] = [];
   public pharmacyFilter = true;

@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab2Page } from './tab2.page';
+import { FilterProfilePage } from './filter-profile.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -13,9 +13,9 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    RouterModule.forChild([{ path: '', component: Tab2Page }]),
+    RouterModule.forChild([{ path: '', component: FilterProfilePage }]),
     TranslateModule.forChild()
   ],
-  declarations: [Tab2Page]
+  declarations: [FilterProfilePage]
 })
-export class Tab2PageModule {}
+export class FilterProfilePageModule {}
