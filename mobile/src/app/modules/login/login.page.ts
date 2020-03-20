@@ -7,6 +7,7 @@ import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../models/profile';
 import { UserDataService } from '../../services/user-data/user-data.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,9 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
   styleUrls: ['./login.page.scss'],
 })
 
-export class LoginPage implements OnInit, OnDestroy  {
+export class LoginPage implements OnInit, OnDestroy {
   public isDarkMode = false;
 
-  public profile: Profile;
   private loadingElement: HTMLIonLoadingElement;
 
   constructor(
@@ -29,16 +29,6 @@ export class LoginPage implements OnInit, OnDestroy  {
     private profileService: ProfileService
   ) {
     this.translateConfigService.getDefaultLanguage();
-    this.userDataService.getUser()
-      .pipe(untilDestroyed(this))
-      .subscribe(user => {
-        this.profileService.getProfile()
-          .pipe(untilDestroyed(this))
-          .subscribe(profile => {
-            this.profile = profile;
-          });
-      });
-
   }
 
   async ngOnInit() {
@@ -59,9 +49,18 @@ export class LoginPage implements OnInit, OnDestroy  {
     this.loadingElement.present();
     this.authService.login('google.com')
       .subscribe({
-        next: profile => this.goToPage(this.profile),
+        next: () => this.onUserLogged(),
         error: err => window.alert(`error on login: ${err}`),
         complete: () => console.log('login complete')
+      });
+  }
+
+  onUserLogged() {
+    this.profileService.getProfile()
+      .pipe(take(1), untilDestroyed(this))
+      .subscribe(profile => {
+        // this.profile = profile;
+        this.goToPage(profile);
       });
   }
 

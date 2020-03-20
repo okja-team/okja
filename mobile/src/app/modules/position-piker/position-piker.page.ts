@@ -87,12 +87,9 @@ export class PositionPikerPage implements OnInit, OnDestroy {
   }
 
   savePosition() {
-    if (this.lat && this.lng && this.lat !== '' && this.lng !== '') {
+    if (this.lat && this.lng) {
       this.profile.position = { lat: this.lat, lng: this.lng };
       this.profileService.addProfile(this.profile);
-      if (this.profile.published) {
-        this.profileService.publishProfile(this.profile);
-      }
     } else {
       window.alert(`no position selected`);
     }
@@ -106,9 +103,7 @@ export class PositionPikerPage implements OnInit, OnDestroy {
   getSavedPosition() {
     if (this.profile && this.profile.position
       && this.profile.position.lat
-      && this.profile.position.lat !== ''
       && this.profile.position.lng
-      && this.profile.position.lng !== ''
     ) {
       this.lat = this.profile.position.lat;
       this.lng = this.profile.position.lng;

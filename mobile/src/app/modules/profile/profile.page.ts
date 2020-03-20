@@ -52,12 +52,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     loading.present();
 
     this.profileService.addProfile(this.profile);
-    if (this.profile.published) {
-      this.profileService.publishProfile(this.profile);
-    } else {
-      this.profileService.unpublishProfile(this.profile);
-    }
-
     loading.dismiss();
   }
 
@@ -65,7 +59,8 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.navCtrl.navigateRoot('home/tabs/tab1');
   }
 
-  public setPosition() {
+  public async setPosition() {
+    await this.saveProfile();
     this.router.navigate(['position-piker']);
   }
 
