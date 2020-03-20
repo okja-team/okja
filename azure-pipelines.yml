@@ -1,18 +1,17 @@
 # Starter pipeline
-- task: UseNode@1
-  inputs:
-    version: '12.x'
-    checkLatest: true
-
 trigger:
-- master
+   - master
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-
-- task: Build Ionic 
+- task: UseNode@1
+  inputs:
+    version: '12.x'
+    checkLatest: true
+    
+- task: CmdLine@2 
   inputs:
     script: |
       npm install ionic
@@ -20,5 +19,5 @@ steps:
       
       ionic build -prod
       npx cap copy android
-      
+
 
