@@ -11,7 +11,7 @@ steps:
     version: '12.x'
     checkLatest: true
     
-- task: CmdLine@2 
+- task: CmdLine@2
   inputs:
     script: |
       npm install -g @ionic/cli
@@ -19,5 +19,6 @@ steps:
       
       ionic build -prod
       npx cap copy android
+    workingDirectory: 'mobile'
 
 
