@@ -24,7 +24,7 @@
         <ion-label class="width-30">
           {{ 'PROFILE_PAGE.SURNAME' | translate }}
         </ion-label>
-        <ion-input [(ngModel)]="profile.lastName"></ion-input>
+        <ion-input [(ngModel)]="profile.surName"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label class="width-30">
@@ -58,7 +58,7 @@
               <ion-label>Compagnia</ion-label>
               <ion-toggle [(ngModel)]="compagnia"></ion-toggle>
             </ion-item> -->
-          <ion-item *ngFor="let entry of profile.activities">
+          <ion-item *ngFor="let entry of profile.activity">
             <ion-label>
               {{('PROFILE_PAGE.ROLE_TYPE.' + entry.type) | translate}}
             </ion-label>
@@ -77,7 +77,7 @@
 
       <ion-button class="list-full button"
         (click)="saveProfile()">
-        {{ ((hasProfile$ | async) ? 'PROFILE_PAGE.SAVE' :
+        {{ ((profile) ? 'PROFILE_PAGE.SAVE' :
         'PROFILE_PAGE.SIGN_UP') | translate }}
       </ion-button>
       <ion-button *ngIf="hasProfile"
