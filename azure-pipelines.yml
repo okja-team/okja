@@ -12,6 +12,7 @@ steps:
     checkLatest: true
     
 - task: CmdLine@2
+  displayName : 'Ionic & Capacitory Build'
   inputs:
     script: |
       npm install 
@@ -21,5 +22,31 @@ steps:
       ionic build $(type)
       ionic capacitor sync
     workingDirectory: 'mobile'
+
+- task: Gradle@2
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    workingDirectory: 'mobile/android'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: false
+    gradleOptions: '-Xmx3072m'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    tasks: 'assembleDebug'
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+  displayName: Copy .apk files to artifact staging directory
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'drop'
+    artifactType: 'container'
+  displayName: Publish artifacts
 
 
