@@ -35,7 +35,13 @@ steps:
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     tasks: 'assemble$(androidVariant)'
-
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: 'mobile/android/**/*.apk'
+    apksignerKeystoreFile: 'iforyou-release.keystore'
+    apksignerKeystorePassword: '$(androidKeystorePassword)'
+    apksignerKeystoreAlias: 'i-for-you'
+    apksignerKeyPassword: '$(androidKeystorePassword)'
 - task: CopyFiles@2
   inputs:
     contents: 'mobile/android/**/*.apk'
