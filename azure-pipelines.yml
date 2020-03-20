@@ -40,7 +40,7 @@ steps:
     apkFiles: 'mobile/android/**/*.apk'
     apksignerKeystoreFile: 'iforyou-release.keystore'
     apksignerKeystorePassword: '$(androidKeystorePassword)'
-    apksignerKeystoreAlias: 'i-for-you'
+    apksignerKeystoreAlias: 'iforyou'
     apksignerKeyPassword: '$(androidKeystorePassword)'
 - task: CopyFiles@2
   inputs:
