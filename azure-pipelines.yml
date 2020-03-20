@@ -25,7 +25,7 @@ steps:
 
 - task: Gradle@2
   inputs:
-    gradleWrapperFile: 'gradlew'
+    gradleWrapperFile: 'mobile/android/gradlew'
     workingDirectory: 'mobile/android'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
