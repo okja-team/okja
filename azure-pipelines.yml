@@ -38,7 +38,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    contents: '**/*.apk'
+    contents: 'mobile/android/**/*.apk'
     targetFolder: '$(build.artifactStagingDirectory)'
   displayName: Copy .apk files to artifact staging directory
 
