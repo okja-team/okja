@@ -43,9 +43,9 @@ export class Profile {
             });
             this.phone = user.phoneNumber || '+39';
             this.photoURL = user.photoURL || '';
-            Object.values(RoleType).forEach(roleType => {
-                this.activity.push({ type: roleType, active: false });
-            });
+            // Object.values(RoleType).forEach(roleType => {
+            //     this.activity.push({ type: roleType, active: false });
+            // });
         }
     }
 }
