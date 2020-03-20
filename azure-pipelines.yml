@@ -14,11 +14,12 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
+      npm install 
       npm install -g @ionic/cli
       npm install capacitor
       
-      ionic build -prod
-      npx cap copy android
+      ionic build --prod
+      ionic capacitor sync
     workingDirectory: 'mobile'
 
 
