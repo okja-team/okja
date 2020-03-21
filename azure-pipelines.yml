@@ -1,0 +1,60 @@
+# Starter pipeline
+trigger:
+   - master
+
+pool:
+  vmImage: 'macOS-latest'
+
+steps:
+- task: UseNode@1
+  inputs:
+    version: '12.x'
+    checkLatest: true
+    
+- task: CmdLine@2
+  displayName : 'Ionic & Capacitory Build'
+  inputs:
+    script: |
+      npm install 
+      npm install -g @ionic/cli
+      npm install capacitor
+      
+      ionic build $(type)
+      ionic capacitor sync
+    workingDirectory: 'mobile'
+
+- task: Gradle@2
+  inputs:
+    gradleWrapperFile: 'mobile/android/gradlew'
+    workingDirectory: 'mobile/android'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: false
+    gradleOptions: '-Xmx3072m'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    tasks: 'assemble$(androidVariant)'
+- task: AndroidSigning@3
+  inputs:
+    apksign: true
+    zipalign: true
+    apkFiles: 'mobile/android/**/*.apk'
+    apksignerKeystoreFile: 'iforyou-release.keystore'
+    apksignerKeystorePassword: '$(androidKeystorePassword)'
+    apksignerKeystoreAlias: 'iforyou'
+    apksignerKeyPassword: '$(androidKeystorePassword)'
+- task: CopyFiles@2
+  inputs:
+    contents: 'mobile/android/**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+  displayName: Copy .apk files to artifact staging directory
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'drop'
+    artifactType: 'container'
+  displayName: Publish artifacts
+
+

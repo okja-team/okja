@@ -1,58 +1,21 @@
-<ion-header>
-  <ion-toolbar>
-    <img class="center ion-margin" src="../../../assets/images/claim_no_logo.svg">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-title class="ion-text-center ion-margin">{{ 'LOGIN_PAGE.TITLE' | translate }}</ion-title>
-  <form>
-    <ion-item lines="full">
-      <ion-label position="floating">{{ 'LOGIN_PAGE.EMAIL' | translate }}</ion-label>
-      <ion-input type="text"
-        #email
-        required></ion-input>
-    </ion-item>
+  <div class="container" [ngClass]="{'dark-background': isDarkMode}">
+    <div class="card-container">
+      <h1>{{ 'LOGIN_PAGE.TITLE' | translate }}</h1>
 
-    <ion-item lines="full">
-      <ion-label position="floating">{{ 'LOGIN_PAGE.PASSWORD' | translate }}</ion-label>
-      <ion-input type="password"
-        #password
-        required></ion-input>
-    </ion-item>
-
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit"
-          (click)="logIn(email, password)"
-          expand="block"
-        >
-        {{ 'LOGIN_PAGE.SIGN_IN' | translate }}
-      </ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
-
-  <form>
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit"
-          color="danger"
-          (click)="loginWithSocial()"
-          expand="block">
-          {{ 'LOGIN_PAGE.SIGN_IN_GOOGLE' | translate }}
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
-  <ion-footer class="ion-text-center">
-    <ion-toolbar>
-      <ion-text>
-        <p>{{ 'LOGIN_PAGE.SIGN_UP' | translate }} <ion-text (click)="goToRegistration()" color="tertiary">{{ 'LOGIN_PAGE.SIGN_UP_LINK' | translate }}</ion-text></p>
-      </ion-text>
-    </ion-toolbar>
-  </ion-footer>
+      <!--TODO: FACEBOOK AUTH-->
+      <ion-card (click)="loginWithSocial()">
+        <ion-item lines="none">
+          <ion-icon class="facebook" name="logo-facebook"></ion-icon>
+          <ion-text>{{'LOGIN_PAGE.SIGN_IN_FACEBOOK' | translate}}</ion-text>
+        </ion-item>
+      </ion-card>
+      <ion-card (click)="loginWithSocial()">
+        <ion-item lines="none">
+          <ion-icon class="google" name="logo-google"></ion-icon>
+          <ion-text>{{ 'LOGIN_PAGE.SIGN_IN_GOOGLE' | translate }}</ion-text>
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>

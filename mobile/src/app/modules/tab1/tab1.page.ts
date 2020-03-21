@@ -1,8 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActiveProfileService } from 'src/app/active-profile.service';
-import { Profile } from 'src/app/models/profile';
+import { ActiveProfileService } from 'active-profile.service';
+import { Profile } from 'models/profile';
 import { AgmMap } from '@agm/core';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 declare const google: any;
 
 @Component({
@@ -10,7 +11,7 @@ declare const google: any;
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit, OnDestroy {
 
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 
@@ -24,18 +25,21 @@ export class Tab1Page {
     public router: Router,
     private activeProfileSerive: ActiveProfileService) { }
 
-  ionViewDidEnter() {
-    this.activeProfileSerive.getActiveProfile().subscribe(x => {
-      console.log(x);
-      this.activeProfile = x;
-      // this.repositionMap();
-    });
-    this.repositionMap();
+  ngOnInit(): void {
   }
 
-  ionViewDidLeave() {
-    this.lat = 0;
-    this.lng = 0;
+  ngOnDestroy(): void {
+  }
+
+  ionViewDidEnter() {
+    this.activeProfileSerive.getActiveProfile()
+      .pipe(untilDestroyed(this))
+      .subscribe(x => {
+        console.log(x);
+        this.activeProfile = x;
+        // this.repositionMap();
+      });
+    this.repositionMap();
   }
 
   repositionMap() {

@@ -1,47 +1,35 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable, from } from 'rxjs';
 import { Profile } from '../models/profile';
+import { UserDataService } from './user-data/user-data.service';
+import { User } from './user-data/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
-  // public currentProfile: Profile;
   private profile: Observable<Profile>;
   private profileDoc: AngularFirestoreDocument<Profile>;
 
-  // private publishedProfile: Observable<Profile[]>;
-  // private publishedProfileColl: AngularFirestoreCollection<Profile>;
-
   private publishProfileDoc: AngularFirestoreDocument<Profile>;
-
+  private user: User
 
   constructor(
-    private db: AngularFirestore,
+    private afStore: AngularFirestore,
     private afAuth: AngularFireAuth,
+    private userDataService: UserDataService
   ) {
-
-  }
-
-  async hasProfile(): Promise<boolean> {
-    return new Promise<boolean>((res, rej) => {
-      this.getProfile().subscribe(p => {
-        if (p) {
-          res(true);
-        } else {
-          res(false);
-        }
-      })
+    this.userDataService.getUser().subscribe(user => {
+      this.user = user;
     });
   }
 
 
-  getProfile() {
-    const userId = this.afAuth.auth.currentUser.uid;
-    this.profileDoc = this.db.collection('users').doc(userId).collection('profiles').doc<Profile>('profile');
+  getProfile(): Observable<Profile> {
+    this.profileDoc = this.afStore.doc(`profiles/${this.user.uid}`);
     this.profile = this.profileDoc.valueChanges();
     return this.profile;
   }
@@ -50,18 +38,21 @@ export class ProfileService {
     this.profileDoc.delete();
   }
   addProfile(profile: Profile) {
-    return this.profileDoc.set(Object.assign({}, profile));
+    if (profile.published && profile.position && profile.position.lat && profile.position.lng) {
+      this.publishProfile(profile);
+    } else {
+      this.unpublishProfile(profile);
+    }
+    return from(this.afStore.doc(`profiles/${this.user.uid}`).set(Object.assign({}, profile, { merge: true })));
   }
 
   publishProfile(profile: Profile) {
-    const userId = this.afAuth.auth.currentUser.uid;
-    this.publishProfileDoc = this.db.collection('active_profiles').doc(userId);
+    this.publishProfileDoc = this.afStore.collection('active_profiles').doc(this.user.uid);
     return this.publishProfileDoc.set(Object.assign({}, profile));
   }
 
   unpublishProfile(profile: Profile) {
-    const userId = this.afAuth.auth.currentUser.uid;
-    this.publishProfileDoc = this.db.collection('active_profiles').doc(userId);
+    this.publishProfileDoc = this.afStore.collection('active_profiles').doc(this.user.uid);
     return this.publishProfileDoc.delete();
   }
 }
