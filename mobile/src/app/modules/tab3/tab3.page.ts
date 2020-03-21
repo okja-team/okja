@@ -40,9 +40,9 @@ export class Tab3Page {
     });
   }
 
-  private openPrivacyPage() {
+  public openPrivacyPage() {
   }
 
-  private deleteButton() {
+  public deleteButton() {
   }
 }

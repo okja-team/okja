@@ -1,8 +1,10 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { Plugins, Toast } from '@capacitor/core';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
-import { ProfileService } from 'services/profile.service';
+import { ProfileService } from '../../services/profile.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Profile } from '../../models/profile';
+import { LoadingController } from '@ionic/angular';
 
 const { Geolocation } = Plugins;
 
@@ -13,13 +15,22 @@ const { Geolocation } = Plugins;
 })
 export class PositionPikerPage implements OnInit, OnDestroy {
 
+  profile: Profile;
   public lat: any; public lng: any;
   showingCurrent = false;
   address: string;
   constructor(
     private nativeGeocoder: NativeGeocoder,
     private ngZone: NgZone,
-    private profileService: ProfileService) {
+    private profileService: ProfileService,
+    private loadingCtrl: LoadingController
+  ) {
+    this.profileService.getProfile()
+      .pipe(untilDestroyed(this))
+      .subscribe(profile => {
+        this.profile = profile;
+        this.getSavedPosition();
+      });
 
   }
 
@@ -34,15 +45,25 @@ export class PositionPikerPage implements OnInit, OnDestroy {
   }
 
   async setCurrentPosition() {
+    const loader = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
+    loader.present(); //TODO
     const position = await Geolocation.getCurrentPosition();
     this.ngZone.run(() => {
       this.lat = position.coords.latitude;
       this.lng = position.coords.longitude;
     });
     this.showingCurrent = true;
+    loader.dismiss();
   }
 
   async geocode() {
+    const loader = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
     if (this.address !== '') {
       const options: NativeGeocoderOptions = {
         useLocale: true,
@@ -62,18 +83,16 @@ export class PositionPikerPage implements OnInit, OnDestroy {
         text: 'Please add address to Geocode'
       });
     }
+    loader.dismiss();
   }
 
   savePosition() {
-    this.profileService.getProfile()
-      .pipe(untilDestroyed(this))
-      .subscribe(p => {
-        p.position = { lat: this.lat, lng: this.lng };
-        this.profileService.addProfile(p);
-        if (p.published) {
-          this.profileService.publishProfile(p);
-        }
-      });
+    if (this.lat && this.lng) {
+      this.profile.position = { lat: this.lat, lng: this.lng };
+      this.profileService.addProfile(this.profile);
+    } else {
+      window.alert(`no position selected`);
+    }
   }
 
   onDragEnd(event) {
@@ -82,17 +101,16 @@ export class PositionPikerPage implements OnInit, OnDestroy {
   }
 
   getSavedPosition() {
-    this.profileService.getProfile()
-      .pipe(untilDestroyed(this))
-      .subscribe(p => {
-        if (p && p.position && p.position.lat && p.position.lng) {
-          this.lat = p.position.lat;
-          this.lng = p.position.lng;
-          this.showingCurrent = true;
-        } else {
-          this.setCurrentPosition();
-        }
-      });
+    if (this.profile && this.profile.position
+      && this.profile.position.lat
+      && this.profile.position.lng
+    ) {
+      this.lat = this.profile.position.lat;
+      this.lng = this.profile.position.lng;
+      this.showingCurrent = true;
+    } else {
+      this.setCurrentPosition();
+    }
   }
 }
 

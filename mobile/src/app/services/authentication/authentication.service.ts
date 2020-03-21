@@ -8,9 +8,9 @@ import { cfaSignIn, cfaSignOut } from 'capacitor-firebase-auth';
 import { auth } from 'firebase';
 import { tap, take, exhaustMap, map } from 'rxjs/operators';
 import { of, Observable, from } from 'rxjs';
-import { UserDataService } from 'services/user-data/user-data.service';
-import { User } from 'services/user-data/user.interface';
-import { ProfileService } from 'services/profile.service';
+import { UserDataService } from '../../services/user-data/user-data.service';
+import { User } from '../../services/user-data/user.interface';
+import { ProfileService } from '../../services/profile.service';
 
 @Injectable({
     providedIn: 'root'
