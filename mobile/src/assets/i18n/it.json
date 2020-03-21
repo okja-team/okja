@@ -55,5 +55,12 @@
         "CLOSE": "Chiudi",
         "POSITION": "Posizione",
         "LOADER_MESSAGE": "Salvataggio profilo in corso"
+    },
+    "TAB1_PAGE":{
+        "HELP": "vuole aiutarti!",
+        "ROLE_TYPE": {
+            "food": "NEGOZIO",
+            "farmacy": "FARMACIA"
+        }
     }
 }

@@ -12,7 +12,105 @@ agm-map {
     display: none;
   }
 }
+
 .status-grid {
   background-color: black;
   color: white;
+}
+
+.RectangleContainer{
+  width: 100%;
+  height: 48%;
+}
+
+.Rectangle {
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  border-radius: 15px;
+  box-shadow: 0 -7px 20px 0 rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(to bottom, #015eea, #00c0fa);
+}
+
+.Avatar {
+  width: 60px;
+  height: 60px;
+  border: solid 2px #ffffff;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.Path {
+  width: 30px;
+  height: 30px;
+  border: solid 2px #046506;
+  background-color: #ffffff;
+  margin-top: 20px;
+}
+
+.Available-now-Until {
+  width: 83px;
+  height: 28px;
+  font-family: Montserrat;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  margin-top: 20px;
+}
+
+.center {
+  display: block;
+  margin: auto;
+  width: 50%;
+ }
+
+ .HelpTitle {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+.role-type-label {
+  width: 85px;
+  height: 17px;
+  padding: 5px 20px 5px 20px;
+}
+
+.role-type-text {
+  height: 15px;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+.address {
+  height: 18px;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #eaeaea;
+}
+
+.Oval {
+  width: 60px;
+  height: 60px;
+  background-color: #ffffff;
 }

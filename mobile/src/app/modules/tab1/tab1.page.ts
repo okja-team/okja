@@ -2,7 +2,11 @@ import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActiveProfileService } from 'active-profile.service';
 import { Profile } from 'models/profile';
+import { Role } from 'models/role';
+import { RoleType } from 'models/role.enum';
 import { AgmMap } from '@agm/core';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { TranslateConfigService } from '../../services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 declare const google: any;
 
@@ -15,6 +19,17 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 
+  firstTime: boolean = true;
+  opacityNotSelected: number = 0.4;
+  opacitySelected: number = 1;
+  icon: any = {
+    url: "assets/images/icon/help_you.png",
+    scaledSize: {
+      width: 64,
+      height: 64
+    }
+  };
+  profileSelected: Profile = null;
   activeProfile: Profile[] = [];
   lat: Number;
   lng: Number;
@@ -23,7 +38,11 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   constructor(
     public router: Router,
-    private activeProfileSerive: ActiveProfileService) { }
+    private translactionServise: TranslateConfigService,
+    private activeProfileSerive: ActiveProfileService,
+    private callNumber: CallNumber) {
+    translactionServise.getDefaultLanguage();
+  }
 
   ngOnInit(): void {
   }
@@ -35,30 +54,34 @@ export class Tab1Page implements OnInit, OnDestroy {
     this.activeProfileSerive.getActiveProfile()
       .pipe(untilDestroyed(this))
       .subscribe(x => {
-        console.log(x);
         this.activeProfile = x;
         // this.repositionMap();
       });
     this.repositionMap();
   }
 
+  ionViewDidLeave() {
+    this.lat = 0;
+    this.lng = 0;
+  }
+
   repositionMap() {
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition((position: Position) => {  
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: Position) => {
         if (position) {
-          this.lat = position.coords.latitude;  
-          this.lng = position.coords.longitude; 
-        }  
-      })  
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
+        }
+      })
     }
-  //   console.log(this.agmMap);
-  //   this.agmMap.mapReady.subscribe(map => {
-  //     const bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds();
-  //     for (const mm of this.activeProfile) {
-  //       bounds.extend(new google.maps.LatLng(mm.position.lat, mm.position.lng));
-  //     }
-  //     map.fitBounds(bounds);
-  //   });
+  }
+
+  getOpacity(p: Profile): number {
+
+    if (!this.profileSelected || (p.id && this.profileSelected.id == p.id) || (p.surName == this.profileSelected.surName && p.name == this.profileSelected.name))
+      return this.opacitySelected;
+
+    return this.opacityNotSelected;
   }
 
   goToProfile() {
@@ -67,6 +90,43 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   mapReady(event: any) {
     this.map = event;
-    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('Profile'));
-}
+    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ProfileButton'));
+  }
+
+  openCardHelper(profile: Profile): void {  
+    if(this.firstTime){
+      this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('ProfileHelperContainer'));
+      this.firstTime = false;
+    }
+    this.profileSelected = profile;
+  }
+
+  getActiveRoles(): Role[] {
+    if(this.profileSelected.activity)
+      return this.profileSelected.activity.filter(act => act.active);
+    return [];
+  }
+
+  getColorFromRoleType(roleType: RoleType): string {
+    switch (roleType) {
+      case RoleType.Food:
+        return "#046506";
+      case RoleType.Pharmacy:
+        return "#df8c8c";
+      default:
+        return "#dcdcdc";
+    }
+  }
+
+  closeCard(): void{
+    this.profileSelected = null;
+  }
+
+  openSkype(profile: Profile){
+
+  }
+
+  callProfile(){
+    this.callNumber.callNumber(this.profileSelected.phone, false).then(res => console.log('Launched dialer!', res))
+  }
 }

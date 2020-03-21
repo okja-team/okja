@@ -55,5 +55,12 @@
         "CLOSE": "Close",
         "POSITION": "Position",
         "LOADER_MESSAGE": "Saving your profile"
+    },
+    "TAB1_PAGE":{
+        "HELP": "wants help you!",
+        "ROLE_TYPE": {
+            "food": "MARKET",
+            "farmacy": "PHARMACY"
+        }
     }
 }

@@ -9,6 +9,7 @@ export class Profile {
         public surName?: string,
         public address?: string,
         public phone?: string,
+        public skypeId?: string,
         public published?: boolean,
         public activity?: Role[],
         public position?: { lat: string, lng: string },
@@ -20,6 +21,7 @@ export class Profile {
         this.surName = surName || '';
         this.address = address || '';
         this.phone = phone || '+39';
+        this.skypeId = skypeId || '';
         this.published = published || false;
         this.photoURL = photoURL || '';
         this.position = position || { lat: '', lng: '' };
