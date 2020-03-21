@@ -4,7 +4,6 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { TranslateConfigService } from '../../services/translate-config.service';
 import { LoadingController } from '@ionic/angular';
 import { ProfileService } from '../../services/profile.service';
-import { UserDataService } from '../../services/user-data/user-data.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { take } from 'rxjs/operators';
 import { Profile } from 'models/class/profile';
@@ -25,7 +24,6 @@ export class LoginPage implements OnInit, OnDestroy {
     private router: Router,
     private translateConfigService: TranslateConfigService,
     private loadingCtrl: LoadingController,
-    private userDataService: UserDataService,
     private profileService: ProfileService,
   ) {
     this.translateConfigService.getDefaultLanguage();
@@ -65,7 +63,6 @@ export class LoginPage implements OnInit, OnDestroy {
 
   private async goToPage(profile: Profile) {
     if (profile) {
-      // this.profileHelperService.setProfile(profile);
       await this.router.navigate(['home/tabs/tab1']);
     } else {
       await this.router.navigate(['profile']);

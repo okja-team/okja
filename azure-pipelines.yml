@@ -9,8 +9,7 @@ steps:
 - task: UseNode@1
   inputs:
     version: '12.x'
-    checkLatest: true
-    
+    checkLatest: true 
 - task: CmdLine@2
   displayName : 'Ionic & Capacitory Build'
   inputs:
@@ -19,10 +18,9 @@ steps:
       npm install -g @ionic/cli
       npm install capacitor
       
-      ionic build $(type)
+      ionic build
       ionic capacitor sync
     workingDirectory: 'mobile'
-
 - task: Gradle@2
   inputs:
     gradleWrapperFile: 'mobile/android/gradlew'
@@ -34,19 +32,33 @@ steps:
     gradleOptions: '-Xmx3072m'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
-    tasks: 'assembleDebug'
-
+    tasks: 'assemble$(androidVariant)'
+- task: AndroidSigning@3
+  inputs:
+    apksign: true
+    zipalign: true
+    apkFiles: 'mobile/android/**/*.apk'
+    apksignerKeystoreFile: 'iforyou-release.keystore'
+    apksignerKeystorePassword: '$(androidKeystorePassword)'
+    apksignerKeystoreAlias: 'iforyou'
+    apksignerKeyPassword: '$(androidKeystorePassword)'
 - task: CopyFiles@2
   inputs:
-    contents: '**/*.apk'
+    contents: 'mobile/android/**/*.apk'
     targetFolder: '$(build.artifactStagingDirectory)'
   displayName: Copy .apk files to artifact staging directory
-
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: '$(build.artifactStagingDirectory)'
     artifactName: 'drop'
     artifactType: 'container'
   displayName: Publish artifacts
-
-
+- task: AppCenterDistribute@3
+  inputs:
+      serverEndpoint: 'Okja - App Center'
+      appSlug: 'okja-team/i-for-you'
+      appFile: 'mobile/android/**/*.apk'
+      symbolsOption: 'Android'
+      releaseNotesOption: 'input'
+      releaseNotesInput: 'Build $(type) $(androidVariant)'
+      destinationType: 'groups'

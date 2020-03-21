@@ -42,7 +42,6 @@ export class ProfileService {
     } else {
       this.unpublishProfile(profile);
     }
-    console.log("add " + JSON.stringify(Object.assign({}, profile)));
     return from(this.afStore.doc(`profiles/${this.user.uid}`).set(Object.assign({}, profile, { merge: true })));
   }
 
