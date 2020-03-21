@@ -4,10 +4,9 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { TranslateConfigService } from '../../services/translate-config.service';
 import { LoadingController } from '@ionic/angular';
 import { ProfileService } from '../../services/profile.service';
-import { Profile } from '../../models/profile';
-import { UserDataService } from '../../services/user-data/user-data.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { take } from 'rxjs/operators';
+import { Profile } from 'models/class/profile';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +24,7 @@ export class LoginPage implements OnInit, OnDestroy {
     private router: Router,
     private translateConfigService: TranslateConfigService,
     private loadingCtrl: LoadingController,
-    private userDataService: UserDataService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
   ) {
     this.translateConfigService.getDefaultLanguage();
   }
@@ -59,7 +57,6 @@ export class LoginPage implements OnInit, OnDestroy {
     this.profileService.getProfile()
       .pipe(take(1), untilDestroyed(this))
       .subscribe(profile => {
-        // this.profile = profile;
         this.goToPage(profile);
       });
   }

@@ -3,8 +3,8 @@ import { Plugins, Toast } from '@capacitor/core';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { ProfileService } from '../../services/profile.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { Profile } from '../../models/profile';
 import { LoadingController } from '@ionic/angular';
+import { Profile } from 'models/class/profile';
 
 const { Geolocation } = Plugins;
 
