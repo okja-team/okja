@@ -7,7 +7,7 @@
 
   <app-explore-container name="Tab 1 page"></app-explore-container>
 
-  <agm-map #AgmMap (mapReady)="mapReady($event)" [latitude]="lat" [longitude]="lng" [usePanning]="true" [zoom]="12"
+  <agm-map [hidden]="hiddenMap" #AgmMap (mapReady)="mapReady($event)" [latitude]="lat" [longitude]="lng" [usePanning]="true" [zoom]="12"
     (mapClick)="closeCard()"
     [disableDefaultUI]="false">
 

@@ -13,6 +13,9 @@ import { ICapability } from 'models/inteface/capability.interfae';
 import { Roles } from 'models/enums/roles.enum';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { TranslateConfigService } from '../../services/translate-config.service';
+import { ProfileService } from 'services/profile.service';
+import { take } from 'rxjs/operators';
+import { LoadingController } from '@ionic/angular';
 declare const google: any;
 
 @Component({
@@ -24,6 +27,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
 
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 
+  hiddenMap = true;
   firstTime: boolean = true;
   opacityNotSelected: number = 0.4;
   opacitySelected: number = 1;
@@ -36,8 +40,8 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   };
   profileSelected: Profile = null;
   activeProfile: Profile[] = [];
-  lat: Number;
-  lng: Number;
+  lat: any;
+  lng: any;
 
   map: any;
 
@@ -45,7 +49,10 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     public router: Router,
     private translactionServise: TranslateConfigService,
     private activeProfileSerive: ActiveProfilesService,
-    private callNumber: CallNumber) {
+    private profileService: ProfileService,
+    private callNumber: CallNumber,
+    private loadingCtrl: LoadingController
+  ) {
     translactionServise.getDefaultLanguage();
   }
 
@@ -66,19 +73,37 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   ionViewDidLeave() {
-    this.lat = 0;
-    this.lng = 0;
+    this.lat = '';
+    this.lng = '';
   }
 
-  repositionMap() {
+  async repositionMap() {
+    const loader = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
+    await loader.present(); //TODO
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: Position) => {
         if (position) {
           this.lat = position.coords.latitude;
           this.lng = position.coords.longitude;
+          this.hiddenMap = false;
         }
-      })
+      });
+    } else {
+      this.profileService.getProfile()
+        .pipe(take(1), untilDestroyed(this))
+        .subscribe(p => {
+          if (p && p.position && p.position.lat && p.position.lng) {
+            this.lat = p.position.lat;
+            this.lng = p.position.lng;
+            this.hiddenMap = false;
+          }
+        });
     }
+    await loader.dismiss();
   }
 
   getOpacity(p: Profile): number {
