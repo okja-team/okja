@@ -4,7 +4,5 @@ export interface User {
     displayName: string;
     photoURL: string;
     emailVerified: boolean;
-    // helper: boolean;
-    // pharmacy: boolean;
-    // food: boolean;
+    phoneNumber: string;
 }

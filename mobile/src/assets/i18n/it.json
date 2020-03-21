@@ -39,6 +39,7 @@
     },
     "PROFILE_PAGE":{
         "TITLE": "Profilo",
+        "FIRST_MESSAGE": "Ciao! Se sei in quarantena posso darti una mano",	
         "NAME": "Nome",
         "SURNAME": "Cognome",
         "ADDRESS": "Indirizzo",

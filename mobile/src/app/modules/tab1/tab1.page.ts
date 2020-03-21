@@ -1,15 +1,21 @@
-import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActiveProfileService } from 'src/app/active-profile.service';
+import { ActiveProfileService } from 'active-profile.service';
 import { AgmMap } from '@agm/core';
-import { Profile } from 'src/app/models/class/profile';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild
+  } from '@angular/core';
+import { Router } from '@angular/router';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Profile } from 'models/class/profile';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit, OnDestroy {
 
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 
@@ -19,12 +25,20 @@ export class Tab1Page {
     public router: Router,
     private activeProfileSerive: ActiveProfileService) { }
 
+  ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+  }
+
   ionViewDidEnter() {
-    this.activeProfileSerive.getActiveProfile().subscribe(x => {
-      console.log(x);
-      this.activeProfile = x;
-      // this.repositionMap();
-    });
+    this.activeProfileSerive.getActiveProfile()
+      .pipe(untilDestroyed(this))
+      .subscribe(x => {
+        console.log(x);
+        this.activeProfile = x;
+        // this.repositionMap();
+      });
   }
 
   // repositionMap() {

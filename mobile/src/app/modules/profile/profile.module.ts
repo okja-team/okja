@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
-import { LocationSelectionPageModule } from '../location-selection/location-selection.module';
 
 @NgModule({
   imports: [
@@ -16,7 +15,6 @@ import { LocationSelectionPageModule } from '../location-selection/location-sele
     ReactiveFormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    LocationSelectionPageModule,
     TranslateModule.forChild()
   ],
   declarations: [ProfilePage]

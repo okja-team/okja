@@ -1,45 +1,44 @@
 
-import { Position } from './profile-position';
 import { Roles } from '../enums/roles.enum';
+import { IPosition } from 'models/inteface/position.interface';
+import { ICapability } from 'models/inteface/capability.interfae';
+import { IProfile } from 'models/inteface/profile.interface';
 
-export class Profile {
-    id: string;
-    nome: string;
-    cognome: string;
-    indirizzo: string;
-    contatto: string;
-    capabilities: Map<Roles, boolean>;
+export class Profile implements IProfile {
 
-    isHelper: boolean;
+    constructor(
+        public name?: string,
+        public surName?: string,
+        public address?: string,
+        public phone?: string,
+        public isAvailable?: boolean,
+        public capabilities?: ICapability[],
+        public position?: IPosition,
+        public photoURL?: string,
+        public isHelper?: boolean,
+        public id?: string
+    ) {
+        this.id = id || null;
+        this.name = name || '';
+        this.surName = surName || '';
+        this.address = address || '';
+        this.phone = phone || '+39';
+        this.isAvailable = isAvailable || true;
+        this.photoURL = photoURL || '';
+        this.position = position ||
+        {
+            lat: this.position && this.position.lat || '',
+            lng: this.position && this.position.lng || ''
+        };
+        this.isHelper = isHelper || true;
+        if (capabilities) {
+            this.capabilities = capabilities;
+        } else {
+            this.capabilities = [];
+            Object.values(Roles).forEach(roleType => {
+                this.capabilities.push({ type: roleType, available: true });
 
-    published: boolean;
-
-    position: Position;
-
-    constructor() {
-        this.initCapabilities();
-        this.isHelper = false;
-        this.published = false;
-    }
-
-    public setCapability(aiuto: Roles, value: boolean): void{
-        this.capabilities.set(aiuto, value);
-    }
-
-    public getCapability(aiuto: Roles): boolean {
-        return this.capabilities.get(aiuto);
-    }
-
-    public isProfileValid(): boolean {
-        return !!this.nome && !!this.cognome && !!this.indirizzo && !!this.contatto && !!this.position &&
-            typeof this.isHelper !== "undefined";
-    }
-
-    private initCapabilities(): void {
-        this.capabilities = new Map<Roles, boolean>();
-        this.capabilities.set(Roles.Spesa, false);
-        this.capabilities.set(Roles.Posta, false);
-        this.capabilities.set(Roles.Farmacia, false);
-        this.capabilities.set(Roles.Compagnia, false);
+            });
+        }
     }
 }

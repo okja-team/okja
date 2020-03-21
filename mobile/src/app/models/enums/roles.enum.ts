@@ -1,6 +1,6 @@
 export enum Roles {
-    Spesa,
-    Farmacia,
-    Posta,
-    Compagnia
+    Food = 'food',
+    Pharmacy = 'pharmacy',
+    Mail = 'mail',
+    Company = 'company'
 }
