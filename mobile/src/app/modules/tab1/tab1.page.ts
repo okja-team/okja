@@ -28,7 +28,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   opacityNotSelected: number = 0.4;
   opacitySelected: number = 1;
   icon: any = {
-    url: "assets/images/icon/help_you.png",
+    url: 'assets/images/icon/help_you.png',
     scaledSize: {
       width: 64,
       height: 64
@@ -83,8 +83,13 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   getOpacity(p: Profile): number {
 
-    if (!this.profileSelected || (p.id && this.profileSelected.id == p.id) || (p.surName == this.profileSelected.surName && p.name == this.profileSelected.name))
+    if (
+      !this.profileSelected
+      || (p.id && this.profileSelected.id === p.id)
+      || (p.surName === this.profileSelected.surName && p.name === this.profileSelected.name)
+    ) {
       return this.opacitySelected;
+    }
 
     return this.opacityNotSelected;
   }
@@ -108,19 +113,20 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   getActiveRoles(): ICapability[] {
-    if (this.profileSelected.capabilities)
+    if (this.profileSelected.capabilities) {
       return this.profileSelected.capabilities.filter(act => act.available);
+    }
     return [];
   }
 
   getColorFromRoleType(roleType: Roles): string {
     switch (roleType) {
       case Roles.Food:
-        return "#046506";
+        return '#046506';
       case Roles.Pharmacy:
-        return "#df8c8c";
+        return '#df8c8c';
       default:
-        return "#dcdcdc";
+        return '#dcdcdc';
     }
   }
 

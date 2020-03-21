@@ -5,6 +5,7 @@ export interface IProfile {
     surName?: string;
     address?: string;
     phone?: string;
+    skypeId?: string;
     isAvailable?: boolean;
     capabilities?: ICapability[];
     position?: IPosition;
