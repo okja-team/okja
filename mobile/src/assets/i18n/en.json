@@ -20,14 +20,12 @@
     },
     "CARDS_PAGE": {
         "TITLE": "Helpers list",
-        "HELPS_WITH": "Helps with:",
-        "CONTACT": "Contact",
-        "INFO": "Info",
         "FILTERS": {
             "TYPE_FILTER": "Type",
             "DISTANCE_FILTER": "Distance",
             "NO_DISTANCE": "No distance"
-        }
+        },
+        "NEAR_YOU": "near you"
     },
     "SETTINGS_PAGE": {
         "TITLE": "Settings",
@@ -63,7 +61,7 @@
         "LOADER_MESSAGE": "Saving your profile"
     },
     "COMMON": {
-        "UNIT_DISTANCE": "km",
+        "UNIT_DISTANCE": "m",
         "ACTIVITY_TYPES": {
             "FOOD": "Food",
             "PHARMACY": "Pharmacy"

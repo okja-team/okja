@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="header">
   <ion-toolbar>
     <ion-title>
       {{ 'CARDS_PAGE.TITLE' | translate }}
@@ -25,22 +25,13 @@
         </ion-avatar>
         <ion-label>
           <h2>{{ helper.name }}</h2>
-          <p>{{ 'CARDS_PAGE.HELPS_WITH' | translate }}</p>
+          <h4 *ngIf="helper.position">{{ computeDistance(helper.position) }}{{ 'COMMON.UNIT_DISTANCE' | translate }} {{ 'CARDS_PAGE.NEAR_YOU' | translate }}</h4>
           <ion-chip *ngFor="let role of helper.activity"> 
             <ion-label>{{ 'COMMON.ACTIVITY_TYPES.' + role.type.toUpperCase() | translate }}</ion-label>
           </ion-chip>
         </ion-label>
+        <ion-icon name="call"></ion-icon>
       </ion-item>
-      <ion-item-divider>
-        <ion-item-divider (click)="onClickInfo(helper.id)">
-          <ion-label slot="start">{{ 'CARDS_PAGE.INFO' | translate }}</ion-label>
-          <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
-        </ion-item-divider>
-        <ion-item-divider (click)="onClickPhone(helper.phone)">
-          <ion-label slot="end">{{ 'CARDS_PAGE.CONTACT' | translate }}</ion-label>
-          <ion-icon name="call-outline" slot="end" color="primary"></ion-icon>
-        </ion-item-divider>
-      </ion-item-divider>
     </ion-card>
   </ion-list>
 

@@ -57,4 +57,8 @@ export class FilterProfilePage implements OnInit {
     await modal.present();
   }
 
+  computeDistance(position) {
+    return 400;
+  }
+
 }

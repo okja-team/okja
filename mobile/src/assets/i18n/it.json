@@ -20,14 +20,12 @@
     },
     "CARDS_PAGE": {
         "TITLE": "Lista di volontari",
-        "HELPS_WITH": "Aiuta con:",
-        "CONTACT": "Contatta",
-        "INFO": "Info",
         "FILTERS": {
             "TYPE_FILTER": "Tipologia",
             "DISTANCE_FILTER": "Distanza",
             "NO_DISTANCE": "Nessuna distanza"
-        }
+        },
+        "NEAR_YOU": "vicino a te"
     },
     "SETTINGS_PAGE": {
         "TITLE": "Impostazioni",
@@ -63,7 +61,7 @@
         "LOADER_MESSAGE": "Salvataggio profilo in corso"
     },
     "COMMON": {
-        "UNIT_DISTANCE": "km",
+        "UNIT_DISTANCE": "m",
         "ACTIVITY_TYPES": {
             "FOOD": "Spesa",
             "PHARMACY": "Medicine"
