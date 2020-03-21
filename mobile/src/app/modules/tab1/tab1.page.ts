@@ -1,9 +1,14 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { ActiveProfileService } from 'active-profile.service';
-import { Profile } from 'models/profile';
 import { AgmMap } from '@agm/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild
+  } from '@angular/core';
+import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Profile } from 'models/class/profile';
 
 @Component({
   selector: 'app-tab1',

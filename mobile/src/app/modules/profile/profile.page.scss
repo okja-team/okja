@@ -1,10 +1,16 @@
-.profile-card {
-    .title {
-        font-size: 23px;
-    }
+.registrazione-card {
+
+    overflow-y: auto;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
 
     ion-card-content {
         padding-left: 0;
+    }
+
+    ion-card-header {
+        padding: 0;
     }
 
     .width-30 {
@@ -13,19 +19,37 @@
 
     .list-full {
         width: 100%;
-        margin-top: 30px;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     .button {
         padding-left: 20px;
         margin: auto;
+        margin-bottom: 5px;
+    }
+
+    ion-segment {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .segment-container {
+        width: 106%;
+    }
+
+    .important-statement {
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 0;
     }
 }
 
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-  }
+.container {
+    height: 100vh;
+    display: flex;
+    background-color: rgb(231, 240, 253);
+}
+
+.dark-background {
+    background-color: #000000;
+}
