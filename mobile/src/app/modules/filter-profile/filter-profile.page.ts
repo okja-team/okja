@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Profile } from 'models/profile';
+import { ModalController } from '@ionic/angular';
+import { FilterPage } from 'modules/filter/filter.page';
 
 @Component({
   selector: 'app-filter-profile',
@@ -9,11 +11,8 @@ import { Profile } from 'models/profile';
 export class FilterProfilePage implements OnInit {
 
   public helpers: Profile[] = [];
-  public pharmacyFilter = true;
-  public foodFilter = true;
-  public distanceFilter = '5';
 
-  constructor() {}
+  constructor(private modalController: ModalController) {}
 
   ngOnInit() {
     this.mockHelpers();
@@ -34,8 +33,6 @@ export class FilterProfilePage implements OnInit {
     profile3.name = 'Volontario 3';
     profile3.phone = '3398765234';
     this.helpers.push(profile3);
-
-    this.filterHelpersList();
   }
 
   onClickPhone(phoneNumber: string) {
@@ -44,21 +41,20 @@ export class FilterProfilePage implements OnInit {
   onClickInfo(id: string) {
   }
 
-  onDistanceChange() {
-    console.log(this.distanceFilter);
-    this.filterHelpersList();
+  filterHelpersList(filters) {
   }
 
-  onFoodChange() {
-    this.foodFilter ? this.foodFilter = false : this.foodFilter = true;
-    this.filterHelpersList();
-  }
-  onPharmacyChange() {
-    this.pharmacyFilter ? this.pharmacyFilter = false : this.pharmacyFilter = true;
-    this.filterHelpersList();
-  }
+  async openFilterModal() {
+    const modal: HTMLIonModalElement =
+       await this.modalController.create({
+          component: FilterPage
+    });
 
-  filterHelpersList() {
+    modal.onDidDismiss().then((filters) => {
+      this.filterHelpersList(filters);
+    });
+
+    await modal.present();
   }
 
 }
