@@ -1,13 +1,18 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { ActiveProfileService } from 'active-profile.service';
-import { Profile } from 'models/profile';
-import { Role } from 'models/role';
-import { RoleType } from 'models/role.enum';
 import { AgmMap } from '@agm/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Profile } from 'models/class/profile';
+import { ICapability } from 'models/inteface/capability.interfae';
+import { Roles } from 'models/enums/roles.enum';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { TranslateConfigService } from '../../services/translate-config.service';
-import { untilDestroyed } from 'ngx-take-until-destroy';
 declare const google: any;
 
 @Component({
@@ -93,40 +98,41 @@ export class Tab1Page implements OnInit, OnDestroy {
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ProfileButton'));
   }
 
-  openCardHelper(profile: Profile): void {  
-    if(this.firstTime){
+  openCardHelper(profile: Profile): void {
+    if (this.firstTime) {
       this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('ProfileHelperContainer'));
       this.firstTime = false;
     }
     this.profileSelected = profile;
+    console.log(this.profileSelected.address);
   }
 
-  getActiveRoles(): Role[] {
-    if(this.profileSelected.activity)
-      return this.profileSelected.activity.filter(act => act.active);
+  getActiveRoles(): ICapability[] {
+    if (this.profileSelected.capabilities)
+      return this.profileSelected.capabilities.filter(act => act.available);
     return [];
   }
 
-  getColorFromRoleType(roleType: RoleType): string {
+  getColorFromRoleType(roleType: Roles): string {
     switch (roleType) {
-      case RoleType.Food:
+      case Roles.Food:
         return "#046506";
-      case RoleType.Pharmacy:
+      case Roles.Pharmacy:
         return "#df8c8c";
       default:
         return "#dcdcdc";
     }
   }
 
-  closeCard(): void{
+  closeCard(): void {
     this.profileSelected = null;
   }
 
-  openSkype(profile: Profile){
+  openSkype(profile: Profile) {
 
   }
 
-  callProfile(){
+  callProfile() {
     this.callNumber.callNumber(this.profileSelected.phone, false).then(res => console.log('Launched dialer!', res))
   }
 }

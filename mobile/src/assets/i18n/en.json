@@ -48,7 +48,9 @@
         "AVAILABLE": "I'M AVAILABLE",
         "ROLE_TYPE": {
             "food": "food",
-            "farmacy": "farmacy"
+            "farmacy": "farmacy",
+            "MAIL": "mail",
+            "COMPANY": "company"
         },
         "SAVE": "Save",
         "SIGN_UP": "Sign up",
@@ -60,7 +62,9 @@
         "HELP": "wants help you!",
         "ROLE_TYPE": {
             "food": "MARKET",
-            "farmacy": "PHARMACY"
+            "pharmacy": "PHARMACY",
+            "mail": "MAIL",
+            "company": "COMPANY"
         }
     }
 }
