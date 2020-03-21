@@ -1,4 +1,4 @@
-import { ActiveProfileService } from 'active-profile.service';
+import { ActiveProfilesService } from 'active-profiles.service';
 import { AgmMap } from '@agm/core';
 import {
   Component,
@@ -16,11 +16,11 @@ import { TranslateConfigService } from '../../services/translate-config.service'
 declare const google: any;
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'active-profiles',
+  templateUrl: 'active-profiles.page.html',
+  styleUrls: ['active-profiles.page.scss']
 })
-export class Tab1Page implements OnInit, OnDestroy {
+export class ActiveProfilesPage implements OnInit, OnDestroy {
 
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 
@@ -44,7 +44,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   constructor(
     public router: Router,
     private translactionServise: TranslateConfigService,
-    private activeProfileSerive: ActiveProfileService,
+    private activeProfileSerive: ActiveProfilesService,
     private callNumber: CallNumber) {
     translactionServise.getDefaultLanguage();
   }

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Profile } from './models/class/profile';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActiveProfileService {
+export class ActiveProfilesService {
 
 
   private activeProfiles: Observable<Profile[]>;
