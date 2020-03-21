@@ -11,11 +11,11 @@ export class Profile implements IProfile {
         public surName?: string,
         public address?: string,
         public phone?: string,
-        public isAvailable?: boolean,
+        public isAvailable = true,
         public capabilities?: ICapability[],
         public position?: IPosition,
         public photoURL?: string,
-        public isHelper?: boolean,
+        public isHelper = true,
         public id?: string
     ) {
         this.id = id || null;
@@ -23,14 +23,14 @@ export class Profile implements IProfile {
         this.surName = surName || '';
         this.address = address || '';
         this.phone = phone || '+39';
-        this.isAvailable = isAvailable || true;
+        this.isAvailable = isAvailable;
         this.photoURL = photoURL || '';
         this.position = position ||
         {
             lat: this.position && this.position.lat || '',
             lng: this.position && this.position.lng || ''
         };
-        this.isHelper = isHelper || true;
+        this.isHelper = isHelper;
         if (capabilities) {
             this.capabilities = capabilities;
         } else {

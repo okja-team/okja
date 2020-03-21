@@ -1,21 +1,13 @@
-<ion-content>
-  <div class="container" [ngClass]="{'dark-background': isDarkMode}">
-    <div class="card-container">
-      <h1>{{ 'LOGIN_PAGE.TITLE' | translate }}</h1>
-
-      <!--TODO: FACEBOOK AUTH-->
-      <ion-card (click)="loginWithSocial()">
-        <ion-item lines="none">
-          <ion-icon class="facebook" name="logo-facebook"></ion-icon>
-          <ion-text>{{'LOGIN_PAGE.SIGN_IN_FACEBOOK' | translate}}</ion-text>
-        </ion-item>
-      </ion-card>
-      <ion-card (click)="loginWithSocial()">
-        <ion-item lines="none">
-          <ion-icon class="google" name="logo-google"></ion-icon>
-          <ion-text>{{ 'LOGIN_PAGE.SIGN_IN_GOOGLE' | translate }}</ion-text>
-        </ion-item>
-      </ion-card>
+<div class="main-background app-background">
+  <img src="../../../assets/images/icon/favicon.png">
+  <div class="main-text">
+    <h1 [innerHTML]="'LOGIN_PAGE.TITLE' | translate"></h1>
+    <div class="description-text">
+      {{ "LOGIN_PAGE.DESCR" | translate }}
     </div>
   </div>
-</ion-content>
+  <div class="buttons">
+    <round-button [color]="'blue'">{{ "LOGIN_PAGE.SIGN_IN_FACEBOOK" | translate }}</round-button>
+    <round-button [color]="'red'">{{ "LOGIN_PAGE.SIGN_IN_GOOGLE" | translate }}</round-button>
+  </div>
+</div>
