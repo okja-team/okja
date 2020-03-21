@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { AgmCoreModule } from '@agm/core';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -14,7 +16,11 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     AgmCoreModule,
     ExploreContainerComponentModule,
-    RouterModule.forChild([{ path: '', component: Tab1Page }])
+    RouterModule.forChild([{ path: '', component: Tab1Page }]),
+    TranslateModule.forChild()
+  ],
+  providers: [
+    CallNumber
   ],
   declarations: [Tab1Page]
 })

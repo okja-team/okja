@@ -60,5 +60,14 @@
         "CLOSE": "Chiudi",
         "POSITION": "Posizione",
         "LOADER_MESSAGE": "Salvataggio profilo in corso"
+    },
+    "TAB1_PAGE":{
+        "HELP": "vuole aiutarti!",
+        "ROLE_TYPE": {
+            "food": "SPESA",
+            "pharmacy": "FARMACIA",
+            "mail": "POSTA",
+            "company": "COMPAGNIA"
+        }
     }
 }
