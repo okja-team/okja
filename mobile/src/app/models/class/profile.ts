@@ -6,11 +6,13 @@ import { IProfile } from 'models/inteface/profile.interface';
 
 export class Profile implements IProfile {
 
+
     constructor(
         public name?: string,
         public surName?: string,
         public address?: string,
         public phone?: string,
+        public skypeId?: string,
         public isAvailable = true,
         public capabilities?: ICapability[],
         public position?: IPosition,
@@ -23,6 +25,7 @@ export class Profile implements IProfile {
         this.surName = surName || '';
         this.address = address || '';
         this.phone = phone || '+39';
+        this.skypeId = skypeId || '';
         this.isAvailable = isAvailable;
         this.photoURL = photoURL || '';
         this.position = position ||
