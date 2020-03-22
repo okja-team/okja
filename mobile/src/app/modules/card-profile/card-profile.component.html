@@ -1,39 +1,40 @@
 <ion-grid class="container">
-  <ion-row size="12" class="ion-justify-content-center">
+  <ion-row size="12" class="avatarContainer ion-justify-content-center">
     <ion-col>
       <ion-avatar class="avatarPhoto ion-justify-content-center">
         <img
-                [src]="profileSelected.photoURL ? profileSelected.photoURL : 'assets/images/icon/ico_user_placeholder.svg'" />
+          [src]="profileSelected.photoURL ? profileSelected.photoURL : 'assets/images/icon/ico_user_placeholder.svg'" />
       </ion-avatar>
     </ion-col>
   </ion-row>
-  <ion-row size="12" class="ion-justify-content-center">
-    <ion-label *ngFor="let entry of getActiveRoles()" class="role-type-label"
-               [style.background-color]="getColorFromRoleType(entry.type)">
-      <ion-text class="role-type-text">{{('TAB1_PAGE.ROLE_TYPE.' + entry.type) | translate}}</ion-text>
-    </ion-label>
+  <ion-row size="12" class="roleContainer ion-justify-content-center">
+    <ion-chip *ngFor="let role of getActiveRoles()" [style.background-color]="getColorFromRoleType(role.type)" class="roleChip">
+      <ion-label>{{ 'COMMON.ACTIVITY_TYPES.' + role.type.toUpperCase() | translate }}</ion-label>
+    </ion-chip>
   </ion-row>
   <ion-row size="12" class="ion-justify-content-center">
     <ion-text class="address">{{profileSelected.address}}</ion-text>
   </ion-row>
-  <ion-row>
+  <ion-row class="buttonsContainer">
     <ion-col>
       <div class="ion-text-center">
-        <ion-fab-button [disabled]="!profileSelected.skypeId" color="light" href="skype:{{profileSelected.skypeId}}?chat">
+        <ion-fab-button class="button" [disabled]="!profileSelected.skypeId" color="light"
+          href="skype:{{profileSelected.skypeId}}?chat">
           <ion-img src="assets/images/icon/ico_skype.png" class="icon-button"></ion-img>
         </ion-fab-button>
       </div>
     </ion-col>
     <ion-col>
       <div class="ion-text-center">
-        <ion-fab-button [disabled]="!profileSelected.phone" color="light" href="tel:{{profileSelected.phone}}:chat">
+        <ion-fab-button class="button" [disabled]="!profileSelected.phone" color="light"
+          href="tel:{{profileSelected.phone}}:chat">
           <ion-img src="assets/images/icon/ico_telephone.svg" class="icon-button"></ion-img>
         </ion-fab-button>
       </div>
     </ion-col>
     <ion-col>
       <div class="ion-text-center">
-        <ion-fab-button (onclick)="callProfile()" color="light">
+        <ion-fab-button class="button" [disabled]="true" color="light">
           <ion-img src="assets/images/icon/ico_info_cards_helperinfo.svg" class="icon-button"></ion-img>
         </ion-fab-button>
       </div>

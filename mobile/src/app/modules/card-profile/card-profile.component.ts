@@ -23,7 +23,7 @@ export class CardProfileComponent implements OnInit {
 
   getActiveRoles(): ICapability[] {
     if (this.profileSelected.capabilities) {
-      return this.profileSelected.capabilities.filter(act => act.available);
+      return this.profileSelected.capabilities.filter(act => act.available).slice(0,2);
     }
     return [];
   }
@@ -38,6 +38,4 @@ export class CardProfileComponent implements OnInit {
         return '#dcdcdc';
     }
   }
-
-  openSkype(profile: Profile) { }
 }

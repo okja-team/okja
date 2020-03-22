@@ -7,11 +7,31 @@
   align-items: center;
   justify-content: center;
 }
+.avatarContainer {
+  padding-top: 2em;
+}
+.roleContainer {
+  padding-top: 2em;
+}
+.roleChip {
+  border-radius: 0px;
+  font-weight: bold;
+  color: white;
+}
+
+.buttonsContainer {
+  padding-top: 2em;
+}
 .avatarPhoto {
   border: 2px solid white;
   margin: 0 auto;
+  width: 60px;
+  height: 60px;
 }
-
-.icon-button{
-  margin : 1em;
+.icon-button {
+  margin: 1em;
+}
+.button {
+  width: 60px;
+  height: 60px;
 }
