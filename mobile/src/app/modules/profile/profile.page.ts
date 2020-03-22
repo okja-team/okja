@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController, ToastController } from '@ionic/angular';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { Profile } from '../../models/profile';
 import { ProfileService } from '../../services/profile.service';
 import { Router } from '@angular/router';
 import { TranslateConfigService } from '../../services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { UserDataService } from '../../services/user-data/user-data.service';
-
+import { Roles } from 'models/enums/roles.enum';
+import { Profile } from 'models/class/profile';
 
 @Component({
   selector: 'app-profile',
@@ -17,18 +17,24 @@ import { UserDataService } from '../../services/user-data/user-data.service';
 })
 export class ProfilePage implements OnInit, OnDestroy {
 
-  profile: Profile;
-  hasProfile = false;
+  public profile: Profile;
+  public hasProfile = false;
+  public help = Roles;
+  public isDarkMode = false;
+  public img: string;
 
   constructor(
-    private loadingCtrl: LoadingController,
-    private userDataService: UserDataService,
-    private profileService: ProfileService,
-    private translateConfigService: TranslateConfigService,
-    private navCtrl: NavController,
-    private router: Router
+    private readonly loadingCtrl: LoadingController,
+    private readonly userDataService: UserDataService,
+    private readonly profileService: ProfileService,
+    private readonly translateConfigService: TranslateConfigService,
+    private readonly navCtrl: NavController,
+    private readonly router: Router,
+    private readonly toast: ToastController,
   ) {
     this.translateConfigService.getDefaultLanguage();
+    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    this.img = `assets/img/abbiamo-bisogno-del-tuo-aiuto${this.isDarkMode ? '-dark' : ''}.png`;
   }
 
 
@@ -81,17 +87,37 @@ export class ProfilePage implements OnInit, OnDestroy {
   private getProfileSwitchMap(profile: Profile) {
     if (profile) {
       this.hasProfile = true;
+      console.log(profile);
       return of(profile);
     } else {
       return this.userDataService.getUser().pipe(map(user => {
         this.hasProfile = false;
         profile = new Profile();
-        profile.setProfileByUser(user);
+        this.profileService.setProfileByUser(profile, user);
+        console.log(profile);
         return profile;
       }));
     }
   }
 
+  public segmentChanged(event: CustomEvent): void {
+    this.profile.isHelper = event.detail.value === 'helper';
+  }
+
+  private async showToast(): Promise<void> {
+    const t = await this.toast.create({ message: 'Le informazioni inserite non sembrano essere corrette' })
+    t.present();
+    setTimeout(() => {
+      t.dismiss();
+    }, 2000);
+  }
+
+  setCapability(role: Roles, value: boolean) {
+    this.profileService.setCapability(this.profile, role, value);
+  }
+  getCapability(role: Roles) {
+    return this.profileService.getCapability(this.profile, role);
+  }
 }
 
 

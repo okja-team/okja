@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
-import { Profile } from '../models/profile';
-import { UserDataService } from './user-data/user-data.service';
+import { from, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { User } from './user-data/user.interface';
+import { UserDataService } from './user-data/user-data.service';
+import { Profile } from 'models/class/profile';
+import { Roles } from 'models/enums/roles.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -15,18 +15,16 @@ export class ProfileService {
   private profileDoc: AngularFirestoreDocument<Profile>;
 
   private publishProfileDoc: AngularFirestoreDocument<Profile>;
-  private user: User
+  private user: User;
 
   constructor(
     private afStore: AngularFirestore,
-    private afAuth: AngularFireAuth,
     private userDataService: UserDataService
   ) {
     this.userDataService.getUser().subscribe(user => {
       this.user = user;
     });
   }
-
 
   getProfile(): Observable<Profile> {
     this.profileDoc = this.afStore.doc(`profiles/${this.user.uid}`);
@@ -38,7 +36,8 @@ export class ProfileService {
     this.profileDoc.delete();
   }
   addProfile(profile: Profile) {
-    if (profile.published && profile.position && profile.position.lat && profile.position.lng) {
+    console.log(profile)
+    if (profile.isAvailable && profile.position && profile.position.lat && profile.position.lng) {
       this.publishProfile(profile);
     } else {
       this.unpublishProfile(profile);
@@ -54,5 +53,34 @@ export class ProfileService {
   unpublishProfile(profile: Profile) {
     this.publishProfileDoc = this.afStore.collection('active_profiles').doc(this.user.uid);
     return this.publishProfileDoc.delete();
+  }
+
+  public setProfileByUser(profile: Profile, user: User) {
+    if (user) {
+      profile.id = user.uid;
+      user.displayName.split(' ').forEach((partialName, index) => {
+        index === 0 ? profile.name = partialName : profile.surName += partialName + ' ';
+      });
+      profile.phone = user.phoneNumber || '+39';
+      profile.photoURL = user.photoURL || '';
+    }
+  }
+
+  public setCapability(profile: Profile, help: Roles, value: boolean): void {
+    const i = profile.capabilities.findIndex(x => x.type === help);
+    if (i > -1) {
+      profile.capabilities[i].available = value;
+    } else {
+      profile.capabilities.push({ type: help, available: value });
+    }
+  }
+
+  public getCapability(profile: Profile, help: Roles): boolean {
+    const i = profile.capabilities.findIndex(x => x.type === help);
+    if (i > -1) {
+      return profile.capabilities[i].available;;
+    } else {
+      return false;
+    }
   }
 }

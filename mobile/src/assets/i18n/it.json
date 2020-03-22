@@ -44,22 +44,36 @@
     },
     "PROFILE_PAGE":{
         "TITLE": "Profilo",
-        "FIRST_MESSAGE": "Ciao! Se sei in quarantena posso darti una mano",
+        "FIRST_MESSAGE": "Ciao! Se sei in quarantena posso darti una mano",	
         "NAME": "Nome",
         "SURNAME": "Cognome",
         "ADDRESS": "Indirizzo",
         "PHONE": "Contatto",
-        "MESSAGE_HELP": "Posso aiutarti con:",
-        "AVAILABLE": "SONO DISPONIBILE",
+        "BISOGNO_AIUTO": "Ho bisogno di aiuto",
+        "POSSO_AIUTARE": "Posso aiutare",
+        "MESSAGE_HELP": "Ho bisogno di aiuto con:",
+        "MESSAGE_HELPER": "Posso aiutarti con:",
+        "AVAILABLE": "Sono attualmente disponibile",
         "ROLE_TYPE": {
-            "food": "cibo",
-            "farmacy": "farmacia"
+            "FOOD": "Spesa",
+            "FARMACY": "Farmacia",
+            "MAIL": "Posta",
+            "COMPANY": "Compagnia"
         },
         "SAVE": "Salva",
         "SIGN_UP": "Registra",
         "CLOSE": "Chiudi",
         "POSITION": "Posizione",
         "LOADER_MESSAGE": "Salvataggio profilo in corso"
+    },
+    "TAB1_PAGE": {
+        "HELP": "vuole aiutarti!",
+        "ROLE_TYPE": {
+            "food": "SPESA",
+            "pharmacy": "FARMACIA",
+            "mail": "POSTA",
+            "company": "COMPAGNIA"
+        }
     },
     "COMMON": {
         "UNIT_DISTANCE": "m",

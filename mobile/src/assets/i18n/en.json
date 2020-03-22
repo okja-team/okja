@@ -53,13 +53,24 @@
         "AVAILABLE": "I'M AVAILABLE",
         "ROLE_TYPE": {
             "food": "food",
-            "farmacy": "farmacy"
+            "farmacy": "farmacy",
+            "MAIL": "mail",
+            "COMPANY": "company"
         },
         "SAVE": "Save",
         "SIGN_UP": "Sign up",
         "CLOSE": "Close",
         "POSITION": "Position",
         "LOADER_MESSAGE": "Saving your profile"
+    },
+    "TAB1_PAGE":{
+        "HELP": "wants help you!",
+        "ROLE_TYPE": {
+            "food": "MARKET",
+            "pharmacy": "PHARMACY",
+            "mail": "MAIL",
+            "company": "COMPANY"
+        }
     },
     "COMMON": {
         "UNIT_DISTANCE": "m",
