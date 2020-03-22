@@ -156,15 +156,11 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   goToProfile() {
-    this.authService.checkAuth()
-      .pipe(take(1), untilDestroyed(this))
-      .subscribe(user => {
-        if (user) {
-          this.router.navigate(['profile']);
-        } else {
-          this.router.navigate(['login']);
-        }
-      })
+    if (this.userLogged) {
+      this.router.navigate(['profile']);
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
   mapReady(event: any) {
