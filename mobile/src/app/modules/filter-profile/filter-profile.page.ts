@@ -6,9 +6,9 @@ import { UserDataService } from 'services/user-data/user-data.service';
 import { User } from 'services/user-data/user.interface';
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { ActiveProfilesPage } from 'modules/active-profiles/active-profiles.page';
 import { ActiveProfilesService } from 'active-profiles.service';
+import { Plugins } from '@capacitor/core';
+const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-filter-profile',
@@ -27,8 +27,7 @@ export class FilterProfilePage implements OnInit, OnDestroy {
     private userDataService: UserDataService,
     public router: Router,
     private activeProfileService: ActiveProfilesService,
-    private geolocation: Geolocation
-    ) {}
+  ) { }
 
   ngOnDestroy(): void {
   }
@@ -49,9 +48,9 @@ export class FilterProfilePage implements OnInit, OnDestroy {
 
   async openFilterModal() {
     const modal: HTMLIonModalElement =
-       await this.modalController.create({
-          component: FilterPage
-    });
+      await this.modalController.create({
+        component: FilterPage
+      });
 
     modal.onDidDismiss().then((filters) => {
       this.filterHelpersList(filters);
@@ -108,10 +107,10 @@ export class FilterProfilePage implements OnInit, OnDestroy {
 
   getActiveProfiles() {
     this.activeProfileService.getActiveProfile()
-    .pipe(untilDestroyed(this))
-    .subscribe(profiles => {
-      this.activeProfiles = this.filterProfiles(profiles);
-    });
+      .pipe(untilDestroyed(this))
+      .subscribe(profiles => {
+        this.activeProfiles = this.filterProfiles(profiles);
+      });
   }
 
   getUserData() {
@@ -125,12 +124,12 @@ export class FilterProfilePage implements OnInit, OnDestroy {
   }
 
   initDataUsers() {
-    this.geolocation.getCurrentPosition().then((resp) => {
+    Geolocation.getCurrentPosition().then((resp) => {
       this.userPosition = resp.coords;
       this.getActiveProfiles();
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
 }

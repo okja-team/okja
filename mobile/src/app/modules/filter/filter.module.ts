@@ -5,12 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { FilterPage } from './filter.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule
+    IonicModule,
+    TranslateModule.forChild()
+
   ],
   declarations: [FilterPage],
   entryComponents: [
