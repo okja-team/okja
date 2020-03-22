@@ -9,10 +9,11 @@ import {
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Profile } from 'models/class/profile';
-import { TranslateConfigService } from '../../services/translate-config.service';
+import { CardProfileComponent } from 'modules/card-profile/card-profile.component';
+import { TranslateConfigService } from 'services/translate-config.service';
 import { ProfileService } from 'services/profile.service';
 import { take } from 'rxjs/operators';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { UserDataService } from 'services/user-data/user-data.service';
 declare const google: any;
@@ -50,7 +51,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     private readonly translactionServise: TranslateConfigService,
     private readonly activeProfileSerive: ActiveProfilesService,
     private readonly profileService: ProfileService,
-    private readonly callNumber: CallNumber,
     private readonly loadingCtrl: LoadingController,
     private readonly authService: AuthenticationService,
     private readonly userDataService: UserDataService,
@@ -67,25 +67,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    this.userLogged = this.userDataService.isLoggedIn;
-    this.activeProfileSerive.getActiveProfile()
-      .pipe(untilDestroyed(this))
-      .subscribe(x => {
-        this.activeProfile = x;
-        // this.repositionMap();
-      });
-    const placeHolder = 'assets/images/icon/ico_user_placeholder.svg';
-    this.avatarPhoto = placeHolder;
-    if (this.userLogged) {
-      this.profileService.getProfile()
-        .pipe(take(1), untilDestroyed(this))
-        .subscribe(x => {
-          this.avatarPhoto = placeHolder;
-          if (x && x.photoURL) {
-            this.avatarPhoto = x.photoURL;
-          }
-        });
-    }
+    this.getActiveProfile();
     this.repositionMap();
   }
 
@@ -94,41 +76,77 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     this.lng = '';
   }
 
+  async getActiveProfile() {
+    const loader = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
+    loader.present()
+      .then(x => {
+        this.userLogged = this.userDataService.isLoggedIn;
+        this.activeProfileSerive.getActiveProfile()
+          .pipe(untilDestroyed(this))
+          .subscribe(x => {
+            this.activeProfile = x;
+            // this.repositionMap();
+          });
+        const placeHolder = 'assets/images/icon/ico_user_placeholder.svg';
+        this.avatarPhoto = placeHolder;
+        if (this.userLogged) {
+          this.profileService.getProfile()
+            .pipe(take(1), untilDestroyed(this))
+            .subscribe(x => {
+              this.avatarPhoto = placeHolder;
+              if (x && x.photoURL) {
+                this.avatarPhoto = x.photoURL;
+              }
+            });
+        }
+      })
+      .finally(() => {
+        loader.dismiss();
+      })
+
+  }
+
   async repositionMap() {
     const loader = await this.loadingCtrl.create({
       message: '',
       spinner: 'crescent',
     });
-    await loader.present(); //TODO
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position: Position) => {
-        if (position) {
-          this.lat = position.coords.latitude;
-          this.lng = position.coords.longitude;
-          this.hiddenMap = false;
+    loader.present()
+      .then(x => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position: Position) => {
+            if (position) {
+              this.lat = position.coords.latitude;
+              this.lng = position.coords.longitude;
+              this.hiddenMap = false;
+            }
+          });
+        } else {
+          this.profileService.getProfile()
+            .pipe(take(1), untilDestroyed(this))
+            .subscribe(p => {
+              if (p && p.position && p.position.lat && p.position.lng) {
+                this.lat = p.position.lat;
+                this.lng = p.position.lng;
+                this.hiddenMap = false;
+              }
+            });
         }
+      })
+      .finally(() => {
+        loader.dismiss();
       });
-    } else {
-      this.profileService.getProfile()
-        .pipe(take(1), untilDestroyed(this))
-        .subscribe(p => {
-          if (p && p.position && p.position.lat && p.position.lng) {
-            this.lat = p.position.lat;
-            this.lng = p.position.lng;
-            this.hiddenMap = false;
-          }
-        });
-    }
-    await loader.dismiss();
   }
 
   async presentModal() {
-    if(this.modal){
+    if (this.modal) {
       this.modal.dismiss();
       this.modal = null;
     }
-      
+
     this.modal = await this.modalController.create({
       component: CardProfileComponent,
       componentProps: {
@@ -174,7 +192,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   openCardHelper(profile: Profile): void {
     this.profileSelected = profile;
     this.presentModal();
-  }  
+  }
 
   closeCard(): void {
     this.modal.dismiss();
