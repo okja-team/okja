@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Profile } from 'models/class/profile';
 import { ICapability } from 'models/inteface/capability.interfae';
 import { Roles } from 'models/enums/roles.enum';
-import { CallNumber } from '@ionic-native/call-number/ngx';
 import { TranslateConfigService } from '../../services/translate-config.service';
 
 @Component({
@@ -15,8 +14,7 @@ export class CardProfileComponent implements OnInit {
   @Input() profileSelected: Profile;
 
   constructor(
-    private translactionServise: TranslateConfigService,
-    private callNumber: CallNumber
+    private translactionServise: TranslateConfigService
   ) {
     translactionServise.getDefaultLanguage();
   }
@@ -42,8 +40,4 @@ export class CardProfileComponent implements OnInit {
   }
 
   openSkype(profile: Profile) { }
-
-  callProfile() {
-    this.callNumber.callNumber(this.profileSelected.phone, false).then(res => console.log('Launched dialer!', res))
-  }
 }

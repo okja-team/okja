@@ -37,14 +37,17 @@
     <ion-col> 
       <div class="center">
         <ion-fab-button class="Oval" [disabled]="!profileSelected.skypeId" color="light">
-          <!--<ion-img class="card-action-button" src="assets/images/icon/ico_skype.svg"></ion-img>-->S
+          <!--<ion-img class="card-action-button" src="assets/images/icon/ico_skype.svg"></ion-img>-->
+          <a href="skype:{{profileSelected.skypeId}}?chat">S</a>
         </ion-fab-button>
       </div>
     </ion-col>
     <ion-col>
       <div class="center">
         <ion-fab-button class="Oval center" [disabled]="!profileSelected.phone" color="light">
-          <ion-img class="card-action-button" src="assets/images/icon/ico_telephone.svg"></ion-img>
+          <a href="tel:{{profileSelected.phone}}:chat">
+            <ion-img class="card-action-button" src="assets/images/icon/ico_telephone.svg"></ion-img>
+          </a>
         </ion-fab-button>
       </div>
     </ion-col>
