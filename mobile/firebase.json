@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "okja-beta",
     "public": "www",
     "ignore": [
       "firebase.json",
@@ -14,3 +15,5 @@
     ]
   }
 }
+
+
