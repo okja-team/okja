@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Profile } from 'models/class/profile';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { FilterPage } from 'modules/filter/filter.page';
 import { UserDataService } from 'services/user-data/user-data.service';
 import { User } from 'services/user-data/user.interface';
@@ -15,7 +15,7 @@ const { Geolocation } = Plugins;
   templateUrl: 'filter-profile.page.html',
   styleUrls: ['filter-profile.page.scss']
 })
-export class FilterProfilePage implements OnDestroy {
+export class FilterProfilePage implements OnInit, OnDestroy {
 
   activeProfiles: Profile[] = [];
   user: User;
@@ -23,25 +23,33 @@ export class FilterProfilePage implements OnDestroy {
   distanceFilter = 5000;
   availabilityFilter;
 
+  private loadingElement: HTMLIonLoadingElement;
+
   constructor(
     private modalController: ModalController,
     private userDataService: UserDataService,
     public router: Router,
     private activeProfileService: ActiveProfilesService,
+    private loadingCtrl: LoadingController
   ) { }
+
+  async ngOnInit() {
+    await this.setLoading();
+    await this.getUserData();
+    await this.initDataUsers();
+  }
 
   ngOnDestroy(): void {
   }
 
   ionViewDidEnter() {
-    this.getUserData();
-    this.initDataUsers();
   }
 
-  onClickPhone(phoneNumber: string) {
-  }
-
-  onClickInfo(id: string) {
+  private async setLoading() {
+    this.loadingElement = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'crescent',
+    });
   }
 
   async openFilterModal() {
@@ -110,15 +118,17 @@ export class FilterProfilePage implements OnDestroy {
     return profiles;
   }
 
-  getActiveProfiles() {
+  async getActiveProfiles() {
+    this.loadingElement.present();
     this.activeProfileService.getActiveProfile()
     .pipe(untilDestroyed(this))
     .subscribe(profiles => {
       this.activeProfiles = this.filterProfiles(profiles);
+      this.loadingElement.dismiss();
     });
   }
 
-  getUserData() {
+  async getUserData() {
     this.userDataService.getUser().subscribe((data) => {
       this.user = data;
     });
@@ -128,10 +138,12 @@ export class FilterProfilePage implements OnDestroy {
     this.router.navigate(['profile']);
   }
 
-  initDataUsers() {
+  async initDataUsers() {
+    this.loadingElement.present();
     Geolocation.getCurrentPosition().then((resp) => {
       this.userPosition = resp.coords;
       this.getActiveProfiles();
+      this.loadingElement.dismiss();
     }).catch((error) => {
       console.log('Error getting location', error);
     });
