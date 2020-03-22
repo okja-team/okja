@@ -13,7 +13,7 @@ import { CardProfileComponent } from 'modules/card-profile/card-profile.componen
 import { TranslateConfigService } from 'services/translate-config.service';
 import { ProfileService } from 'services/profile.service';
 import { take } from 'rxjs/operators';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, IonRouterOutlet } from '@ionic/angular';
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { UserDataService } from 'services/user-data/user-data.service';
 declare const google: any;
@@ -54,8 +54,8 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     private readonly loadingCtrl: LoadingController,
     private readonly authService: AuthenticationService,
     private readonly userDataService: UserDataService,
-    private readonly modalController: ModalController
-
+    private readonly modalController: ModalController,
+    private readonly routerOutlet: IonRouterOutlet
   ) {
     translactionServise.getDefaultLanguage();
   }
@@ -152,11 +152,13 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
       componentProps: {
         'profileSelected': this.profileSelected
       },
-      cssClass: "RectangleContainer",
-      swipeToClose: false,
-      showBackdrop: false
+      swipeToClose: true,
+      showBackdrop: true,
+      presentingElement: this.routerOutlet.nativeEl,
+      mode : 'ios',
+      cssClass: 'map-modal-card'
     });
-    return await this.modal.present();
+    return this.modal.present();
   }
 
   getOpacity(p: Profile): number {
