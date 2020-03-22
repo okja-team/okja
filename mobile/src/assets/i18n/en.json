@@ -20,13 +20,13 @@
     },
     "CARDS_PAGE": {
         "TITLE": "Helpers near you!",
-        "FILTERS": {
-            "TYPE_FILTER": "Type",
-            "DISTANCE_FILTER": "Distance",
-            "NO_DISTANCE": "No distance"
-        },
         "NEAR_YOU": "near you",
         "ALL_TIME": "All time"
+    },
+    "FILTER_PAGE": {
+        "FILTER_BY": "Filtra per",
+        "DISTANCE": "Distanza",
+        "AVAILABILITY": "Disponibilità"
     },
     "SETTINGS_PAGE": {
         "TITLE": "Settings",
@@ -74,9 +74,12 @@
     },
     "COMMON": {
         "UNIT_DISTANCE": "m",
+        "UNIT_DISTANCE_K": "km",
         "ACTIVITY_TYPES": {
             "FOOD": "Food",
-            "PHARMACY": "Pharmacy"
+            "PHARMACY": "Pharmacy",
+            "MAIL": "Mail",
+            "COMPANY": "Company"
         },
         "OK_BUTTON": "Ok",
         "CANCEL_BUTTON": "Cancel"

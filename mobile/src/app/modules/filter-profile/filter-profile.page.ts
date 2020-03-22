@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Profile } from 'models/class/profile';
 import { ModalController } from '@ionic/angular';
 import { FilterPage } from 'modules/filter/filter.page';
@@ -15,12 +15,13 @@ import { ActiveProfilesService } from 'active-profiles.service';
   templateUrl: 'filter-profile.page.html',
   styleUrls: ['filter-profile.page.scss']
 })
-export class FilterProfilePage implements OnInit, OnDestroy {
+export class FilterProfilePage implements OnDestroy {
 
   activeProfiles: Profile[] = [];
   user: User;
   userPosition: any;
   distanceFilter = 5000;
+  availabilityFilter;
 
   constructor(
     private modalController: ModalController,
@@ -33,7 +34,7 @@ export class FilterProfilePage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.getUserData();
     this.initDataUsers();
   }
@@ -44,17 +45,20 @@ export class FilterProfilePage implements OnInit, OnDestroy {
   onClickInfo(id: string) {
   }
 
-  filterHelpersList(filters) {
-  }
-
   async openFilterModal() {
     const modal: HTMLIonModalElement =
        await this.modalController.create({
-          component: FilterPage
+          component: FilterPage,
+          componentProps: {
+            distance: this.distanceFilter,
+            availability: this.availabilityFilter
+          }
     });
 
     modal.onDidDismiss().then((filters) => {
-      this.filterHelpersList(filters);
+      console.log(filters);
+      this.distanceFilter = filters.data.distance;
+      this.getActiveProfiles();
     });
 
     await modal.present();
@@ -102,7 +106,9 @@ export class FilterProfilePage implements OnInit, OnDestroy {
   filterProfiles(profiles) {
     profiles = this.sortProfiles(profiles);
     profiles = profiles.slice(0, 20);
-    profiles = profiles.filter(x => this.computeDistance(x.position) < this.distanceFilter);
+    if (this.distanceFilter !== 9999) {
+      profiles = profiles.filter(x => this.computeDistance(x.position) < this.distanceFilter);
+    }
     return profiles;
   }
 

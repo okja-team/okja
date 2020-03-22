@@ -20,13 +20,13 @@
     },
     "CARDS_PAGE": {
         "TITLE": "Volontari vicino a te!",
-        "FILTERS": {
-            "TYPE_FILTER": "Tipologia",
-            "DISTANCE_FILTER": "Distanza",
-            "NO_DISTANCE": "Nessuna distanza"
-        },
         "NEAR_YOU": "vicino a te",
         "ALL_TIME": "Sempre disponibili"
+    },
+    "FILTER_PAGE": {
+        "FILTER_BY": "Filtra per",
+        "DISTANCE": "Distanza",
+        "AVAILABILITY": "Disponibilità"
     },
     "SETTINGS_PAGE": {
         "TITLE": "Impostazioni",
@@ -77,9 +77,12 @@
     },
     "COMMON": {
         "UNIT_DISTANCE": "m",
+        "UNIT_DISTANCE_K": "km",
         "ACTIVITY_TYPES": {
             "FOOD": "Spesa",
-            "PHARMACY": "Medicine"
+            "PHARMACY": "Medicine",
+            "MAIL": "Posta",
+            "COMPANY": "Compagnia"
         },
         "OK_BUTTON": "Scegli",
         "CANCEL_BUTTON": "Annulla"

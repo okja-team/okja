@@ -1,0 +1,30 @@
+:host {
+
+    .availabilityChip {
+        height: 6vw;
+    }
+
+    .filter-label {
+        padding-left: 5vw;
+    }
+
+    .distance-filter {
+        float: right;
+        padding-right: 5vw;
+    }
+
+    .button-group {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        padding: 10vw;
+    }
+
+    #resetButton {
+        float: left;
+    }
+
+    #applyButton {
+        float: right;
+    }
+}
