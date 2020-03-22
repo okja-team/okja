@@ -42,8 +42,8 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   activeProfile: Profile[] = [];
   lat: any;
   lng: any;
-
   map: any;
+  avatarPhoto = '';
 
   constructor(
     public router: Router,
@@ -69,6 +69,15 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
         this.activeProfile = x;
         // this.repositionMap();
       });
+    this.profileService.getProfile()
+      .pipe(take(1),untilDestroyed(this))
+      .subscribe(x => {
+        const placeHolder = 'assets/images/icon/ico_user_placeholder.svg';
+        this.avatarPhoto = placeHolder;
+        if(x){
+          this.avatarPhoto = x.photoURL ? x.photoURL : placeHolder;
+        }
+      })
     this.repositionMap();
   }
 
@@ -125,7 +134,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
 
   mapReady(event: any) {
     this.map = event;
-    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ProfileButton'));
+    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('avatarPhoto'));
   }
 
   openCardHelper(profile: Profile): void {
