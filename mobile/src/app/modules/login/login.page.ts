@@ -63,7 +63,7 @@ export class LoginPage implements OnInit, OnDestroy {
 
   private async goToPage(profile: Profile) {
     if (profile) {
-      await this.router.navigate(['home/tabs/tab1']);
+      await this.router.navigate(['home/tabs/map']);
     } else {
       await this.router.navigate(['profile']);
     }
