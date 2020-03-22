@@ -19,7 +19,14 @@
         "TITLE": "Map"
     },
     "CARDS_PAGE": {
-        "TITLE": "Lista di aiutanti"
+        "TITLE": "Volontari vicino a te!",
+        "FILTERS": {
+            "TYPE_FILTER": "Tipologia",
+            "DISTANCE_FILTER": "Distanza",
+            "NO_DISTANCE": "Nessuna distanza"
+        },
+        "NEAR_YOU": "vicino a te",
+        "ALL_TIME": "Sempre disponibili"
     },
     "SETTINGS_PAGE": {
         "TITLE": "Impostazioni",
@@ -29,8 +36,6 @@
         "LANGUAGE_SELECT": {
             "PLACEHOLDER": "Scegli lingua",
             "LABEL": "Cambia lingua",
-            "OK_BUTTON": "Scegli",
-            "CANCEL_BUTTON": "Annulla",
             "LIST": {
                 "IT": "Italiano",
                 "EN": "Inglese"
@@ -61,7 +66,7 @@
         "POSITION": "Posizione",
         "LOADER_MESSAGE": "Salvataggio profilo in corso"
     },
-    "TAB1_PAGE":{
+    "TAB1_PAGE": {
         "HELP": "vuole aiutarti!",
         "ROLE_TYPE": {
             "food": "SPESA",
@@ -69,5 +74,14 @@
             "mail": "POSTA",
             "company": "COMPAGNIA"
         }
+    },
+    "COMMON": {
+        "UNIT_DISTANCE": "m",
+        "ACTIVITY_TYPES": {
+            "FOOD": "Spesa",
+            "PHARMACY": "Medicine"
+        },
+        "OK_BUTTON": "Scegli",
+        "CANCEL_BUTTON": "Annulla"
     }
 }

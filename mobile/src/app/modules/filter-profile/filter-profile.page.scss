@@ -1,0 +1,32 @@
+:host {
+
+	ion-toolbar {
+    --background: var(--ion-color-primary);
+    background: var(--ion-color-primary);
+    color: white;
+    height: 30vw;
+  }
+
+  #pageTitle {
+    font-size: 7vw;
+    font-weight: 600;
+    padding-top: 18vw;
+    padding-left: 3vw;
+  }
+
+  #userProfile {
+    border: solid white;
+    position: fixed;
+    height: 12vw;
+    width: 12vw;
+    top: 10vw;
+    right: 5vw;
+    z-index: 9999;
+  }
+
+  #timeChip {
+    color: var(--ion-color-primary-contrast);
+    background-color: var(--ion-color-primary);
+  }
+  
+}
