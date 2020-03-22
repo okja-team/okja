@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
-import { Plugins, Toast } from '@capacitor/core';
+import { Plugins } from '@capacitor/core';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { ProfileService } from '../../services/profile.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';

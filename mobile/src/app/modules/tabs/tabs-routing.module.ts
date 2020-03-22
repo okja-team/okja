@@ -23,7 +23,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+              import('../filter-profile/filter-profile.module').then(m => m.FilterProfilePageModule)
           }
         ]
       },
