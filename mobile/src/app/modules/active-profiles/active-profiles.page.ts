@@ -9,13 +9,11 @@ import {
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Profile } from 'models/class/profile';
-import { ICapability } from 'models/inteface/capability.interfae';
-import { Roles } from 'models/enums/roles.enum';
-import { CallNumber } from '@ionic-native/call-number/ngx';
 import { TranslateConfigService } from '../../services/translate-config.service';
 import { ProfileService } from 'services/profile.service';
 import { take } from 'rxjs/operators';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
+import { CardProfileComponent } from 'modules/card-profile/card-profile.component';
 declare const google: any;
 
 @Component({
@@ -28,7 +26,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 
   hiddenMap = true;
-  firstTime: boolean = true;
+  modal: HTMLIonModalElement;
   opacityNotSelected: number = 0.4;
   opacitySelected: number = 1;
   icon: any = {
@@ -50,8 +48,8 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     private translactionServise: TranslateConfigService,
     private activeProfileSerive: ActiveProfilesService,
     private profileService: ProfileService,
-    private callNumber: CallNumber,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    public modalController: ModalController
   ) {
     translactionServise.getDefaultLanguage();
   }
@@ -106,6 +104,24 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     await loader.dismiss();
   }
 
+  async presentModal() {
+    if(this.modal){
+      this.modal.dismiss();
+      this.modal = null;
+    }
+      
+    this.modal = await this.modalController.create({
+      component: CardProfileComponent,
+      componentProps: {
+        'profileSelected': this.profileSelected
+      },
+      cssClass: "RectangleContainer",
+      swipeToClose: false,
+      showBackdrop: false
+    });
+    return await this.modal.present();
+  }
+
   getOpacity(p: Profile): number {
 
     if (
@@ -129,41 +145,12 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   openCardHelper(profile: Profile): void {
-    if (this.firstTime) {
-      this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('ProfileHelperContainer'));
-      this.firstTime = false;
-    }
     this.profileSelected = profile;
-    console.log(this.profileSelected.address);
-  }
-
-  getActiveRoles(): ICapability[] {
-    if (this.profileSelected.capabilities) {
-      return this.profileSelected.capabilities.filter(act => act.available);
-    }
-    return [];
-  }
-
-  getColorFromRoleType(roleType: Roles): string {
-    switch (roleType) {
-      case Roles.Food:
-        return '#046506';
-      case Roles.Pharmacy:
-        return '#df8c8c';
-      default:
-        return '#dcdcdc';
-    }
-  }
+    this.presentModal();
+  }  
 
   closeCard(): void {
+    this.modal.dismiss();
     this.profileSelected = null;
-  }
-
-  openSkype(profile: Profile) {
-
-  }
-
-  callProfile() {
-    this.callNumber.callNumber(this.profileSelected.phone, false).then(res => console.log('Launched dialer!', res))
   }
 }

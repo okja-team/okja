@@ -47,8 +47,8 @@
         "MESSAGE_HELP": "I can help you with:",
         "AVAILABLE": "I'M AVAILABLE",
         "ROLE_TYPE": {
-            "food": "food",
-            "farmacy": "farmacy",
+            "FOOD": "food",
+            "FARMACY": "farmacy",
             "MAIL": "mail",
             "COMPANY": "company"
         },

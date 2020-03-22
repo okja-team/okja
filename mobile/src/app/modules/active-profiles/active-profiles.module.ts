@@ -6,8 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { ActiveProfilesPage } from './active-profiles.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { AgmCoreModule } from '@agm/core';
-import { CallNumber } from '@ionic-native/call-number/ngx';
 import { TranslateModule } from '@ngx-translate/core';
+import { CardProfileModule } from 'modules/card-profile/card-profile.module';
 
 @NgModule({
   imports: [
@@ -16,12 +16,11 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     AgmCoreModule,
     ExploreContainerComponentModule,
+    CardProfileModule,
     RouterModule.forChild([{ path: '', component: ActiveProfilesPage }]),
     TranslateModule.forChild()
   ],
-  providers: [
-    CallNumber
-  ],
+  providers: [],
   declarations: [ActiveProfilesPage]
 })
 export class ActiveProfilesPageModule {}
