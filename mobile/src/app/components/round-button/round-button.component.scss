@@ -1,0 +1,26 @@
+ion-button {
+    
+    width: 100%;
+    border-radius: 10vh;
+    --border-radius: 10vh;
+    height: 50px;
+    font-family: Montserrat;
+    font-weight: bold;
+
+    button {
+      border-radius: 10vh;
+
+    }
+    span {
+      font-size: 18px;
+    }
+
+}
+
+.red-button {
+  --background: var(--ion-color-red-button);
+}
+
+.blue-button {
+  --background: var(--ion-color-blue-button);
+}

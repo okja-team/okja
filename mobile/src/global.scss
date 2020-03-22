@@ -25,9 +25,12 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import "./theme/custom-light-variables";
+
 .RectangleContainer .modal-wrapper {
   width: 100%;
   height: 48%;
   position: absolute;
   bottom: 5px;
+}
 }

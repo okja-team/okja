@@ -1,17 +1,14 @@
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <agm-map [hidden]="hiddenMap" #AgmMap (mapReady)="mapReady($event)" [latitude]="lat" [longitude]="lng"
+    [usePanning]="true" [zoom]="12" (mapClick)="closeCard()" [disableDefaultUI]="false">
 
-  <agm-map [hidden]="hiddenMap" #AgmMap (mapReady)="mapReady($event)" [latitude]="lat" [longitude]="lng" [usePanning]="true" [zoom]="12"
-    (mapClick)="closeCard()"
-    [disableDefaultUI]="false">
+    <div id="avatarPhoto" class="avatarPhotoContainer">
+      <ion-avatar class="avatarPhoto" (click)="goToProfile()">
+        <img [src]="avatarPhoto">
+      </ion-avatar>
+    </div>
 
-    <ion-button id="ProfileButton" (click)="goToProfile()">PROFILO</ion-button>
     <agm-marker *ngFor="let p of activeProfile" [latitude]="p.position.lat" [longitude]="p.position.lng"
       [agmFitBounds]="true" [markerDraggable]=false [opacity]="getOpacity(p)" [iconUrl]="icon"
       (markerClick)="openCardHelper(p)">

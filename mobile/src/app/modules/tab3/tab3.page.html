@@ -17,8 +17,8 @@
     <ion-item>
         <ion-label>{{ 'SETTINGS_PAGE.LANGUAGE_SELECT.LABEL' | translate }}</ion-label>
         <ion-select placeholder="{{ 'SETTINGS_PAGE.LANGUAGE_SELECT.PLACEHOLDER' | translate }}"
-                    okText="{{ 'SETTINGS_PAGE.LANGUAGE_SELECT.OK_BUTTON' | translate }}"
-                    cancelText="{{ 'SETTINGS_PAGE.LANGUAGE_SELECT.CANCEL_BUTTON' | translate }}"
+                    okText="{{ 'COMMON.OK_BUTTON' | translate }}"
+                    cancelText="{{ 'COMMON.CANCEL_BUTTON' | translate }}"
                     [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
           <ion-select-option value="it">{{ 'SETTINGS_PAGE.LANGUAGE_SELECT.LIST.IT' | translate }}</ion-select-option>
           <ion-select-option value="en">{{ 'SETTINGS_PAGE.LANGUAGE_SELECT.LIST.EN' | translate }}</ion-select-option>
@@ -28,11 +28,11 @@
       <ion-label (click)="openPrivacyPage()">{{ 'SETTINGS_PAGE.PRIVACY' | translate }}</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="userLogged">
       <ion-label (click)="logout()">{{ 'SETTINGS_PAGE.LOGOUT' | translate }}</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="userLogged">
       <ion-label color="danger" (click)="deleteButton()">{{ 'SETTINGS_PAGE.DELETE' | translate }}</ion-label>
     </ion-item>
   </ion-list>
