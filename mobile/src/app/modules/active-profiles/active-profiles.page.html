@@ -1,21 +1,42 @@
 <ion-content [fullscreen]="true">
 
-  <agm-map [hidden]="hiddenMap" #AgmMap (mapReady)="mapReady($event)" [latitude]="lat" [longitude]="lng"
-    [usePanning]="true" [zoom]="12" (mapClick)="closeCard()" [disableDefaultUI]="false">
+  <agm-map [hidden]="hiddenMap"
+    #AgmMap
+    (mapReady)="mapReady($event)"
+    [latitude]="lat"
+    [longitude]="lng"
+    [usePanning]="true"
+    [zoom]="12"
+    (mapClick)="closeCard()"
+    [disableDefaultUI]="false">
 
-    <div id="avatarPhoto" class="avatarPhotoContainer">
-      <ion-avatar class="avatarPhoto" (click)="goToProfile()">
+    <div id="avatarPhoto"
+      class="avatarPhotoContainer">
+      <ion-avatar class="avatarPhoto"
+        (click)="goToProfile()">
         <img [src]="avatarPhoto">
       </ion-avatar>
     </div>
 
-    <agm-marker *ngFor="let p of activeProfile" [latitude]="p.position.lat" [longitude]="p.position.lng"
-      [agmFitBounds]="true" [markerDraggable]=false [opacity]="getOpacity(p)" [iconUrl]="icon"
-      (markerClick)="openCardHelper(p)">
-    </agm-marker>
+    <agm-marker-cluster #makerCluster [styles]='clusterStyles'>
+      <agm-marker *ngFor="let p of activeProfile"
+        [latitude]="p.position.lat"
+        [longitude]="p.position.lng"
+        [agmFitBounds]="true"
+        [markerDraggable]=false
+        [opacity]="getOpacity(p)"
+        [iconUrl]="icon"
+        (markerClick)="openCardHelper(p)">
+      </agm-marker>
+    </agm-marker-cluster>
 
-    <ion-card id="ProfileHelperContainer" class="RectangleContainer" [hidden]="!profileSelected">
-      <div class="Rectangle" *ngIf="profileSelected">
+
+
+    <ion-card id="ProfileHelperContainer"
+      class="RectangleContainer"
+      [hidden]="!profileSelected">
+      <div class="Rectangle"
+        *ngIf="profileSelected">
         <ion-grid>
           <ion-row>
             <ion-col>
@@ -36,26 +57,33 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <ion-card-title class="ion-text-center" style="margin-top: 10px;">
+        <ion-card-title class="ion-text-center"
+          style="margin-top: 10px;">
           <ion-text class="HelpTitle">{{profileSelected.name}} {{'TAB1_PAGE.HELP' | translate}}</ion-text>
         </ion-card-title>
-        <div class="ion-text-center" style="margin-top: 20px;">
-          <ion-label *ngFor="let entry of getActiveRoles()" class="role-type-label"
+        <div class="ion-text-center"
+          style="margin-top: 20px;">
+          <ion-label *ngFor="let entry of getActiveRoles()"
+            class="role-type-label"
             [style.background-color]="getColorFromRoleType(entry.type)">
             <ion-text class="role-type-text">{{('TAB1_PAGE.ROLE_TYPE.' + entry.type) | translate}}</ion-text>
           </ion-label>
         </div>
-        <ion-card-subtitle class="ion-text-center" style="margin-top: 20px;">
+        <ion-card-subtitle class="ion-text-center"
+          style="margin-top: 20px;">
           <ion-text class="address">{{profileSelected.address}}</ion-text>
         </ion-card-subtitle>
-        <div class="ion-text-center" style="margin-top: 20px;">
-          <ion-button [disabled]="!profileSelected.skypeId" color="danger">Skype</ion-button>
-          <ion-button [disabled]="!profileSelected.phone" color="danger">Phone</ion-button>
-          <ion-button (onclick)="callProfile()" color="danger">Info</ion-button>
+        <div class="ion-text-center"
+          style="margin-top: 20px;">
+          <ion-button [disabled]="!profileSelected.skypeId"
+            color="danger">Skype</ion-button>
+          <ion-button [disabled]="!profileSelected.phone"
+            color="danger">Phone</ion-button>
+          <ion-button (onclick)="callProfile()"
+            color="danger">Info</ion-button>
         </div>
       </div>
     </ion-card>
   </agm-map>
 
-  <!--<ion-button (click)="goToProfile()">PROFILO</ion-button>-->
 </ion-content>
