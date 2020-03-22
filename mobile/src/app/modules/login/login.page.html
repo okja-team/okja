@@ -1,5 +1,5 @@
 <div class="main-background app-background">
-  <img src="../../../assets/images/icon/favicon.png">
+  <img src="assets/images/icon/favicon.png">
   <div class="main-text">
     <h1 [innerHTML]="'LOGIN_PAGE.TITLE' | translate"></h1>
     <div class="description-text">
@@ -8,6 +8,7 @@
   </div>
   <div class="buttons">
     <round-button [color]="'blue'">{{ "LOGIN_PAGE.SIGN_IN_FACEBOOK" | translate }}</round-button>
-    <round-button [color]="'red'">{{ "LOGIN_PAGE.SIGN_IN_GOOGLE" | translate }}</round-button>
+    <round-button [color]="'red'"
+      (click)="loginWithSocial()">{{ "LOGIN_PAGE.SIGN_IN_GOOGLE" | translate }}</round-button>
   </div>
 </div>
