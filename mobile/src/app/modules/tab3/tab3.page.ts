@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { LoadingController, NavController } from '@ionic/angular';
 import { UserDataService } from 'services/user-data/user-data.service';
+import { User } from 'services/user-data/user.interface';
 
 @Component({
   selector: 'app-tab3',
@@ -14,6 +15,7 @@ export class Tab3Page {
   public selectedLanguage: string;
 
   public userLogged = false;
+  user: User;
 
   constructor(
     private readonly translateConfigService: TranslateConfigService,
@@ -23,10 +25,9 @@ export class Tab3Page {
     private readonly userDataService: UserDataService
   ) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
-  }
-
-  ionViewDidEnter() {
-    this.userLogged = this.userDataService.isLoggedIn;
+    this.userDataService.isLogged().subscribe(v => {
+      this.userLogged = v;
+    });
   }
 
   public languageChanged() {
