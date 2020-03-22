@@ -19,13 +19,14 @@
         "TITLE": "Map"
     },
     "CARDS_PAGE": {
-        "TITLE": "Lista di volontari",
+        "TITLE": "Volontari vicino a te!",
         "FILTERS": {
             "TYPE_FILTER": "Tipologia",
             "DISTANCE_FILTER": "Distanza",
             "NO_DISTANCE": "Nessuna distanza"
         },
-        "NEAR_YOU": "vicino a te"
+        "NEAR_YOU": "vicino a te",
+        "ALL_TIME": "Sempre disponibili"
     },
     "SETTINGS_PAGE": {
         "TITLE": "Impostazioni",

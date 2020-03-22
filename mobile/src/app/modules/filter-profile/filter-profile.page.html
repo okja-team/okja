@@ -1,36 +1,38 @@
 <ion-header [translucent]="true" class="header">
   <ion-toolbar>
-    <ion-title>
-      {{ 'CARDS_PAGE.TITLE' | translate }}
-    </ion-title>
+    <div id="pageTitle">{{ 'CARDS_PAGE.TITLE' | translate }}</div>
   </ion-toolbar>
 </ion-header>
 
+<ion-avatar *ngIf="user" id="userProfile" slot="end" (click)="goToProfile()">
+  <img *ngIf="user.photoURL" src="{{user.photoURL}}">
+  <img *ngIf="!user.photoURL" src="assets/images/icon/ico_user_placeholder.svg">
+</ion-avatar>
+
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{ 'CARDS_PAGE.TITLE' | translate }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
   
   <ion-item (click)="openFilterModal()">
-    <ion-icon slot="end" name="options"></ion-icon>
+    <ion-chip id="timeChip" slot="start">{{ 'CARDS_PAGE.ALL_TIME' | translate }}</ion-chip>
+    <ion-icon slot="end" src="assets/images/icon/ico_filter.svg"></ion-icon>
   </ion-item>
 
-  <ion-list>
-    <ion-card *ngFor="let helper of helpers"> 
+  <ion-list >
+    <ion-card *ngFor="let profile of activeProfiles"> 
       <ion-item lines="none">
-        <ion-avatar slot="start">
-          <img src="./assets/images/icon/favicon.png">
+        <ion-avatar *ngIf="profile.photoURL" slot="start">
+          <img src="{{profile.photoURL}}">
+        </ion-avatar>
+        <ion-avatar *ngIf="!profile.photoURL" slot="start">
+          <img src="assets/images/icon/ico_user_placeholder.svg">
         </ion-avatar>
         <ion-label>
-          <h2>{{ helper.name }}</h2>
-          <h4 *ngIf="helper.position">{{ computeDistance(helper.position) }}{{ 'COMMON.UNIT_DISTANCE' | translate }} {{ 'CARDS_PAGE.NEAR_YOU' | translate }}</h4>
-          <ion-chip *ngFor="let role of helper.activity"> 
+          <h2>{{ profile.name }}</h2>
+          <h4 *ngIf="profile.position">{{ computeDistance(profile.position) }}{{ 'COMMON.UNIT_DISTANCE' | translate }} {{ 'CARDS_PAGE.NEAR_YOU' | translate }}</h4>
+          <ion-chip *ngFor="let role of profile.capabilities"> 
             <ion-label>{{ 'COMMON.ACTIVITY_TYPES.' + role.type.toUpperCase() | translate }}</ion-label>
           </ion-chip>
         </ion-label>
-        <ion-icon name="call"></ion-icon>
+        <ion-icon src="assets/images/icon/ico_contact.svg"></ion-icon>
       </ion-item>
     </ion-card>
   </ion-list>

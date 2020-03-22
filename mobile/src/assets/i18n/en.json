@@ -19,13 +19,14 @@
         "TITLE": "Map"
     },
     "CARDS_PAGE": {
-        "TITLE": "Helpers list",
+        "TITLE": "Helpers near you!",
         "FILTERS": {
             "TYPE_FILTER": "Type",
             "DISTANCE_FILTER": "Distance",
             "NO_DISTANCE": "No distance"
         },
-        "NEAR_YOU": "near you"
+        "NEAR_YOU": "near you",
+        "ALL_TIME": "All time"
     },
     "SETTINGS_PAGE": {
         "TITLE": "Settings",
