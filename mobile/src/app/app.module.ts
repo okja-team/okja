@@ -18,8 +18,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { AgmCoreModule } from '@agm/core';
 
-
-
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
