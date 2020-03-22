@@ -18,6 +18,7 @@ import { take } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { UserDataService } from 'services/user-data/user-data.service';
+import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
 declare const google: any;
 
 @Component({
@@ -36,10 +37,22 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   icon: any = {
     url: 'assets/images/icon/help_you.png',
     scaledSize: {
-      width: 64,
-      height: 64
+      width: 48,
+      height: 48
     }
   };
+
+  clusterStyles: ClusterStyle[] = [{
+    url: 'assets/images/icon/help_you_cluster.png', //background che non viene scalato
+    height: 48,
+    width: 48,
+    anchor: [-3, -3], //The anchor position of the label text.
+    textColor: '#FFFFFF',
+    textSize: 18,
+    // backgroundPosition: "",
+    // iconAnchor: [number, number],
+  }];
+
   profileSelected: Profile = null;
   activeProfile: Profile[] = [];
   lat: any;
