@@ -62,7 +62,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   public goToHome() {
-    this.navCtrl.navigateRoot('home/tabs/tab1');
+    this.navCtrl.navigateRoot('home/tabs/map');
   }
 
   public async setPosition() {
