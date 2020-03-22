@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FilterPage } from 'modules/filter/filter.page';
 
 @NgModule({
+
   imports: [
     IonicModule,
     CommonModule,

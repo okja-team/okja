@@ -6,9 +6,9 @@ import { UserDataService } from 'services/user-data/user-data.service';
 import { User } from 'services/user-data/user.interface';
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { ActiveProfilesPage } from 'modules/active-profiles/active-profiles.page';
 import { ActiveProfilesService } from 'active-profiles.service';
+import { Plugins } from '@capacitor/core';
+const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-filter-profile',
@@ -28,8 +28,7 @@ export class FilterProfilePage implements OnDestroy {
     private userDataService: UserDataService,
     public router: Router,
     private activeProfileService: ActiveProfilesService,
-    private geolocation: Geolocation
-    ) {}
+  ) { }
 
   ngOnDestroy(): void {
   }
@@ -56,7 +55,6 @@ export class FilterProfilePage implements OnDestroy {
     });
 
     modal.onDidDismiss().then((filters) => {
-      console.log(filters);
       this.distanceFilter = filters.data.distance;
       this.getActiveProfiles();
     });
@@ -131,12 +129,12 @@ export class FilterProfilePage implements OnDestroy {
   }
 
   initDataUsers() {
-    this.geolocation.getCurrentPosition().then((resp) => {
+    Geolocation.getCurrentPosition().then((resp) => {
       this.userPosition = resp.coords;
       this.getActiveProfiles();
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
 }

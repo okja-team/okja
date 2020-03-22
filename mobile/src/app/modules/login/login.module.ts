@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
+import { RoundButtonComponentModule } from 'components/round-button/round-button.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { LoginPage } from './login.page';
     FormsModule,
     IonicModule,
     LoginPageRoutingModule,
+    RoundButtonComponentModule,
     TranslateModule.forChild()
   ],
   declarations: [LoginPage]

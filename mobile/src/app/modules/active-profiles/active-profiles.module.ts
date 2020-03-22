@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { AgmCoreModule } from '@agm/core';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { TranslateModule } from '@ngx-translate/core';
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     AgmCoreModule,
+    AgmJsMarkerClustererModule,
     ExploreContainerComponentModule,
     RouterModule.forChild([{ path: '', component: ActiveProfilesPage }]),
     TranslateModule.forChild()

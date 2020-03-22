@@ -8,7 +8,7 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'map',
         children: [
           {
             path: '',
@@ -18,7 +18,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'filter-profile',
+        path: 'list',
         children: [
           {
             path: '',
@@ -28,7 +28,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab3',
+        path: 'info',
         children: [
           {
             path: '',
@@ -39,14 +39,14 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/map',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: 'home',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/map',
     pathMatch: 'full'
   }
 ];
