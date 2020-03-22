@@ -1,0 +1,20 @@
+trigger:
+- develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '12.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm install -g @ionic/cli
+    npm install -g firebase-tools
+    ionic build
+    firebase deploy --only hosting:okja-beta --token "$(firebaseToken)"
+  displayName: 'Ionic build & Deploy'
+  workingDirectory: 'mobile'
