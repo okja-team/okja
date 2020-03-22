@@ -1,2 +1,6 @@
 mobile/.firebase
+tools/node_modules
+tools/output
+tools/mock.json
+tools/key
 .DS_Store

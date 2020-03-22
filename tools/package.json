@@ -1,0 +1,13 @@
+{
+  "name": "tools",
+  "version": "0.0.1",
+  "description": "Set di script e utilities",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/okja-team/okja"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.10.0",
+    "fs-extra": "^8.1.0"
+  }
+}
