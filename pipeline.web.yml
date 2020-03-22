@@ -21,4 +21,4 @@ steps:
       firebase deploy --only hosting:okja-beta --token "$(firebaseToken)"
   displayName: 'Deploy to Beta'
   workingDirectory: 'mobile'
-  condition: eq($(deployBeta),true)
+  condition: eq('$(deployBeta)',true)
