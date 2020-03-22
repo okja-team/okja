@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Profile } from 'models/profile';
+import { Profile } from 'models/class/profile';
 import { ModalController } from '@ionic/angular';
 import { FilterPage } from 'modules/filter/filter.page';
 import { UserDataService } from 'services/user-data/user-data.service';
 import { User } from 'services/user-data/user.interface';
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { ActiveProfileService } from 'active-profile.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { ProfileService } from 'services/profile.service';
+import { ActiveProfilesPage } from 'modules/active-profiles/active-profiles.page';
+import { ActiveProfilesService } from 'active-profiles.service';
 
 @Component({
   selector: 'app-filter-profile',
@@ -26,7 +26,7 @@ export class FilterProfilePage implements OnInit, OnDestroy {
     private modalController: ModalController,
     private userDataService: UserDataService,
     public router: Router,
-    private activeProfileService: ActiveProfileService,
+    private activeProfileService: ActiveProfilesService,
     private geolocation: Geolocation
     ) {}
 
