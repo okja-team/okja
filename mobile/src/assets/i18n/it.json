@@ -1,13 +1,9 @@
 {
     "LOGIN_PAGE": {
-        "TITLE": "Effettua il Log In",
+        "TITLE": "Benvenuto in<br/>I FOR YOU",
+        "DESCR": "I for you is an application that allows you to et in touch quickly and easily with people who can offer practical support, in this moment of emergence with corona virus (covid-19), to those who need it most, who are in difficulty or who are alone.",
         "SIGN_IN_GOOGLE": "Accedi con Google",
-        "SIGN_IN_FACEBOOK": "Accedi con Facebook",
-        "EMAIL": "Email",
-        "PASSWORD": "Password",
-        "SIGN_UP_LINK": "Registrati",
-        "SIGN_UP": "Non hai un acocunt?",
-        "SIGN_IN": "Accedi"
+        "SIGN_IN_FACEBOOK": "Accedi con Facebook"
     },
     "REGISTRATION_PAGE": {
         "TITLE": "Registrazione utente",
