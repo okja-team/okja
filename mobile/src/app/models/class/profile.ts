@@ -3,6 +3,7 @@ import { Roles } from '../enums/roles.enum';
 import { IPosition } from 'models/inteface/position.interface';
 import { ICapability } from 'models/inteface/capability.interfae';
 import { IProfile } from 'models/inteface/profile.interface';
+import { Address } from './address';
 
 export class Profile implements IProfile {
 
@@ -10,7 +11,7 @@ export class Profile implements IProfile {
     constructor(
         public name?: string,
         public surName?: string,
-        public address?: string,
+        public address?: Address,
         public phone?: string,
         public skypeId?: string,
         public isAvailable = true,
@@ -23,7 +24,7 @@ export class Profile implements IProfile {
         this.id = id || null;
         this.name = name || '';
         this.surName = surName || '';
-        this.address = address || '';
+        this.address = address || new Address();
         this.phone = phone || '+39';
         this.skypeId = skypeId || '';
         this.isAvailable = isAvailable;

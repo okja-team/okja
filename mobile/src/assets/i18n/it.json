@@ -43,6 +43,8 @@
         "FIRST_MESSAGE": "Ciao! Se sei in quarantena posso darti una mano",	
         "NAME": "Nome",
         "SURNAME": "Cognome",
+        "COUNTRY": "Nazione",
+        "CITY": "Città",
         "ADDRESS": "Indirizzo",
         "PHONE": "Contatto",
         "BISOGNO_AIUTO": "Ho bisogno di aiuto",

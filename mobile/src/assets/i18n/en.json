@@ -47,6 +47,8 @@
         "FIRST_MESSAGE": "Hi! If you are stuck in, I can help you out",
         "NAME": "Name",
         "SURNAME": "Surname",
+        "COUNTRY": "Country",
+        "CITY": "City",
         "ADDRESS": "Address",
         "PHONE": "Phone",
         "MESSAGE_HELP": "I can help you with:",

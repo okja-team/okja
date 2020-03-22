@@ -1,110 +1,93 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="ion-text-center">
-      {{ 'PROFILE_PAGE.TITLE' | translate }}
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="main-background app-background">
+  <ion-row class="header">
+    <ion-col size="8">
+      <ion-card-title class="title">
+        {{ 'PROFILE_PAGE.FIRST_MESSAGE' | translate }}
+      </ion-card-title>
+    </ion-col>
+    <ion-col size="4">
+      <img src="assets/images/icon/ico_user_placeholder.svg">
+    </ion-col>
+  </ion-row>
+  <div class="container" *ngIf="profile">
+    <ion-item>
+      <ion-label class="width-30">
+        {{ 'PROFILE_PAGE.NAME' | translate }}
+      </ion-label>
+      <ion-input [(ngModel)]="profile.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="width-30">
+        {{ 'PROFILE_PAGE.SURNAME' | translate }}
+      </ion-label>
+      <ion-input [(ngModel)]="profile.surName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="width-30">
+        {{ 'PROFILE_PAGE.COUNTRY' | translate }}
+      </ion-label>
+      <ion-input [(ngModel)]="profile.country"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="width-30">
+        {{ 'PROFILE_PAGE.CITY' | translate }}
+      </ion-label>
+      <ion-input [(ngModel)]="profile.city"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="width-30">
+        {{ 'PROFILE_PAGE.ADDRESS' | translate }}
+      </ion-label>
+      <ion-input [(ngModel)]="profile.address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="width-30">
+        {{ 'PROFILE_PAGE.PHONE' | translate }}
+      </ion-label>
+      <ion-input [(ngModel)]="profile.phone"></ion-input>
+    </ion-item>
 
-<ion-content>
-  <div class="container"
-    [ngClass]="{ 'dark-background': isDarkMode }">
-
-    <ion-card class="registrazione-card">
-      <ion-card-header>
-        <img [src]="img" />
-
-        <ion-card-title class="title">
-          {{ 'PROFILE_PAGE.FIRST_MESSAGE' | translate }}
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content *ngIf="profile">
+    <!--<ion-item *ngIf="profile?.isHelper">
+      <ion-list class="list-full">
+        <ion-label>{{ 'PROFILE_PAGE.MESSAGE_HELPER' | translate }}</ion-label>
         <ion-item>
-          <ion-label class="width-30">
-            {{ 'PROFILE_PAGE.NAME' | translate }}
-          </ion-label>
-          <ion-input [(ngModel)]="profile.name"></ion-input>
+          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}</ion-label>
+          <ion-toggle [checked]="getCapability(help.Food)"
+            (ionChange)="setCapability(help.Food, $event.detail.checked)"></ion-toggle>
         </ion-item>
+
         <ion-item>
-          <ion-label class="width-30">
-            {{ 'PROFILE_PAGE.SURNAME' | translate }}
-          </ion-label>
-          <ion-input [(ngModel)]="profile.surName"></ion-input>
+          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FARMACY' | translate }}</ion-label>
+          <ion-toggle [checked]="getCapability(help.Pharmacy)"
+            (ionChange)="setCapability(help.Pharmacy, $event.detail.checked)"></ion-toggle>
         </ion-item>
+
         <ion-item>
-          <ion-label class="width-30">
-            {{ 'PROFILE_PAGE.ADDRESS' | translate }}
-          </ion-label>
-          <ion-input [(ngModel)]="profile.address"></ion-input>
+          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.MAIL' | translate }}</ion-label>
+          <ion-toggle [checked]="getCapability(help.Mail)"
+            (ionChange)="setCapability(help.Mail, $event.detail.checked)"></ion-toggle>
         </ion-item>
+
         <ion-item>
-          <ion-label class="width-30">
-            {{ 'PROFILE_PAGE.PHONE' | translate }}
-          </ion-label>
-          <ion-input [(ngModel)]="profile.phone"></ion-input>
+          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.COMPANY' | translate }}</ion-label>
+          <ion-toggle [checked]="getCapability(help.Company)"
+            (ionChange)="setCapability(help.Company, $event.detail.checked)"></ion-toggle>
         </ion-item>
+      </ion-list>
+    </ion-item>
+    <ion-item *ngIf="profile?.isHelper" class="important-statement">
+      <ion-label>{{ 'PROFILE_PAGE.AVAILABLE' | translate }}</ion-label>
+      <ion-toggle [(ngModel)]="profile.isAvailable"></ion-toggle>
+    -->
+    <ion-button *ngIf="profile" class="list-full button" (click)="saveProfile()">
+      {{ 'PROFILE_PAGE.SAVE' | translate }}
+    </ion-button>
+    <ion-button *ngIf="hasProfile" class="list-full button" (click)="goToHome()">
+      {{ 'PROFILE_PAGE.CLOSE' | translate }}
+    </ion-button>
+    <ion-button class="list-full button" (click)="setPosition()">
+      {{ 'PROFILE_PAGE.POSITION' | translate }}
+    </ion-button>
 
-        <!-- <div class="segment-container"
-          *ngIf="profile">
-          <ion-segment [(ngModel)]="profile.isHelper">
-            <ion-segment-button value="true">
-              <ion-label>{{ 'PROFILE_PAGE.BISOGNO_AIUTO' | translate }}</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="false">
-              <ion-label>{{ 'PROFILE_PAGE.POSSO_AIUTARE' | translate }}</ion-label>
-            </ion-segment-button>
-          </ion-segment>
-        </div> -->
-
-        <ion-item *ngIf="profile?.isHelper">
-          <ion-list class="list-full">
-            <ion-label>{{ 'PROFILE_PAGE.MESSAGE_HELPER' | translate }}</ion-label>
-            <ion-item>
-              <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}</ion-label>
-              <ion-toggle [checked]="getCapability(help.Food)"
-                (ionChange)="setCapability(help.Food, $event.detail.checked)"></ion-toggle>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FARMACY' | translate }}</ion-label>
-              <ion-toggle [checked]="getCapability(help.Pharmacy)"
-              (ionChange)="setCapability(help.Pharmacy, $event.detail.checked)"></ion-toggle>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.MAIL' | translate }}</ion-label>
-              <ion-toggle [checked]="getCapability(help.Mail)"
-              (ionChange)="setCapability(help.Mail, $event.detail.checked)"></ion-toggle>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.COMPANY' | translate }}</ion-label>
-              <ion-toggle [checked]="getCapability(help.Company)"
-              (ionChange)="setCapability(help.Company, $event.detail.checked)"></ion-toggle>
-            </ion-item>
-          </ion-list>
-        </ion-item>
-        <ion-item *ngIf="profile?.isHelper"
-          class="important-statement">
-          <ion-label>{{ 'PROFILE_PAGE.AVAILABLE' | translate }}</ion-label>
-          <ion-toggle [(ngModel)]="profile.isAvailable"></ion-toggle>
-        </ion-item>
-
-        <ion-button *ngIf="profile"
-          class="list-full button"
-          (click)="saveProfile()">
-          {{ 'PROFILE_PAGE.SAVE' | translate }}
-        </ion-button>
-        <ion-button *ngIf="hasProfile"
-          class="list-full button"
-          (click)="goToHome()">
-          {{ 'PROFILE_PAGE.CLOSE' | translate }}
-        </ion-button>
-        <ion-button class="list-full button"
-          (click)="setPosition()">
-          {{ 'PROFILE_PAGE.POSITION' | translate }}
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
   </div>
-</ion-content>
+</div>
