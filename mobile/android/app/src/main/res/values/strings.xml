@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">mobile</string>
-    <string name="title_activity_main">mobile</string>
+    <string name="app_name">I4You</string>
+    <string name="title_activity_main">I4You</string>
     <string name="package_name">com.okja.i4you</string>
     <string name="custom_url_scheme">com.okja.i4you</string>
 </resources>
