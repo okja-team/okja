@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { AgmCoreModule } from '@agm/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardProfileModule } from 'modules/card-profile/card-profile.module';
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { CardProfileModule } from 'modules/card-profile/card-profile.module';
     CommonModule,
     FormsModule,
     AgmCoreModule,
+    AgmJsMarkerClustererModule,
     ExploreContainerComponentModule,
     CardProfileModule,
     RouterModule.forChild([{ path: '', component: ActiveProfilesPage }]),

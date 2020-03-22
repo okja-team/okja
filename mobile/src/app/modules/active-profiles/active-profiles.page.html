@@ -1,19 +1,34 @@
 <ion-content [fullscreen]="true">
 
-  <agm-map [hidden]="hiddenMap" #AgmMap (mapReady)="mapReady($event)" [latitude]="lat" [longitude]="lng"
-    [usePanning]="true" [zoom]="12" (mapClick)="closeCard()" [disableDefaultUI]="false">
+  <agm-map [hidden]="hiddenMap"
+    #AgmMap
+    (mapReady)="mapReady($event)"
+    [latitude]="lat"
+    [longitude]="lng"
+    [usePanning]="true"
+    [zoom]="12"
+    (mapClick)="closeCard()"
+    [disableDefaultUI]="false">
 
-    <div id="avatarPhoto" class="avatarPhotoContainer">
-      <ion-avatar class="avatarPhoto" (click)="goToProfile()">
+    <div id="avatarPhoto"
+      class="avatarPhotoContainer">
+      <ion-avatar class="avatarPhoto"
+        (click)="goToProfile()">
         <img [src]="avatarPhoto">
       </ion-avatar>
     </div>
 
-    <agm-marker *ngFor="let p of activeProfile" [latitude]="p.position.lat" [longitude]="p.position.lng"
-      [agmFitBounds]="true" [markerDraggable]=false [opacity]="getOpacity(p)" [iconUrl]="icon"
-      (markerClick)="openCardHelper(p)">
-    </agm-marker>
+    <agm-marker-cluster #makerCluster [styles]='clusterStyles'>
+      <agm-marker *ngFor="let p of activeProfile"
+        [latitude]="p.position.lat"
+        [longitude]="p.position.lng"
+        [agmFitBounds]="true"
+        [markerDraggable]=false
+        [opacity]="getOpacity(p)"
+        [iconUrl]="icon"
+        (markerClick)="openCardHelper(p)">
+      </agm-marker>
+    </agm-marker-cluster>
   </agm-map>
 
-  <!--<ion-button (click)="goToProfile()">PROFILO</ion-button>-->
 </ion-content>
