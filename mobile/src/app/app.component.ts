@@ -28,7 +28,7 @@ export class AppComponent {
       .subscribe({
         next: data => {
           this.statusBar.styleDefault();
-          this.router.navigate([data[1] ? 'home/tabs/tab1' : 'login']);
+          this.router.navigate(['home/tabs/map']);
           this.splashScreen.hide();
         }
       });

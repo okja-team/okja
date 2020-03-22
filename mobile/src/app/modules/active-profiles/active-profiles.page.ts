@@ -16,6 +16,8 @@ import { TranslateConfigService } from '../../services/translate-config.service'
 import { ProfileService } from 'services/profile.service';
 import { take } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
+import { AuthenticationService } from 'services/authentication/authentication.service';
+import { UserDataService } from 'services/user-data/user-data.service';
 declare const google: any;
 
 @Component({
@@ -42,16 +44,20 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   activeProfile: Profile[] = [];
   lat: any;
   lng: any;
-
   map: any;
+  avatarPhoto = '';
+  userLogged = false;
 
   constructor(
-    public router: Router,
-    private translactionServise: TranslateConfigService,
-    private activeProfileSerive: ActiveProfilesService,
-    private profileService: ProfileService,
-    private callNumber: CallNumber,
-    private loadingCtrl: LoadingController
+    public readonly router: Router,
+    private readonly translactionServise: TranslateConfigService,
+    private readonly activeProfileSerive: ActiveProfilesService,
+    private readonly profileService: ProfileService,
+    private readonly callNumber: CallNumber,
+    private readonly loadingCtrl: LoadingController,
+    private readonly authService: AuthenticationService,
+    private readonly userDataService: UserDataService
+
   ) {
     translactionServise.getDefaultLanguage();
   }
@@ -63,12 +69,25 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
+    this.userLogged = this.userDataService.isLoggedIn;
     this.activeProfileSerive.getActiveProfile()
       .pipe(untilDestroyed(this))
       .subscribe(x => {
         this.activeProfile = x;
         // this.repositionMap();
       });
+    const placeHolder = 'assets/images/icon/ico_user_placeholder.svg';
+    this.avatarPhoto = placeHolder;
+    if (this.userLogged) {
+      this.profileService.getProfile()
+        .pipe(take(1), untilDestroyed(this))
+        .subscribe(x => {
+          this.avatarPhoto = placeHolder;
+          if (x && x.photoURL) {
+            this.avatarPhoto = x.photoURL;
+          }
+        });
+    }
     this.repositionMap();
   }
 
@@ -120,12 +139,20 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   goToProfile() {
-    this.router.navigate(['profile']);
+    this.authService.checkAuth()
+      .pipe(take(1), untilDestroyed(this))
+      .subscribe(user => {
+        if (user) {
+          this.router.navigate(['profile']);
+        } else {
+          this.router.navigate(['login']);
+        }
+      })
   }
 
   mapReady(event: any) {
     this.map = event;
-    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ProfileButton'));
+    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('avatarPhoto'));
   }
 
   openCardHelper(profile: Profile): void {
