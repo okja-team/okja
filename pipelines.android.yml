@@ -45,7 +45,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     Contents: '**'
-    TargetFolder: 
+    TargetFolder: '$(build.artifactStagingDirectory)'
     flattenFolders: true
   displayName: Copy .apk files to artifact staging directory
 - task: PublishBuildArtifacts@1
