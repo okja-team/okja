@@ -1,25 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.page.html',
   styleUrls: ['./filter.page.scss'],
 })
-export class FilterPage implements OnInit {
+export class FilterPage {
 
-  public pharmacyFilter = true;
-  public foodFilter = true;
-  public distanceFilter = '5';
+  public distanceFilter = 5;
+  public availabilityFilter;
 
-  constructor(private modalCtrl: ModalController) { }
-
-  ngOnInit() {
+  constructor(private modalCtrl: ModalController, navParams: NavParams) {
+    this.distanceFilter = navParams.get('distance') / 1000;
+    this.availabilityFilter = navParams.get('availability');
   }
 
-  async clodeModal() {
-    const result: Date = new Date();
-    await this.modalCtrl.dismiss(result);
+  onChangeDistance() {
+    if (this.distanceFilter === 0) {
+      this.distanceFilter = 1;
+    } else if (this.distanceFilter > 10) {
+      this.distanceFilter = 9999;
+    }
+  }
+
+  onChangeAvailability() {
+    console.log(this.availabilityFilter);
+  }
+
+  closeModal() {
+    this.modalCtrl.dismiss({distance: this.distanceFilter * 1000, availability: this.availabilityFilter});
+  }
+
+  resetFilters() {
+    this.distanceFilter = 5;
   }
 
 }

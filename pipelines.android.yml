@@ -18,7 +18,7 @@ steps:
       npm install -g @ionic/cli
       npm install capacitor
       
-      ionic build
+      ionic build --prod
       ionic capacitor sync
     workingDirectory: 'mobile'
 - task: Gradle@2
@@ -44,7 +44,7 @@ steps:
     apksignerKeyPassword: '$(androidKeystorePassword)'
 - task: CopyFiles@2
   inputs:
-    Contents: '**'
+    Contents: 'mobile/android/**/*.apk'
     TargetFolder: '$(build.artifactStagingDirectory)'
     flattenFolders: true
   displayName: Copy .apk files to artifact staging directory

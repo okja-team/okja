@@ -28,11 +28,11 @@
       <ion-label (click)="openPrivacyPage()">{{ 'SETTINGS_PAGE.PRIVACY' | translate }}</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="userLogged">
       <ion-label (click)="logout()">{{ 'SETTINGS_PAGE.LOGOUT' | translate }}</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="userLogged">
       <ion-label color="danger" (click)="deleteButton()">{{ 'SETTINGS_PAGE.DELETE' | translate }}</ion-label>
     </ion-item>
   </ion-list>

@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { FilterProfilePage } from './filter-profile.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { FilterPageModule } from 'modules/filter/filter.module';
+import { FilterPage } from 'modules/filter/filter.page';
 
 @NgModule({
 
@@ -14,11 +14,15 @@ import { FilterPageModule } from 'modules/filter/filter.module';
     IonicModule,
     CommonModule,
     FormsModule,
-    FilterPageModule,
     ExploreContainerComponentModule,
     RouterModule.forChild([{ path: '', component: FilterProfilePage }]),
     TranslateModule.forChild()
   ],
-  declarations: [FilterProfilePage]
+  declarations: [
+    FilterProfilePage,
+    FilterPage],
+  entryComponents: [
+    FilterPage
+  ]
 })
 export class FilterProfilePageModule { }
