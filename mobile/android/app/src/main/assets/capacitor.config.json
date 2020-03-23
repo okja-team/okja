@@ -1,26 +1,22 @@
 {
   "appId": "com.okja.i4you",
-  "appName": "mobile",
+  "appName": "I4You",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
   "cordova": {},
   "plugins": {
     "CapacitorFirebaseAuth": {
-      "providers": [
-        "google.com"
-      ],
+      "providers": ["google.com"],
       "languageCode": "en",
       "nativeAuth": false,
       "permissions": {
-        "google": [
-          "profile",
-          "https://www.googleapis.com/auth/drive"
-        ]
+        "google": ["profile", "https://www.googleapis.com/auth/drive"]
       }
+    },
+    "SplashScreen": {
+      "launchAutoHide": true,
+      "androidSplashResourceName": "screen"
     }
-  },
-  "server": {
-    "url": "http://192.168.1.232:8100"
   }
 }

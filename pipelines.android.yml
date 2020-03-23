@@ -61,5 +61,5 @@ steps:
       appFile: 'mobile/android/**/*.apk'
       symbolsOption: 'Android'
       releaseNotesOption: 'input'
-      releaseNotesInput: 'Build $(type) $(androidVariant)'
+      releaseNotesInput: 'Build $(androidVariant) from $(Build.SourceBranch)'
       destinationType: 'groups'
