@@ -17,6 +17,7 @@ import { LoadingController, ModalController, IonRouterOutlet } from '@ionic/angu
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { UserDataService } from 'services/user-data/user-data.service';
 import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
+import { User } from 'services/user-data/user.interface';
 declare const google: any;
 
 @Component({
@@ -57,6 +58,9 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   map: any;
   avatarPhoto = '';
   userLogged = false;
+  user: User;
+
+  avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
 
   constructor(
     public readonly router: Router,
@@ -70,6 +74,14 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     private readonly routerOutlet: IonRouterOutlet
   ) {
     translactionServise.getDefaultLanguage();
+    this.userDataService.isLogged().subscribe(v => {
+      this.userLogged = v;
+      if (v) {
+        this.setProfile();
+      } else {
+        this.avatarPhoto = this.avatarPlaceHolder;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -79,7 +91,12 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    this.getActiveProfile();
+    this.activeProfileSerive.getActiveProfile()
+      .pipe(untilDestroyed(this))
+      .subscribe(x => {
+        this.activeProfile = x;
+        // this.repositionMap();
+      });
     this.repositionMap();
   }
 
@@ -95,7 +112,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     });
     loader.present()
       .then(x => {
-        this.userLogged = this.userDataService.isLoggedIn;
         this.activeProfileSerive.getActiveProfile()
           .pipe(untilDestroyed(this))
           .subscribe(x => {
@@ -168,6 +184,19 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     return modal.present();
   }
 
+  setProfile() {
+    this.profileService.getProfile()
+      .pipe(take(1), untilDestroyed(this))
+      .subscribe(p => {
+        this.avatarPhoto = (p && p.photoURL) ? p.photoURL : this.avatarPlaceHolder;
+        if (p && p.position && p.position.lat && p.position.lng) {
+          this.lat = p.position.lat;
+          this.lng = p.position.lng;
+          this.hiddenMap = false;
+        }
+      });
+  }
+
   getOpacity(p: Profile): number {
 
     if (
@@ -182,15 +211,11 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   goToProfile() {
-    this.authService.checkAuth()
-      .pipe(take(1), untilDestroyed(this))
-      .subscribe(user => {
-        if (user) {
-          this.router.navigate(['profile']);
-        } else {
-          this.router.navigate(['login']);
-        }
-      })
+    if (this.userLogged) {
+      this.router.navigate(['profile']);
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
   mapReady(event: any) {
