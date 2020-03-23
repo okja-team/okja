@@ -1,8 +1,8 @@
 # I for you
 
-![BannerI4You](https://user-images.githubusercontent.com/1813054/76839307-932d5b00-6835-11ea-888a-86d0932b16cf.png)
-
 **I for you** is an application that allows you to get in touch quickly and easily with people who can offer practical support, in this moment of emergence, to those who need it most, who are in difficulty or who are alone .
+
+![BannerBig](https://user-images.githubusercontent.com/1813054/77321820-0db51980-6d13-11ea-9215-af3f25b88272.png)
 
 ---
 
