@@ -105,68 +105,25 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     this.lng = '';
   }
 
-  async getActiveProfile() {
-    const loader = await this.loadingCtrl.create({
-      message: '',
-      spinner: 'crescent',
-    });
-    loader.present()
-      .then(x => {
-        this.activeProfileSerive.getActiveProfile()
-          .pipe(untilDestroyed(this))
-          .subscribe(x => {
-            this.activeProfile = x;
-            // this.repositionMap();
-          });
-        const placeHolder = 'assets/images/icon/ico_user_placeholder.svg';
-        this.avatarPhoto = placeHolder;
-        if (this.userLogged) {
-          this.profileService.getProfile()
-            .pipe(take(1), untilDestroyed(this))
-            .subscribe(x => {
-              this.avatarPhoto = placeHolder;
-              if (x && x.photoURL) {
-                this.avatarPhoto = x.photoURL;
-              }
-            });
-        }
-      })
-      .finally(() => {
-        loader.dismiss();
-      })
-
-  }
-
   async repositionMap() {
     const loader = await this.loadingCtrl.create({
       message: '',
       spinner: 'crescent',
     });
-    loader.present()
-      .then(x => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position: Position) => {
-            if (position) {
-              this.lat = position.coords.latitude;
-              this.lng = position.coords.longitude;
-              this.hiddenMap = false;
-            }
-          });
-        } else {
-          this.profileService.getProfile()
-            .pipe(take(1), untilDestroyed(this))
-            .subscribe(p => {
-              if (p && p.position && p.position.lat && p.position.lng) {
-                this.lat = p.position.lat;
-                this.lng = p.position.lng;
-                this.hiddenMap = false;
-              }
-            });
+    await loader.present(); //TODO
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: Position) => {
+        if (position) {
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
+          this.hiddenMap = false;
         }
-      })
-      .finally(() => {
-        loader.dismiss();
       });
+    } else {
+      this.setProfile();
+    }
+    await loader.dismiss();
   }
 
   async presentModal() {
