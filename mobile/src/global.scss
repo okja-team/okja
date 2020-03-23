@@ -26,3 +26,10 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @import "./theme/custom-light-variables";
+
+.map-modal-card .modal-wrapper {
+  height: 40%;
+  top: 60%;
+  position: absolute; 
+  display: block;  
+}
