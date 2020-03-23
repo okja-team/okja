@@ -24,9 +24,30 @@
     z-index: 9999;
   }
 
-  #timeChip {
+  #availabilityChip {
     color: var(--ion-color-primary-contrast);
     background-color: var(--ion-color-primary);
+    height: 5vw;
+  }
+
+  .capability {
+    height: 5vw;
+  }
+
+  .userAvatar {
+    border-radius: 4vw;
+    padding: 2vw;
+  }
+
+  .userInfo {
+    height: 100%;
+    width: 100%;
+    display: block;
+    vertical-align: middle;
+  }
+
+  .userName {
+    font-size: 6vw;
   }
   
 }

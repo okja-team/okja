@@ -12,28 +12,32 @@
 <ion-content [fullscreen]="true">
   
   <ion-item (click)="openFilterModal()">
-    <ion-chip id="timeChip" slot="start">{{ 'CARDS_PAGE.ALL_TIME' | translate }}</ion-chip>
+    <ion-chip id="availabilityChip" slot="start">{{ 'CARDS_PAGE.ALL_TIME' | translate }}</ion-chip>
     <ion-icon slot="end" src="assets/images/icon/ico_filter.svg"></ion-icon>
   </ion-item>
 
   <ion-list >
     <ion-card *ngFor="let profile of activeProfiles"> 
-      <ion-item lines="none">
-        <ion-avatar *ngIf="profile.photoURL" slot="start">
-          <img src="{{profile.photoURL}}">
-        </ion-avatar>
-        <ion-avatar *ngIf="!profile.photoURL" slot="start">
-          <img src="assets/images/icon/ico_user_placeholder.svg">
-        </ion-avatar>
-        <ion-label>
-          <h2>{{ profile.name }}</h2>
-          <h4 *ngIf="profile.position">{{ computeDistance(profile.position) }}{{ 'COMMON.UNIT_DISTANCE' | translate }} {{ 'CARDS_PAGE.NEAR_YOU' | translate }}</h4>
-          <ion-chip *ngFor="let role of profile.capabilities"> 
-            <ion-label>{{ 'COMMON.ACTIVITY_TYPES.' + role.type.toUpperCase() | translate }}</ion-label>
-          </ion-chip>
-        </ion-label>
-        <ion-icon src="assets/images/icon/ico_contact.svg"></ion-icon>
-      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3">
+            <img *ngIf="!profile.photoURL" class="userAvatar" src="assets/images/icon/ico_user_placeholder.svg">
+            <img *ngIf="profile.photoURL" class="userAvatar" src="{{profile.photoURL}}">
+          </ion-col>
+          <ion-col size="7">
+            <ion-row class="userName">{{ profile.name }}</ion-row>
+            <ion-row *ngIf="profile.position">{{ computeDistance(profile.position) }}{{ 'COMMON.UNIT_DISTANCE' | translate }} {{ 'CARDS_PAGE.NEAR_YOU' | translate }}</ion-row>
+            <ion-row>
+              <ion-chip class="capability" *ngFor="let role of profile.capabilities"> 
+                <ion-label>{{ 'COMMON.ACTIVITY_TYPES.' + role.type.toUpperCase() | translate }}</ion-label>
+              </ion-chip>
+            </ion-row>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon class="userInfo" src="assets/images/icon/ico_contact.svg"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card>
   </ion-list>
 

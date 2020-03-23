@@ -1,25 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>filter</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <h3>{{ 'FILTER_PAGE.FILTER_BY' | translate }}</h3>
+  </ion-item>
+  <div>
+    <span *ngIf="distanceFilter <= 10" class="distance-filter">{{ distanceFilter }}{{ 'COMMON.UNIT_DISTANCE_K' | translate }}</span>
+    <span *ngIf="distanceFilter > 10" class="distance-filter">∞</span>
+    <h2 class="filter-label">{{ 'FILTER_PAGE.DISTANCE' | translate }}</h2>
+  </div>
+  <ion-item (ionChange)="onChangeDistance()">
+    <ion-range [(ngModel)]="distanceFilter" min="0" max="15" step="5"></ion-range>
+  </ion-item>
+  <h2 class="filter-label">{{ 'FILTER_PAGE.AVAILABILITY' | translate }}</h2>
+  <ion-item (ionChange)="onChangeAvailability()">
+    <ion-chip class="availabilityChip">{{ 'CARDS_PAGE.ALL_TIME' | translate }}</ion-chip>
+  </ion-item>
 
-  <ion-item>
-    <ion-label>{{ 'CARDS_PAGE.FILTERS.DISTANCE_FILTER' | translate }}</ion-label>
-    <ion-select [(ngModel)]="distanceFilter" value="brown" [value]="5"
-    okText="{{ 'COMMON.OK_BUTTON' | translate }}"
-    cancelText="{{ 'COMMON.CANCEL_BUTTON' | translate }}">
-      <ion-select-option value="1">1{{ 'COMMON.UNIT_DISTANCE' | translate }}</ion-select-option>
-      <ion-select-option value="5">5{{ 'COMMON.UNIT_DISTANCE' | translate }}</ion-select-option>
-      <ion-select-option value="10">10{{ 'COMMON.UNIT_DISTANCE' | translate }}</ion-select-option>
-      <ion-select-option value="9999">{{ 'CARDS_PAGE.FILTERS.NO_DISTANCE' | translate }}</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-button size="small" [color]="foodFilter ? 'primary' : 'light'">{{ 'COMMON.ACTIVITY_TYPES.FOOD' | translate }}</ion-button>
-    <ion-button size="small" [color]="pharmacyFilter ? 'primary' : 'light'">{{ 'COMMON.ACTIVITY_TYPES.PHARMACY' | translate }}</ion-button>
-  </ion-item>
+  <div class="button-group">
+    <ion-button id="resetButton" color="medium" size="large" (click)="resetFilters()">Reset</ion-button>
+    <ion-button id="applyButton" color="primary" size="large" (click)="closeModal()">Apply</ion-button>
+  </div>
   
 </ion-content>
