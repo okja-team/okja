@@ -122,7 +122,7 @@ export class PositionPikerPage implements OnInit, OnDestroy {
   savePosition() {
     if (this.lat && this.lng) {
       if (this.reversedAddress) {
-        this.profile.address.street = this.reversedAddress;
+        this.profile.address = this.reversedAddress;
       }
       this.profile.position = { lat: this.lat, lng: this.lng };
       this.profileService.addProfile(this.profile);

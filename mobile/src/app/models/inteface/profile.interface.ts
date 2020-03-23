@@ -1,10 +1,11 @@
 import { IPosition } from './position.interface';
 import { ICapability } from './capability.interfae';
-import { Address } from 'models/class/address';
 export interface IProfile {
     name?: string;
     surName?: string;
-    address?: Address;
+    nation?: string;
+    city?: string;
+    address?: string;
     phone?: string;
     skypeId?: string;
     isAvailable?: boolean;
