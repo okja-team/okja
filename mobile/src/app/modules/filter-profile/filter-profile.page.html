@@ -13,8 +13,8 @@
   <div id="content">
     <ion-item lines="none">
       <ion-chip class="filterChip" slot="start">{{ 'COMMON.AVAILABILITY_TYPES.' + availabilityFilter.toUpperCase() | translate }}</ion-chip>
-      <ion-chip *ngIf="distanceFilter !== 9999" class="filterChip" slot="start">{{ distanceFilter / 1000 }}{{ 'COMMON.UNIT_DISTANCE_K' | translate }} </ion-chip>
-      <ion-chip *ngIf="distanceFilter == 9999" class="filterChip" slot="start">{{ 'CARDS_PAGE.NO_DISTANCE_LIMIT' | translate }} </ion-chip>
+      <ion-chip *ngIf="distanceFilter != 9999000" class="filterChip" slot="start">{{ distanceFilter / 1000 }}{{ 'COMMON.UNIT_DISTANCE_K' | translate }} </ion-chip>
+      <ion-chip *ngIf="distanceFilter == 9999000" class="filterChip" slot="start">{{ 'CARDS_PAGE.NO_DISTANCE_LIMIT' | translate }} </ion-chip>
       <ion-icon slot="end" src="assets/images/icon/ico_filter.svg" (click)="openFilterModal()"></ion-icon>
     </ion-item>
 
