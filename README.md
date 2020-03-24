@@ -7,7 +7,10 @@
 ---
 
 #### Build
+- Android   
 [![Build Status](https://dev.azure.com/okja-team/okja/_apis/build/status/okja-team.okja?branchName=develop)](https://dev.azure.com/okja-team/okja/_build/latest?definitionId=1&branchName=develop)
+- Web   
+[![Build Status](https://dev.azure.com/okja-team/okja/_apis/build/status/Pipeline%20Web?branchName=develop)](https://dev.azure.com/okja-team/okja/_build/latest?definitionId=2&branchName=develop)
 
 #### Slack Channel
 [join to our team on slack](https://join.slack.com/t/okja-team/shared_invite/zt-csqhmgo7-i8iqciFMlE~xxfS6BC1IBw)

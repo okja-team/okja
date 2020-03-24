@@ -6,8 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { ActiveProfilesPage } from './active-profiles.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { AgmCoreModule } from '@agm/core';
-import { CallNumber } from '@ionic-native/call-number/ngx';
 import { TranslateModule } from '@ngx-translate/core';
+import { CardProfileModule } from 'modules/card-profile/card-profile.module';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 
 @NgModule({
@@ -18,12 +18,11 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
     AgmCoreModule,
     AgmJsMarkerClustererModule,
     ExploreContainerComponentModule,
+    CardProfileModule,
     RouterModule.forChild([{ path: '', component: ActiveProfilesPage }]),
     TranslateModule.forChild()
   ],
-  providers: [
-    CallNumber
-  ],
+  providers: [],
   declarations: [ActiveProfilesPage]
 })
 export class ActiveProfilesPageModule {}

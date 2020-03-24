@@ -9,13 +9,11 @@ import {
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Profile } from 'models/class/profile';
-import { ICapability } from 'models/inteface/capability.interfae';
-import { Roles } from 'models/enums/roles.enum';
-import { CallNumber } from '@ionic-native/call-number/ngx';
-import { TranslateConfigService } from '../../services/translate-config.service';
+import { CardProfileComponent } from 'modules/card-profile/card-profile.component';
+import { TranslateConfigService } from 'services/translate-config.service';
 import { ProfileService } from 'services/profile.service';
 import { take } from 'rxjs/operators';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController, IonRouterOutlet } from '@ionic/angular';
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { UserDataService } from 'services/user-data/user-data.service';
 import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
@@ -32,7 +30,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 
   hiddenMap = true;
-  firstTime: boolean = true;
   opacityNotSelected: number = 0.4;
   opacitySelected: number = 1;
   icon: any = {
@@ -70,11 +67,11 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     private readonly translactionServise: TranslateConfigService,
     private readonly activeProfileSerive: ActiveProfilesService,
     private readonly profileService: ProfileService,
-    private readonly callNumber: CallNumber,
     private readonly loadingCtrl: LoadingController,
     private readonly authService: AuthenticationService,
-    private readonly userDataService: UserDataService
-
+    private readonly userDataService: UserDataService,
+    private readonly modalController: ModalController,
+    private readonly routerOutlet: IonRouterOutlet
   ) {
     translactionServise.getDefaultLanguage();
     this.userDataService.isLogged().subscribe(v => {
@@ -129,6 +126,21 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     await loader.dismiss();
   }
 
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: CardProfileComponent,
+      componentProps: {
+        'profileSelected': this.profileSelected
+      },
+      swipeToClose: true,
+      showBackdrop: true,
+      presentingElement: this.routerOutlet.nativeEl,
+      mode: 'ios',
+      cssClass: 'map-modal-card'
+    });
+    return modal.present();
+  }
+
   setProfile() {
     this.profileService.getProfile()
       .pipe(take(1), untilDestroyed(this))
@@ -169,41 +181,11 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   openCardHelper(profile: Profile): void {
-    if (this.firstTime) {
-      this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('ProfileHelperContainer'));
-      this.firstTime = false;
-    }
     this.profileSelected = profile;
-    console.log(this.profileSelected.address);
-  }
-
-  getActiveRoles(): ICapability[] {
-    if (this.profileSelected.capabilities) {
-      return this.profileSelected.capabilities.filter(act => act.available);
-    }
-    return [];
-  }
-
-  getColorFromRoleType(roleType: Roles): string {
-    switch (roleType) {
-      case Roles.Food:
-        return '#046506';
-      case Roles.Pharmacy:
-        return '#df8c8c';
-      default:
-        return '#dcdcdc';
-    }
+    this.presentModal();
   }
 
   closeCard(): void {
     this.profileSelected = null;
-  }
-
-  openSkype(profile: Profile) {
-
-  }
-
-  callProfile() {
-    this.callNumber.callNumber(this.profileSelected.phone, false).then(res => console.log('Launched dialer!', res))
   }
 }
