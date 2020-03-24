@@ -1,13 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-item>
+  <ion-item class="filter-header">
     <h3>{{ 'FILTER_PAGE.FILTER_BY' | translate }}</h3>
   </ion-item>
   <div>
@@ -19,9 +11,16 @@
     <ion-range [(ngModel)]="distanceFilter" min="0" max="15" step="5"></ion-range>
   </ion-item>
   <h2 class="filter-label">{{ 'FILTER_PAGE.AVAILABILITY' | translate }}</h2>
-  <ion-item (ionChange)="onChangeAvailability()">
-    <ion-chip class="availabilityChip">{{ 'CARDS_PAGE.ALL_TIME' | translate }}</ion-chip>
-  </ion-item>
+  <div id="availability-list">
+    <ng-container *ngFor="let type of availabilityFilterList" >
+      <ion-chip *ngIf="type == availabilityFilter" class="availabilityChip selectedChip">
+        {{ 'COMMON.AVAILABILITY_TYPES.' + type.toUpperCase() | translate }}
+      </ion-chip>
+      <ion-chip *ngIf="type != availabilityFilter" class="availabilityChip" (click)="onChangeAvailability(type)">
+        {{ 'COMMON.AVAILABILITY_TYPES.' + type.toUpperCase() | translate }}
+      </ion-chip>
+    </ng-container>
+  </div>
 
   <div class="button-group">
     <ion-button id="resetButton" color="medium" size="large" (click)="resetFilters()">Reset</ion-button>

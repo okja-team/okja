@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { ActiveProfilesService } from 'active-profiles.service';
 import { Plugins } from '@capacitor/core';
+import { TranslateConfigService } from 'services/translate-config.service';
 const { Geolocation } = Plugins;
 
 @Component({
@@ -21,7 +22,7 @@ export class FilterProfilePage implements OnInit, OnDestroy {
   user: User;
   userPosition: any;
   distanceFilter = 5000;
-  availabilityFilter;
+  availabilityFilter = 'all_time';
 
   private loadingElement: HTMLIonLoadingElement;
 
@@ -30,7 +31,8 @@ export class FilterProfilePage implements OnInit, OnDestroy {
     private userDataService: UserDataService,
     public router: Router,
     private activeProfileService: ActiveProfilesService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private translactionServise: TranslateConfigService
   ) { }
 
   async ngOnInit() {
@@ -64,6 +66,7 @@ export class FilterProfilePage implements OnInit, OnDestroy {
 
     modal.onDidDismiss().then((filters) => {
       this.distanceFilter = filters.data.distance;
+      this.availabilityFilter = filters.data.availability;
       this.getActiveProfiles();
     });
 
@@ -95,6 +98,19 @@ export class FilterProfilePage implements OnInit, OnDestroy {
     }
   }
 
+  computeRoundDistance(position) {
+    let distance = this.computeDistance(position);
+    distance = Math.round(distance / 500) * 500;
+    let unit;
+    if (distance >= 1000) {
+      distance = Math.round(distance / 1000);
+      unit = this.translactionServise.translateInstant('COMMON.UNIT_DISTANCE_K');
+    } else {
+      unit = this.translactionServise.translateInstant('COMMON.UNIT_DISTANCE');
+    }
+    return distance + unit;
+  }
+
   sortProfiles(profiles) {
     profiles.sort((a, b) => {
       const dist1 = this.computeDistance(a.position);
@@ -124,6 +140,7 @@ export class FilterProfilePage implements OnInit, OnDestroy {
     .pipe(untilDestroyed(this))
     .subscribe(profiles => {
       this.activeProfiles = this.filterProfiles(profiles);
+      console.log(this.activeProfiles[0]);
       this.loadingElement.dismiss();
     });
   }
