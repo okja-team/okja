@@ -39,6 +39,7 @@ export class FilterPage {
 
   resetFilters() {
     this.distanceFilter = 5;
+    this.availabilityFilter = 'all_time';
   }
 
 }
