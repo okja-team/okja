@@ -25,4 +25,4 @@ import { FilterPage } from 'modules/filter/filter.page';
     FilterPage
   ]
 })
-export class FilterProfilePageModule { }
+export class FilterProfilePageModule {}

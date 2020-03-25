@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
+import { AvailabilityType } from 'models/enums/availability.enum';
 
 @Component({
   selector: 'app-filter',
@@ -8,12 +9,16 @@ import { ModalController, NavParams } from '@ionic/angular';
 })
 export class FilterPage {
 
-  public distanceFilter = 5;
-  public availabilityFilter;
+  distanceFilter = 5;
+  availabilityFilter = 'all_time';
+  availabilityFilterList = [];
 
   constructor(private modalCtrl: ModalController, navParams: NavParams) {
     this.distanceFilter = navParams.get('distance') / 1000;
     this.availabilityFilter = navParams.get('availability');
+    Object.keys(AvailabilityType).forEach((type) => {
+      this.availabilityFilterList.push(AvailabilityType[type]);
+    });
   }
 
   onChangeDistance() {
@@ -24,8 +29,8 @@ export class FilterPage {
     }
   }
 
-  onChangeAvailability() {
-    console.log(this.availabilityFilter);
+  onChangeAvailability(type) {
+    this.availabilityFilter = type;
   }
 
   closeModal() {
@@ -34,6 +39,7 @@ export class FilterPage {
 
   resetFilters() {
     this.distanceFilter = 5;
+    this.availabilityFilter = 'all_time';
   }
 
 }

@@ -20,8 +20,8 @@
     },
     "CARDS_PAGE": {
         "TITLE": "Helpers near you!",
-        "NEAR_YOU": "near you",
-        "ALL_TIME": "All time"
+        "NEAR_YOU": "about {{distance}} near you",
+        "NO_DISTANCE_LIMIT": "no distance limit"
     },
     "FILTER_PAGE": {
         "FILTER_BY": "Filtra per",
@@ -82,6 +82,12 @@
             "COMPANY": "Company"
         },
         "OK_BUTTON": "Ok",
-        "CANCEL_BUTTON": "Cancel"
+        "CANCEL_BUTTON": "Cancel",
+        "AVAILABILITY_TYPES": {
+            "ALL_TIME": "All time",
+            "MORNING": "Morning",
+            "AFTER_NOON": "After noon",
+            "EVENING": "Evening"
+        }
     }
 }
