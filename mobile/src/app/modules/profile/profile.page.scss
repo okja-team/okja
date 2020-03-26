@@ -1,55 +1,28 @@
-.registrazione-card {
+.page {
+  height: 100%;
+  padding: 2em;
 
-    overflow-y: auto;
-    margin: auto;
-    margin-left: 10px;
-    margin-right: 10px;
+  img {
+    width: 150px;
+    max-width: none;
+  }
 
-    ion-card-content {
-        padding-left: 0;
-    }
-
-    ion-card-header {
-        padding: 0;
-    }
-
-    .width-30 {
-        width: 30vw;
-    }
-
-    .list-full {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .button {
-        padding-left: 20px;
-        margin: auto;
-        margin-bottom: 5px;
-    }
-
-    ion-segment {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .segment-container {
-        width: 106%;
-    }
-
-    .important-statement {
-        text-transform: uppercase;
-        font-weight: 600;
-        padding: 0;
-    }
+  ion-item {
+    margin-top: 0.5em;
+    --background: transparent;
+    --color: white;
+    --border-color: white;
+    --padding-start: 0px;
+  }
 }
 
-.container {
-    height: 100vh;
-    display: flex;
-    background-color: rgb(231, 240, 253);
-}
-
-.dark-background {
-    background-color: #000000;
+.title {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
 }

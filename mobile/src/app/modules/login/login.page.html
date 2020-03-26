@@ -1,14 +1,20 @@
-<div class="main-background app-background">
-  <img src="assets/images/icon/favicon.png">
-  <div class="main-text">
-    <h1 [innerHTML]="'LOGIN_PAGE.TITLE' | translate"></h1>
-    <div class="description-text">
-      {{ "LOGIN_PAGE.DESCR" | translate }}
-    </div>
-  </div>
-  <div class="buttons">
-    <round-button [color]="'blue'">{{ "LOGIN_PAGE.SIGN_IN_FACEBOOK" | translate }}</round-button>
-    <round-button [color]="'red'"
-      (click)="loginWithSocial()">{{ "LOGIN_PAGE.SIGN_IN_GOOGLE" | translate }}</round-button>
-  </div>
+<div class="app-background page">
+  <ion-grid>
+    <ion-row><img src="assets/images/logo_no_claim.svg" class="logo" /></ion-row>
+    <ion-row>
+      <div [innerHTML]="'LOGIN_PAGE.TITLE' | translate" class="title"></div>
+    </ion-row>
+    <ion-row>
+      <p class="description">
+        {{ "LOGIN_PAGE.DESCR" | translate }}
+      </p>
+    </ion-row>
+    <ion-row class="buttonsContainer">
+      <ion-col>
+        <ion-button expand="block" [disabled]="true">{{ "LOGIN_PAGE.SIGN_IN_FACEBOOK" | translate }}</ion-button>
+        <ion-button expand="block" (click)="loginWithSocial()">
+          {{ "LOGIN_PAGE.SIGN_IN_GOOGLE" | translate }}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </div>

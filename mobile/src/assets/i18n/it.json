@@ -40,9 +40,11 @@
     },
     "PROFILE_PAGE":{
         "TITLE": "Profilo",
-        "FIRST_MESSAGE": "Ciao! Se sei in quarantena posso darti una mano",	
+        "FIRST_MESSAGE": "Hey, posso prendermi cura di te!",	
         "NAME": "Nome",
         "SURNAME": "Cognome",
+        "COUNTRY": "Nazione",
+        "CITY": "Città",
         "ADDRESS": "Indirizzo",
         "PHONE": "Contatto",
         "BISOGNO_AIUTO": "Ho bisogno di aiuto",
@@ -56,6 +58,7 @@
             "MAIL": "Posta",
             "COMPANY": "Compagnia"
         },
+        "NEXT" : "Come vuoi aiutare?",
         "SAVE": "Salva",
         "SIGN_UP": "Registra",
         "CLOSE": "Chiudi",

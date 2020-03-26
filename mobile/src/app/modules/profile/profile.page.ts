@@ -17,10 +17,10 @@ import { Profile } from 'models/class/profile';
 })
 export class ProfilePage implements OnInit, OnDestroy {
 
+  public showInfo = true;
   public profile: Profile;
   public hasProfile = false;
   public help = Roles;
-  public isDarkMode = false;
   public img: string;
 
   constructor(
@@ -33,8 +33,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     private readonly toast: ToastController,
   ) {
     this.translateConfigService.getDefaultLanguage();
-    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    this.img = `assets/img/abbiamo-bisogno-del-tuo-aiuto${this.isDarkMode ? '-dark' : ''}.png`;
   }
 
 
@@ -42,6 +40,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   // --------------------------------------------//
 
   ngOnInit() {
+    this.showInfo = true;
     this.subscriptions();
   }
 
@@ -49,6 +48,10 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   // -------------- PUBLIC METHODS --------------//
   // --------------------------------------------//
+
+  public onClickHideInfo(){
+    this.showInfo = false;
+  }
 
   public async saveProfile() {
     const loading = await this.loadingCtrl.create({

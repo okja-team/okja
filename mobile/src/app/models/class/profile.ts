@@ -10,6 +10,8 @@ export class Profile implements IProfile {
     constructor(
         public name?: string,
         public surName?: string,
+        public nation?: string,
+        public city?: string,
         public address?: string,
         public phone?: string,
         public skypeId?: string,
@@ -23,7 +25,9 @@ export class Profile implements IProfile {
         this.id = id || null;
         this.name = name || '';
         this.surName = surName || '';
-        this.address = address || '';
+        this.nation = nation || '',
+        this.city = city || '',
+        this.address = address || ''
         this.phone = phone || '+39';
         this.skypeId = skypeId || '';
         this.isAvailable = isAvailable;
