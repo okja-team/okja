@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActiveProfilesPage } from './active-profiles.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { AgmCoreModule } from '@agm/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardProfileModule } from 'modules/card-profile/card-profile.module';
@@ -17,7 +16,6 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
     FormsModule,
     AgmCoreModule,
     AgmJsMarkerClustererModule,
-    ExploreContainerComponentModule,
     CardProfileModule,
     RouterModule.forChild([{ path: '', component: ActiveProfilesPage }]),
     TranslateModule.forChild()
