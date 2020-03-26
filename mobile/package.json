@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
+  "config": {
+    "ionic_sass": "./sass.config.js"
+  },
   "scripts": {
     "android-livereload": "ionic capacitor run android -l --external",
     "ios-livereload": "ionic capacitor run ios -l --external"
@@ -20,7 +23,6 @@
     "@capacitor/android": "^1.5.1",
     "@capacitor/core": "1.5.1",
     "@capacitor/ios": "^1.5.1",
-    "@ionic-native/call-number": "^5.22.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/native-geocoder": "^5.22.0",
     "@ionic-native/splash-screen": "^5.0.0",

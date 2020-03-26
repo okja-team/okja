@@ -1,0 +1,53 @@
+.container {
+  margin: 0;
+  background-image: linear-gradient(to bottom, #015eea 0%, #00c0fa 30%);
+}
+.ion-text-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatarContainer {
+  padding-top: 1.5em;
+}
+.nameContainer {
+  padding-top: 0.5em;
+}
+.name {
+  font-weight: 600;
+  color: white;
+  text-transform: capitalize;
+}
+.roleContainer {
+  padding-top: 0.5em;
+}
+.roleChip {
+  border-radius: 0px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+}
+.addressContainer {
+  padding-top: 0.3em;
+}
+.address {
+  color: white;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+.buttonsContainer {
+  padding-top: 1.5em;
+}
+.avatarPhoto {
+  border: 2px solid white;
+  margin: 0 auto;
+  width: 60px;
+  height: 60px;
+}
+.icon-button {
+  margin: 1em;
+}
+.button {
+  width: 60px;
+  height: 60px;
+}

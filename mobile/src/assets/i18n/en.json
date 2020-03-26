@@ -20,13 +20,13 @@
     },
     "CARDS_PAGE": {
         "TITLE": "Helpers near you!",
-        "FILTERS": {
-            "TYPE_FILTER": "Type",
-            "DISTANCE_FILTER": "Distance",
-            "NO_DISTANCE": "No distance"
-        },
-        "NEAR_YOU": "near you",
-        "ALL_TIME": "All time"
+        "NEAR_YOU": "about {{distance}} near you",
+        "NO_DISTANCE_LIMIT": "no distance limit"
+    },
+    "FILTER_PAGE": {
+        "FILTER_BY": "Filtra per",
+        "DISTANCE": "Distanza",
+        "AVAILABILITY": "Disponibilità"
     },
     "SETTINGS_PAGE": {
         "TITLE": "Settings",
@@ -54,8 +54,8 @@
         "MESSAGE_HELP": "I can help you with:",
         "AVAILABLE": "I'M AVAILABLE",
         "ROLE_TYPE": {
-            "food": "food",
-            "farmacy": "farmacy",
+            "FOOD": "food",
+            "FARMACY": "farmacy",
             "MAIL": "mail",
             "COMPANY": "company"
         },
@@ -76,11 +76,20 @@
     },
     "COMMON": {
         "UNIT_DISTANCE": "m",
+        "UNIT_DISTANCE_K": "km",
         "ACTIVITY_TYPES": {
             "FOOD": "Food",
-            "PHARMACY": "Pharmacy"
+            "PHARMACY": "Pharmacy",
+            "MAIL": "Mail",
+            "COMPANY": "Company"
         },
         "OK_BUTTON": "Ok",
-        "CANCEL_BUTTON": "Cancel"
+        "CANCEL_BUTTON": "Cancel",
+        "AVAILABILITY_TYPES": {
+            "ALL_TIME": "All time",
+            "MORNING": "Morning",
+            "AFTER_NOON": "After noon",
+            "EVENING": "Evening"
+        }
     }
 }

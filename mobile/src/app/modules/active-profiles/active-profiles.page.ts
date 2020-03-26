@@ -9,16 +9,15 @@ import {
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Profile } from 'models/class/profile';
-import { ICapability } from 'models/inteface/capability.interfae';
-import { Roles } from 'models/enums/roles.enum';
-import { CallNumber } from '@ionic-native/call-number/ngx';
-import { TranslateConfigService } from '../../services/translate-config.service';
+import { CardProfileComponent } from 'modules/card-profile/card-profile.component';
+import { TranslateConfigService } from 'services/translate-config.service';
 import { ProfileService } from 'services/profile.service';
 import { take } from 'rxjs/operators';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController, IonRouterOutlet } from '@ionic/angular';
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { UserDataService } from 'services/user-data/user-data.service';
 import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
+import { User } from 'services/user-data/user.interface';
 declare const google: any;
 
 @Component({
@@ -31,7 +30,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 
   hiddenMap = true;
-  firstTime: boolean = true;
   opacityNotSelected: number = 0.4;
   opacitySelected: number = 1;
   icon: any = {
@@ -60,19 +58,30 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   map: any;
   avatarPhoto = '';
   userLogged = false;
+  user: User;
+
+  avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
 
   constructor(
     public readonly router: Router,
     private readonly translactionServise: TranslateConfigService,
     private readonly activeProfileSerive: ActiveProfilesService,
     private readonly profileService: ProfileService,
-    private readonly callNumber: CallNumber,
     private readonly loadingCtrl: LoadingController,
     private readonly authService: AuthenticationService,
-    private readonly userDataService: UserDataService
-
+    private readonly userDataService: UserDataService,
+    private readonly modalController: ModalController,
+    private readonly routerOutlet: IonRouterOutlet
   ) {
     translactionServise.getDefaultLanguage();
+    this.userDataService.isLogged().subscribe(v => {
+      this.userLogged = v;
+      if (v) {
+        this.setProfile();
+      } else {
+        this.avatarPhoto = this.avatarPlaceHolder;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -82,25 +91,12 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    this.userLogged = this.userDataService.isLoggedIn;
     this.activeProfileSerive.getActiveProfile()
       .pipe(untilDestroyed(this))
       .subscribe(x => {
         this.activeProfile = x;
         // this.repositionMap();
       });
-    const placeHolder = 'assets/images/icon/ico_user_placeholder.svg';
-    this.avatarPhoto = placeHolder;
-    if (this.userLogged) {
-      this.profileService.getProfile()
-        .pipe(take(1), untilDestroyed(this))
-        .subscribe(x => {
-          this.avatarPhoto = placeHolder;
-          if (x && x.photoURL) {
-            this.avatarPhoto = x.photoURL;
-          }
-        });
-    }
     this.repositionMap();
   }
 
@@ -125,17 +121,35 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.profileService.getProfile()
-        .pipe(take(1), untilDestroyed(this))
-        .subscribe(p => {
-          if (p && p.position && p.position.lat && p.position.lng) {
-            this.lat = p.position.lat;
-            this.lng = p.position.lng;
-            this.hiddenMap = false;
-          }
-        });
+      this.setProfile();
     }
     await loader.dismiss();
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: CardProfileComponent,
+      componentProps: {
+        'profileSelected': this.profileSelected
+      },
+      swipeToClose: true,
+      showBackdrop: true,
+      cssClass: 'map-modal-card'
+    });
+    return modal.present();
+  }
+
+  setProfile() {
+    this.profileService.getProfile()
+      .pipe(take(1), untilDestroyed(this))
+      .subscribe(p => {
+        this.avatarPhoto = (p && p.photoURL) ? p.photoURL : this.avatarPlaceHolder;
+        if (p && p.position && p.position.lat && p.position.lng) {
+          this.lat = p.position.lat;
+          this.lng = p.position.lng;
+          this.hiddenMap = false;
+        }
+      });
   }
 
   getOpacity(p: Profile): number {
@@ -152,15 +166,11 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   goToProfile() {
-    this.authService.checkAuth()
-      .pipe(take(1), untilDestroyed(this))
-      .subscribe(user => {
-        if (user) {
-          this.router.navigate(['profile']);
-        } else {
-          this.router.navigate(['login']);
-        }
-      })
+    if (this.userLogged) {
+      this.router.navigate(['profile']);
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
   mapReady(event: any) {
@@ -169,41 +179,11 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   openCardHelper(profile: Profile): void {
-    if (this.firstTime) {
-      this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('ProfileHelperContainer'));
-      this.firstTime = false;
-    }
     this.profileSelected = profile;
-    console.log(this.profileSelected.address);
-  }
-
-  getActiveRoles(): ICapability[] {
-    if (this.profileSelected.capabilities) {
-      return this.profileSelected.capabilities.filter(act => act.available);
-    }
-    return [];
-  }
-
-  getColorFromRoleType(roleType: Roles): string {
-    switch (roleType) {
-      case Roles.Food:
-        return '#046506';
-      case Roles.Pharmacy:
-        return '#df8c8c';
-      default:
-        return '#dcdcdc';
-    }
+    this.presentModal();
   }
 
   closeCard(): void {
     this.profileSelected = null;
-  }
-
-  openSkype(profile: Profile) {
-
-  }
-
-  callProfile() {
-    this.callNumber.callNumber(this.profileSelected.phone, false).then(res => console.log('Launched dialer!', res))
   }
 }

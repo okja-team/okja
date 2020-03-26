@@ -1,0 +1,43 @@
+:host {
+
+    .filter-header {
+        padding: 10vw 0;
+    }
+
+    .availabilityChip {
+        height: 6vw;
+    }
+
+    .selectedChip {
+        background-color: var(--ion-color-primary);
+        color: var(--ion-color-primary-contrast);
+    }
+
+    .filter-label {
+        padding-left: 5vw;
+    }
+
+    .distance-filter {
+        float: right;
+        padding-right: 5vw;
+    }
+
+    .button-group {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        padding: 10vw;
+    }
+
+    #resetButton {
+        float: left;
+    }
+
+    #applyButton {
+        float: right;
+    }
+
+    #availability-list {
+        padding: 5vw;
+    }
+}
