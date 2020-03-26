@@ -134,8 +134,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
       },
       swipeToClose: true,
       showBackdrop: true,
-      presentingElement: this.routerOutlet.nativeEl,
-      mode: 'ios',
       cssClass: 'map-modal-card'
     });
     return modal.present();
