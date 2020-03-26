@@ -1,39 +1,30 @@
-.header{
-    margin:2vw;
+.page {
+  height: 100%;
+  padding: 2em;
+
+  img {
+    width: 150px;
+    max-width: none;
+  }
 }
-.container {
-    overflow-y: auto;
-    height: 100vh;
-    margin: 2vw;
 
-   ion-item {
-       margin-top: 3vh;
-       --background: transparent;
-       --color: white;
-       --border-color:white;   
-   }
-    .width-30 {
-        width: 30vw;
-    }
+.title {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
 
-    .button {
-        padding-left: 20px;
-        margin: auto;
-        margin-bottom: 5px;
-    }
-
-    ion-segment {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .segment-container {
-        width: 106%;
-    }
-
-    .important-statement {
-        text-transform: uppercase;
-        font-weight: 600;
-        padding: 0;
-    }
+.inputContainer {
+  ion-item {
+    margin-top: 0.5em;
+    --background: transparent;
+    --color: white;
+    --border-color: white;
+    --padding-start : 0px;
+  }
 }

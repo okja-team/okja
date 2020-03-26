@@ -44,7 +44,7 @@
     },
     "PROFILE_PAGE":{
         "TITLE": "Profile",
-        "FIRST_MESSAGE": "Hi! If you are stuck in, I can help you out",
+        "FIRST_MESSAGE": "Hey, I can take care of you.",	
         "NAME": "Name",
         "SURNAME": "Surname",
         "COUNTRY": "Country",
