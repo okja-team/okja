@@ -59,6 +59,7 @@
             "MAIL": "mail",
             "COMPANY": "company"
         },
+        "NEXT" : "How do you want to help?",
         "SAVE": "Save",
         "SIGN_UP": "Sign up",
         "CLOSE": "Close",
