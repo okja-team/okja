@@ -1,23 +1,24 @@
 import { ActiveProfilesService } from 'active-profiles.service';
 import { AgmMap } from '@agm/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { CardProfileComponent } from 'modules/card-profile/card-profile.component';
+import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
 import {
   Component,
   OnDestroy,
   OnInit,
   ViewChild
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+  } from '@angular/core';
+import { GeolocationService } from 'services/geolocation.service';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
-import { CardProfileComponent } from 'modules/card-profile/card-profile.component';
-import { TranslateConfigService } from 'services/translate-config.service';
 import { ProfileService } from 'services/profile.service';
+import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { LoadingController, ModalController, IonRouterOutlet } from '@ionic/angular';
-import { AuthenticationService } from 'services/authentication/authentication.service';
-import { UserDataService } from 'services/user-data/user-data.service';
-import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
+import { TranslateConfigService } from 'services/translate-config.service';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 import { User } from 'services/user-data/user.interface';
+
 declare const google: any;
 
 @Component({
@@ -29,7 +30,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
 
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 
-  hiddenMap = true;
+  hiddenMap = false;
   opacityNotSelected: number = 0.4;
   opacitySelected: number = 1;
   icon: any = {
@@ -41,14 +42,12 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   };
 
   clusterStyles: ClusterStyle[] = [{
-    url: 'assets/images/icon/help_you_cluster.png', //background che non viene scalato
+    url: 'assets/images/icon/help_you_cluster.png',
     height: 48,
     width: 48,
-    anchor: [-3, -3], //The anchor position of the label text.
+    anchor: [-3, -3],
     textColor: '#FFFFFF',
     textSize: 18,
-    // backgroundPosition: "",
-    // iconAnchor: [number, number],
   }];
 
   profileSelected: Profile = null;
@@ -59,29 +58,24 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   avatarPhoto = '';
   userLogged = false;
   user: User;
+  userProfile: Profile;
 
   avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
 
   constructor(
+    translactionServise: TranslateConfigService,
     public readonly router: Router,
-    private readonly translactionServise: TranslateConfigService,
     private readonly activeProfileSerive: ActiveProfilesService,
     private readonly profileService: ProfileService,
     private readonly loadingCtrl: LoadingController,
-    private readonly authService: AuthenticationService,
-    private readonly userDataService: UserDataService,
     private readonly modalController: ModalController,
-    private readonly routerOutlet: IonRouterOutlet
+    private readonly geoService: GeolocationService,
+    private readonly ngFireAuth: AngularFireAuth,
+
   ) {
     translactionServise.getDefaultLanguage();
-    this.userDataService.isLogged().subscribe(v => {
-      this.userLogged = v;
-      if (v) {
-        this.setProfile();
-      } else {
-        this.avatarPhoto = this.avatarPlaceHolder;
-      }
-    });
+    this.setSubscriptions();
+
   }
 
   ngOnInit(): void {
@@ -91,37 +85,42 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
+  }
+
+  ionViewDidLeave() {
+  }
+
+  setSubscriptions() {
+    this.avatarPhoto = this.avatarPlaceHolder;
+    this.ngFireAuth.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.userLogged = true;
+        this.setProfile();
+      } else {
+        this.userLogged = false;
+        this.avatarPhoto = this.avatarPlaceHolder;
+      }
+    });
+
     this.activeProfileSerive.getActiveProfile()
       .pipe(untilDestroyed(this))
       .subscribe(x => {
         this.activeProfile = x;
-        // this.repositionMap();
       });
     this.repositionMap();
   }
 
-  ionViewDidLeave() {
-    this.lat = '';
-    this.lng = '';
-  }
-
   async repositionMap() {
-    const loader = await this.loadingCtrl.create({
-      message: '',
-      spinner: 'crescent',
-    });
-    await loader.present(); //TODO
+    const loader = await this.loadingCtrl.create();
+    await loader.present();
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position: Position) => {
-        if (position) {
-          this.lat = position.coords.latitude;
-          this.lng = position.coords.longitude;
-          this.hiddenMap = false;
-        }
-      });
-    } else {
-      this.setProfile();
+    const geo = await this.geoService.getCurrentPosition();
+    if (geo) {
+      this.lat = geo.lat;
+      this.lng = geo.lng;
+    } else if (this.userProfile && this.userProfile.position) {
+      this.lat = this.userProfile.position.lat;
+      this.lng = this.userProfile.position.lng;
     }
     await loader.dismiss();
   }
@@ -143,17 +142,16 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     this.profileService.getProfile()
       .pipe(take(1), untilDestroyed(this))
       .subscribe(p => {
+        this.userProfile = p;
         this.avatarPhoto = (p && p.photoURL) ? p.photoURL : this.avatarPlaceHolder;
         if (p && p.position && p.position.lat && p.position.lng) {
           this.lat = p.position.lat;
           this.lng = p.position.lng;
-          this.hiddenMap = false;
         }
       });
   }
 
   getOpacity(p: Profile): number {
-
     if (
       !this.profileSelected
       || (p.id && this.profileSelected.id === p.id)
@@ -161,7 +159,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     ) {
       return this.opacitySelected;
     }
-
     return this.opacityNotSelected;
   }
 
