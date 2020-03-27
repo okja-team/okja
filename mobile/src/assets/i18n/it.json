@@ -46,7 +46,8 @@
         "COUNTRY": "Nazione",
         "CITY": "Città",
         "ADDRESS": "Indirizzo",
-        "PHONE": "Contatto",
+        "PHONE": "Telefono",
+        "SKYPE" : "Skype",
         "BISOGNO_AIUTO": "Ho bisogno di aiuto",
         "POSSO_AIUTARE": "Posso aiutare",
         "MESSAGE_HELP": "Ho bisogno di aiuto con:",
@@ -62,7 +63,7 @@
         "SAVE": "Salva",
         "SIGN_UP": "Registra",
         "CLOSE": "Chiudi",
-        "POSITION": "Posizione",
+        "POSITION": "Condividi la tua posizione",
         "LOADER_MESSAGE": "Salvataggio profilo in corso"
     },
     "TAB1_PAGE": {

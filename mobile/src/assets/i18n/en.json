@@ -51,6 +51,7 @@
         "CITY": "City",
         "ADDRESS": "Address",
         "PHONE": "Phone",
+        "SKYPE" : "Skype",
         "MESSAGE_HELP": "I can help you with:",
         "AVAILABLE": "I'M AVAILABLE",
         "ROLE_TYPE": {
@@ -63,7 +64,7 @@
         "SAVE": "Save",
         "SIGN_UP": "Sign up",
         "CLOSE": "Close",
-        "POSITION": "Position",
+        "POSITION": "Share your location",
         "LOADER_MESSAGE": "Saving your profile"
     },
     "TAB1_PAGE":{

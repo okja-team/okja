@@ -1,94 +1,112 @@
-<div class="app-background page">
-  <ion-row>
-    <ion-col size="8">
-      <div class="title">
-        {{ 'PROFILE_PAGE.FIRST_MESSAGE' | translate }}
-      </div>
-    </ion-col>
-    <ion-col size="4">
-      <img src="assets/images/icon/ico_hand.svg">
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="showInfo">
-    <ion-col>
-      <div *ngIf="profile">
+<ion-content class="app-background page">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8">
+        <div class="title">
+          {{ 'PROFILE_PAGE.FIRST_MESSAGE' | translate }}
+        </div>
+      </ion-col>
+      <ion-col size="4">
+        <img src="assets/images/icon/ico_hand.svg">
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="showInfo">
+      <ion-col>
+        <div *ngIf="profile">
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'PROFILE_PAGE.NAME' | translate }}
+            </ion-label>
+            <ion-input [(ngModel)]="profile.name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'PROFILE_PAGE.SURNAME' | translate }}
+            </ion-label>
+            <ion-input [(ngModel)]="profile.surName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'PROFILE_PAGE.PHONE' | translate }}
+            </ion-label>
+            <ion-input [(ngModel)]="profile.phone" [type]="tel"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'PROFILE_PAGE.SKYPE' | translate }}
+            </ion-label>
+            <ion-input [(ngModel)]="profile.skypeId"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'PROFILE_PAGE.CITY' | translate }}
+            </ion-label>
+            <ion-input [(ngModel)]="profile.city" [disabled]="true"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'PROFILE_PAGE.ADDRESS' | translate }}
+            </ion-label>
+            <ion-input [(ngModel)]="profile.address" [disabled]="true"></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!showInfo">
+      <ion-col>
         <ion-item>
-          <ion-label position="floating">
-            {{ 'PROFILE_PAGE.NAME' | translate }}
-          </ion-label>
-          <ion-input [(ngModel)]="profile.name"></ion-input>
+          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}</ion-label>
+          <ion-toggle [checked]="getCapability(help.Food)"
+            (ionChange)="setCapability(help.Food, $event.detail.checked)">
+          </ion-toggle>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            {{ 'PROFILE_PAGE.SURNAME' | translate }}
-          </ion-label>
-          <ion-input [(ngModel)]="profile.surName"></ion-input>
+          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FARMACY' | translate }}</ion-label>
+          <ion-toggle [checked]="getCapability(help.Pharmacy)"
+            (ionChange)="setCapability(help.Pharmacy, $event.detail.checked)"></ion-toggle>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            {{ 'PROFILE_PAGE.CITY' | translate }}
-          </ion-label>
-          <ion-input [(ngModel)]="profile.city"></ion-input>
+          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.MAIL' | translate }}</ion-label>
+          <ion-toggle [checked]="getCapability(help.Mail)"
+            (ionChange)="setCapability(help.Mail, $event.detail.checked)">
+          </ion-toggle>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            {{ 'PROFILE_PAGE.ADDRESS' | translate }}
-          </ion-label>
-          <ion-input [(ngModel)]="profile.address"></ion-input>
+          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.COMPANY' | translate }}</ion-label>
+          <ion-toggle [checked]="getCapability(help.Company)"
+            (ionChange)="setCapability(help.Company, $event.detail.checked)"></ion-toggle>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            {{ 'PROFILE_PAGE.PHONE' | translate }}
-          </ion-label>
-          <ion-input [(ngModel)]="profile.phone"></ion-input>
+          <ion-label>{{ 'PROFILE_PAGE.AVAILABLE' | translate }}</ion-label>
+          <ion-toggle [(ngModel)]="profile.isAvailable"></ion-toggle>
         </ion-item>
-      </div>
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="!showInfo">
-    <ion-col>
-      <ion-item>
-        <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}</ion-label>
-        <ion-toggle [checked]="getCapability(help.Food)" (ionChange)="setCapability(help.Food, $event.detail.checked)">
-        </ion-toggle>
-      </ion-item>
-      <ion-item>
-        <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FARMACY' | translate }}</ion-label>
-        <ion-toggle [checked]="getCapability(help.Pharmacy)"
-          (ionChange)="setCapability(help.Pharmacy, $event.detail.checked)"></ion-toggle>
-      </ion-item>
-      <ion-item>
-        <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.MAIL' | translate }}</ion-label>
-        <ion-toggle [checked]="getCapability(help.Mail)" (ionChange)="setCapability(help.Mail, $event.detail.checked)">
-        </ion-toggle>
-      </ion-item>
-      <ion-item>
-        <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.COMPANY' | translate }}</ion-label>
-        <ion-toggle [checked]="getCapability(help.Company)"
-          (ionChange)="setCapability(help.Company, $event.detail.checked)"></ion-toggle>
-      </ion-item>
-      <ion-item>
-        <ion-label>{{ 'PROFILE_PAGE.AVAILABLE' | translate }}</ion-label>
-        <ion-toggle [(ngModel)]="profile.isAvailable"></ion-toggle>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="showInfo">
-    <ion-col>
-      <ion-button expand="block" (click)="onClickHideInfo()">{{ 'PROFILE_PAGE.NEXT' | translate }}</ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="!showInfo">
-    <ion-col>
-      <ion-button expand="block" (click)="setPosition()">
-        {{ 'PROFILE_PAGE.POSITION' | translate }}
-      </ion-button>
-      <ion-button *ngIf="profile" expand="block" (click)="saveProfile()">
-        {{ 'PROFILE_PAGE.SAVE' | translate }}
-      </ion-button>
-      <ion-button *ngIf="hasProfile" expand="block" (click)="goToHome()">
-        {{ 'PROFILE_PAGE.CLOSE' | translate }}
-      </ion-button>
-    </ion-col>
-  </ion-row>
-</div>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="showInfo" class="buttonsContainer">
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" (click)="setPosition()" class="transparent">
+            {{ 'PROFILE_PAGE.POSITION' | translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" (click)="onClickHideInfo()" class="transparent">
+            {{ 'PROFILE_PAGE.NEXT' | translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ion-row *ngIf="!showInfo">
+      <ion-col>
+        <ion-button *ngIf="profile" expand="block" (click)="saveProfile()">
+          {{ 'PROFILE_PAGE.SAVE' | translate }}
+        </ion-button>
+        <ion-button *ngIf="hasProfile" expand="block" (click)="goToHome()">
+          {{ 'PROFILE_PAGE.CLOSE' | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
