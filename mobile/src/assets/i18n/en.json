@@ -45,6 +45,7 @@
     "PROFILE_PAGE":{
         "TITLE": "Profile",
         "FIRST_MESSAGE": "Hey, I can take care of you.",	
+        "CONFIG_MESSAGE" : "Can You go to the market? Pharmacy?",
         "NAME": "Name",
         "SURNAME": "Surname",
         "COUNTRY": "Country",
@@ -53,13 +54,14 @@
         "PHONE": "Phone",
         "SKYPE" : "Skype",
         "MESSAGE_HELP": "I can help you with:",
-        "AVAILABLE": "I'M AVAILABLE",
+        "AVAILABLE": "You ara available to help people, help us?",
         "ROLE_TYPE": {
             "FOOD": "food",
             "FARMACY": "farmacy",
             "MAIL": "mail",
             "COMPANY": "company"
         },
+        "YESIAM" : "Yes, I am!",
         "NEXT" : "How do you want to help?",
         "SAVE": "Save",
         "SIGN_UP": "Sign up",

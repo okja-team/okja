@@ -41,6 +41,7 @@
     "PROFILE_PAGE":{
         "TITLE": "Profilo",
         "FIRST_MESSAGE": "Hey, posso prendermi cura di te!",	
+        "CONFIG_MESSAGE" : "Puoi fare la spesa? Puoi andare in farmacia?",
         "NAME": "Nome",
         "SURNAME": "Cognome",
         "COUNTRY": "Nazione",
@@ -52,13 +53,14 @@
         "POSSO_AIUTARE": "Posso aiutare",
         "MESSAGE_HELP": "Ho bisogno di aiuto con:",
         "MESSAGE_HELPER": "Posso aiutarti con:",
-        "AVAILABLE": "Sono attualmente disponibile",
+        "AVAILABLE": "Sei disponibile ad aiutare le persone, ci aiuti?",
         "ROLE_TYPE": {
             "FOOD": "Spesa",
             "FARMACY": "Farmacia",
             "MAIL": "Posta",
             "COMPANY": "Compagnia"
         },
+        "YESIAM" : "Si, ci sono!",
         "NEXT" : "Come vuoi aiutare?",
         "SAVE": "Salva",
         "SIGN_UP": "Registra",

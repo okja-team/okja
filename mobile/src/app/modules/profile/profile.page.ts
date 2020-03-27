@@ -17,11 +17,14 @@ import { Profile } from 'models/class/profile';
 })
 export class ProfilePage implements OnInit, OnDestroy {
 
+  // Binding
+  public Page = {
+    help : Roles
+  }
+
   public showInfo = true;
   public profile: Profile;
   public hasProfile = false;
-  public help = Roles;
-  public img: string;
 
   constructor(
     private readonly loadingCtrl: LoadingController,
@@ -61,7 +64,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     loading.present();
 
     this.profileService.addProfile(this.profile);
-    loading.dismiss();
+    await loading.dismiss();
   }
 
   public goToHome() {
@@ -115,10 +118,11 @@ export class ProfilePage implements OnInit, OnDestroy {
     }, 2000);
   }
 
-  setCapability(role: Roles, value: boolean) {
-    this.profileService.setCapability(this.profile, role, value);
+  public toggleCapability(role: Roles) {
+    const val = !this.getCapability(role);
+    this.profileService.setCapability(this.profile, role, val);
   }
-  getCapability(role: Roles) {
+  public getCapability(role: Roles) {
     return this.profileService.getCapability(this.profile, role);
   }
 }

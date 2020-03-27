@@ -1,5 +1,7 @@
 <ion-content class="app-background page">
-  <ion-grid>
+
+  <!-- First Page -->
+  <ion-grid *ngIf="showInfo">
     <ion-row>
       <ion-col size="8">
         <div class="title">
@@ -7,10 +9,10 @@
         </div>
       </ion-col>
       <ion-col size="4">
-        <img src="assets/images/icon/ico_hand.svg">
+        <img src="assets/images/icon/ico_hand.svg" class="img-title">
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="showInfo">
+    <ion-row>
       <ion-col>
         <div *ngIf="profile">
           <ion-item>
@@ -52,16 +54,82 @@
         </div>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="!showInfo">
+    <div class="buttonsContainer">
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" (click)="setPosition()" class="transparent">
+            {{ 'PROFILE_PAGE.POSITION' | translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" (click)="onClickHideInfo()" class="transparent">
+            {{ 'PROFILE_PAGE.NEXT' | translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+  <!-- End First Page -->
+
+  <!-- Second Page-->
+  <ion-grid *ngIf="!showInfo">
+    <ion-row class="titleContainer">
+      <ion-col size="12">
+        <div class="title">
+          {{ 'PROFILE_PAGE.CONFIG_MESSAGE' | translate }}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row (click)="toggleCapability(Page.help.Food)">
+      <ion-col size="4">
+        <div class="img-button">
+          <img src="assets/images/icon/ico_supermarket.svg" />
+          <img src="assets/images/icon/ico_correct.svg" class="check"/>
+        </div>
+      </ion-col>
+      <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center" >
+        {{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}
+      </ion-col>
+    </ion-row>
+    <ion-row (click)="toggleCapability(Page.help.Pharmacy)">
+      <ion-col size="4">
+        <div class="img-button">
+          <img src="assets/images/icon/ico_drug.svg" />
+          <img src="assets/images/icon/ico_correct.svg" class="check"/>
+        </div>
+      </ion-col>
+      <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center">
+        {{ 'PROFILE_PAGE.ROLE_TYPE.FARMACY' | translate }}
+      </ion-col>
+    </ion-row>
+    <ion-row class="helpContainer">
+      <ion-col>
+        {{ 'PROFILE_PAGE.AVAILABLE' | translate }}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <div class="img-button">
+          <img src="assets/images/icon/ico_support.svg" />
+          <img src="assets/images/icon/ico_correct.svg" class="check"/>
+        </div>
+      </ion-col>
+      <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center">
+        {{ 'PROFILE_PAGE.YESIAM' | translate }}
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}</ion-label>
+          <ion-label></ion-label>
           <ion-toggle [checked]="getCapability(help.Food)"
-            (ionChange)="setCapability(help.Food, $event.detail.checked)">
+            (ionChange)="">
           </ion-toggle>
         </ion-item>
         <ion-item>
-          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.FARMACY' | translate }}</ion-label>
+          <ion-label></ion-label>
           <ion-toggle [checked]="getCapability(help.Pharmacy)"
             (ionChange)="setCapability(help.Pharmacy, $event.detail.checked)"></ion-toggle>
         </ion-item>
@@ -81,32 +149,24 @@
           <ion-toggle [(ngModel)]="profile.isAvailable"></ion-toggle>
         </ion-item>
       </ion-col>
-    </ion-row>
-    <div *ngIf="showInfo" class="buttonsContainer">
+    </ion-row> -->
+    <div class="buttonsContainer">
       <ion-row>
         <ion-col>
-          <ion-button expand="block" (click)="setPosition()" class="transparent">
-            {{ 'PROFILE_PAGE.POSITION' | translate }}
+          <ion-button expand="block" (click)="saveProfile()" class="transparent">
+            {{ 'PROFILE_PAGE.SAVE' | translate }}
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-button expand="block" (click)="onClickHideInfo()" class="transparent">
-            {{ 'PROFILE_PAGE.NEXT' | translate }}
+          <ion-button expand="block" (click)="goToHome()" class="transparent">
+            {{ 'PROFILE_PAGE.CLOSE' | translate }}
           </ion-button>
         </ion-col>
       </ion-row>
     </div>
-    <ion-row *ngIf="!showInfo">
-      <ion-col>
-        <ion-button *ngIf="profile" expand="block" (click)="saveProfile()">
-          {{ 'PROFILE_PAGE.SAVE' | translate }}
-        </ion-button>
-        <ion-button *ngIf="hasProfile" expand="block" (click)="goToHome()">
-          {{ 'PROFILE_PAGE.CLOSE' | translate }}
-        </ion-button>
-      </ion-col>
-    </ion-row>
   </ion-grid>
+  <!-- End Second Page -->
+
 </ion-content>
