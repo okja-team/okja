@@ -1,11 +1,11 @@
 import { IPosition } from 'models/inteface/position.interface';
 
-export class Position implements IPosition {
-    lat: string;
-    lng: string;
+export class ProfilePosition implements IPosition {
+    lat: number;
+    lng: number;
 
-    constructor(lat?: string, lng?: string) {
-        this.lat = lat || '';
-        this.lng = lng || '';
+    constructor(lat?: number, lng?: number) {
+        this.lat = lat || 0;
+        this.lng = lng || 0;
     }
 }

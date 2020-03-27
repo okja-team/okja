@@ -1,4 +1,4 @@
 export interface IPosition {
-    lat: string;
-    lng: string;
+    lat: number;
+    lng: number;
 }

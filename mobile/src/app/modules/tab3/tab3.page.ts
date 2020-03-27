@@ -1,8 +1,8 @@
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthenticationService } from 'services/authentication/authentication.service';
 import { Component } from '@angular/core';
-import { TranslateConfigService } from 'services/translate-config.service';
 import { LoadingController, NavController } from '@ionic/angular';
-import { UserDataService } from 'services/user-data/user-data.service';
+import { TranslateConfigService } from 'services/translate-config.service';
 import { User } from 'services/user-data/user.interface';
 
 @Component({
@@ -22,11 +22,16 @@ export class Tab3Page {
     private readonly authService: AuthenticationService,
     private readonly navCtrl: NavController,
     private readonly loadingCtrl: LoadingController,
-    private readonly userDataService: UserDataService
+    private readonly ngFireAuth: AngularFireAuth,
+
   ) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
-    this.userDataService.isLogged().subscribe(v => {
-      this.userLogged = v;
+    this.ngFireAuth.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.userLogged = true;
+      } else {
+        this.userLogged = false;
+      }
     });
   }
 
