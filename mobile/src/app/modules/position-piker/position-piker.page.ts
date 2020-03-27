@@ -50,11 +50,12 @@ export class PositionPikerPage implements OnInit, OnDestroy {
   async geocodeAddress() {
     const loader = await this.loadingCtrl.create();
     await loader.present();
-
-    const geo = await this.geoService.geocodeAddress(this.address);
-    this.lat = geo.position.lat;
-    this.lng = geo.position.lng;
-    this.reversedAddress = geo.address;
+    if (this.address && this.address !== '') {
+      const geo = await this.geoService.geocodeAddress(this.address);
+      this.lat = geo.position.lat;
+      this.lng = geo.position.lng;
+      this.reversedAddress = geo.address;
+    }
 
     await loader.dismiss();
   }
