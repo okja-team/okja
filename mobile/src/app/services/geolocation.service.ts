@@ -57,7 +57,7 @@ export class GeolocationService {
   }
 
   async geocodeAddress(address: string, maxResult: number = 5): Promise<{ position: ProfilePosition, address: string }> {
-    if (address) {
+    if (address && address !== '') {
       const options: NativeGeocoderOptions = {
         useLocale: true,
         maxResults: maxResult
