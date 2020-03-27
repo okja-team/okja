@@ -1,6 +1,10 @@
 <div class="app-background page">
   <ion-grid>
-    <ion-row><img src="assets/images/logo_no_claim.svg" class="logo" /></ion-row>
+    <ion-row>
+      <object data="assets/images/logo_no_claim.svg" type="image/svg+xml" class="logo">
+        <img src="assets/images/fallback-logo_no_claim.png" class="logo" />
+      </object>
+    </ion-row>
     <ion-row>
       <div [innerHTML]="'LOGIN_PAGE.TITLE' | translate" class="title"></div>
     </ion-row>
