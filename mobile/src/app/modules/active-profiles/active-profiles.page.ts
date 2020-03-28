@@ -1,14 +1,14 @@
 import { ActiveProfilesService } from 'active-profiles.service';
 import { AgmMap } from '@agm/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { CardProfileComponent } from 'modules/card-profile/card-profile.component';
+import { CardProfileComponent } from 'component/card-profile/card-profile.component';
 import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
 import {
   Component,
   OnDestroy,
   OnInit,
   ViewChild
-  } from '@angular/core';
+} from '@angular/core';
 import { GeolocationService } from 'services/geolocation.service';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
@@ -18,6 +18,7 @@ import { take } from 'rxjs/operators';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { User } from 'models/inteface/user.interface';
+import { AuthenticationService } from 'services/authentication.service';
 
 declare const google: any;
 
@@ -70,7 +71,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     private readonly loadingCtrl: LoadingController,
     private readonly modalController: ModalController,
     private readonly geoService: GeolocationService,
-    private readonly ngFireAuth: AngularFireAuth,
+    private readonly authService: AuthenticationService,
 
   ) {
     translactionServise.getDefaultLanguage();
@@ -92,10 +93,10 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
 
   setSubscriptions() {
     this.avatarPhoto = this.avatarPlaceHolder;
-    this.ngFireAuth.auth.onAuthStateChanged((user) => {
+    this.authService.loggedUser.subscribe((user) => {
       if (user) {
         this.userLogged = true;
-        this.setProfile();
+        this.avatarPhoto = user.photoURL ? user.photoURL : this.avatarPlaceHolder;
       } else {
         this.userLogged = false;
         this.avatarPhoto = this.avatarPlaceHolder;
@@ -118,10 +119,11 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     if (geo) {
       this.lat = geo.lat;
       this.lng = geo.lng;
-    } else if (this.userProfile && this.userProfile.position) {
-      this.lat = this.userProfile.position.lat;
-      this.lng = this.userProfile.position.lng;
-    }
+    } 
+    // else if (this.userProfile && this.userProfile.position) {
+    //   this.lat = this.userProfile.position.lat;
+    //   this.lng = this.userProfile.position.lng;
+    // }
     await loader.dismiss();
   }
 
@@ -138,18 +140,17 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     return modal.present();
   }
 
-  setProfile() {
-    this.profileService.getProfile()
-      .pipe(take(1), untilDestroyed(this))
-      .subscribe(p => {
-        this.userProfile = p;
-        this.avatarPhoto = (p && p.photoURL) ? p.photoURL : this.avatarPlaceHolder;
-        if (p && p.position && p.position.lat && p.position.lng) {
-          this.lat = p.position.lat;
-          this.lng = p.position.lng;
-        }
-      });
-  }
+  // setProfile() {
+  //   this.profileService.getProfile()
+  //     .pipe(take(1), untilDestroyed(this))
+  //     .subscribe(p => {
+  //       this.userProfile = p;
+  //       if (p && p.position && p.position.lat && p.position.lng) {
+  //         this.lat = p.position.lat;
+  //         this.lng = p.position.lng;
+  //       }
+  //     });
+  // }
 
   getOpacity(p: Profile): number {
     if (

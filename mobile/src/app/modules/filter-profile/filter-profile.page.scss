@@ -1,27 +1,19 @@
 :host {
-
-	ion-toolbar {
+  ion-toolbar {
     --background: var(--ion-color-primary);
     background: var(--ion-color-primary);
     color: white;
-    height: 30vw;
+    height: 25vw;
   }
 
-  #pageTitle {
-    font-size: 7vw;
+  .pageTitle {
+    font-size: 6vw;
     font-weight: 700;
-    padding-top: 18vw;
-    padding-left: 3vw;
-  }
-
-  #userProfile {
-    border: solid var(--ion-color-light);
+    margin-top: 1em;
+    margin-right: 1em;
     position: fixed;
-    height: 12vw;
-    width: 12vw;
-    top: 10vw;
-    right: 5vw;
-    z-index: 9999;
+    bottom: 0;
+    font-family: Montserrat;
   }
 
   .filterChip {
@@ -31,32 +23,24 @@
     height: 6vw;
   }
 
-  .capability {
-    height: 5vw;
-  }
-
   .userAvatar {
     border-radius: 4vw;
     padding: 2vw;
   }
 
-  .userInfo {
-    height: 100%;
-    width: 100%;
-    display: block;
-  }
-s
-  .userName {
-    font-size: 6vw;
-  }
-
   #cards-list {
     background-color: var(--ion-color-light-shade) !important;
+    padding-bottom: 60px;
   }
 
   #content {
     height: 100%;
     background-color: var(--ion-color-light-shade) !important;
   }
-  
+
+  .avatarPhoto {
+    margin-top: 1em;
+    margin-right: 1em;
+    border: 4px solid white;
+  }
 }

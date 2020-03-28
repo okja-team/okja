@@ -1,0 +1,30 @@
+<div class="container">
+  <ion-grid style="vertical-align:middle;">
+    <ion-row>
+      <ion-col size="3">
+        <img class="userAvatar"
+          src="{{profile.photoURL || avatarPlaceHolder}}">
+      </ion-col>
+      <ion-col size="7">
+        <ion-row class="userName">{{ profile.name }}</ion-row>
+        <ion-row class="nearYou"
+          *ngIf="profile.position">
+          <p class="distance">{{ computeRoundDistanceFunction(profile.position)}}&nbsp;</p>
+          <p>{{'CARDS_PAGE.NEAR_YOU' | translate }}</p>
+        </ion-row>
+        <ion-row size="12"
+          class="roleContainer">
+          <ion-chip *ngFor="let role of getActiveRoles()"
+            [style.background-color]="getColorFromRoleType(role.type)"
+            class="roleChip">
+            <ion-label>{{ 'COMMON.ACTIVITY_TYPES.' + role.type.toUpperCase() | translate }}</ion-label>
+          </ion-chip>
+        </ion-row>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon class="userInfo"
+          src="assets/images/icon/ico_contact.svg"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
