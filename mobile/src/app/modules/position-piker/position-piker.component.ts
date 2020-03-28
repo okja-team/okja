@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { LoadingController, Platform } from '@ionic/angular';
@@ -6,13 +6,16 @@ import { Profile } from 'models/class/profile';
 import { GeolocationService } from 'services/geolocation.service';
 import { take } from 'rxjs/operators';
 import { TranslateConfigService } from 'services/translate-config.service';
+import { IPosition } from 'models/inteface/position.interface';
 
 @Component({
   selector: 'app-position-piker',
-  templateUrl: './position-piker.page.html',
-  styleUrls: ['./position-piker.page.scss'],
+  templateUrl: './position-piker.component.html',
+  styleUrls: ['./position-piker.component.scss'],
 })
-export class PositionPikerPage implements OnInit, OnDestroy {
+export class PositionPikerComponent implements OnInit, OnDestroy{
+
+  @Input() position: IPosition;
 
   profile: Profile;
   public lat: any; public lng: any;
@@ -34,7 +37,6 @@ export class PositionPikerPage implements OnInit, OnDestroy {
 
   ngOnInit() {
   }
-
   ngOnDestroy() {
   }
 

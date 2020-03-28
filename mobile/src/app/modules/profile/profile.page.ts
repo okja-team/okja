@@ -9,7 +9,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 import { UserDataService } from '../../services/user-data.service';
 import { Roles } from 'models/enums/roles.enum';
 import { Profile } from 'models/class/profile';
-import { PositionPikerComponent } from 'modules/position-piker/position-piker.page';
+import { PositionPikerComponent } from 'modules/position-piker/position-piker.component';
 
 @Component({
   selector: 'app-profile',
