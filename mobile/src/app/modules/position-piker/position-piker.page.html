@@ -31,38 +31,29 @@
     </ion-row>
   </ion-grid>
   <ion-button color="success"
-    (click)="setCurrentPosition()"
+    (click)="getCurrentPosition()"
     expand="full"
     class="ion-margin">Posizione attuale
   </ion-button>
 
-  <ion-item>
-    <ion-label position="stacked">Inserisci indirizzo manualmente</ion-label>
-    <ion-input type="text"
-      [(ngModel)]="address"
-      name="address"></ion-input>
-  </ion-item>
+  <ion-grid *ngIf="isMobileApp">
+    <ion-item>
+      <ion-label position="stacked">Inserisci indirizzo manualmente</ion-label>
+      <ion-input type="text"
+        [(ngModel)]="address"
+        name="address"></ion-input>
+    </ion-item>
+    <ion-button color="success"
+      (click)="geocodeAddress()"
+      expand="full"
+      class="ion-margin">
+      Cerca Indirizzo</ion-button>
+    <ion-item>
+      <ion-label position="stacked">{{ reversedAddress}} <Address></Address>
+      </ion-label>
+    </ion-item>
+  </ion-grid>
 
-
-
-  <!-- <ion-row class="ion-padding-horizontal ion-padding-top"
-    ngIf="!showingCurrent">
-    <ion-text class="coords">My Latitude : {{lat}}</ion-text>
-  </ion-row>
-  <ion-row class="ion-padding-horizontal"
-    ngIf="!showingCurrent">
-    <ion-text class="coords">My Longitude : {{lng}}</ion-text>
-  </ion-row> -->
-  <ion-button color="success"
-    (click)="geocode()"
-    expand="full"
-    class="ion-margin">
-    Cerca Indirizzo</ion-button>
-  <ion-item>
-    <ion-label position="stacked">{{ reversedAddress}} <Address></Address>
-    </ion-label>
-
-  </ion-item>
   <ion-button color="success"
     (click)="savePosition()"
     expand="full"

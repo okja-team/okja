@@ -34,8 +34,8 @@ export class Profile implements IProfile {
         this.photoURL = photoURL || '';
         this.position = position ||
         {
-            lat: this.position && this.position.lat || '',
-            lng: this.position && this.position.lng || ''
+            lat: this.position && this.position.lat || 0,
+            lng: this.position && this.position.lng || 0
         };
         this.isHelper = isHelper;
         if (capabilities) {
