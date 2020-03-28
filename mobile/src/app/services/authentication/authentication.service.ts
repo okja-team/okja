@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
 import { NavController, Platform } from '@ionic/angular';
 import { cfaSignIn, cfaSignOut } from 'capacitor-firebase-auth';
 import { auth } from 'firebase';
-import { tap, take, exhaustMap, map } from 'rxjs/operators';
+import { tap, exhaustMap } from 'rxjs/operators';
 import { of, Observable, from } from 'rxjs';
 import { UserDataService } from '../../services/user-data/user-data.service';
 import { User } from '../../services/user-data/user.interface';
 import { ProfileService } from '../../services/profile.service';
+import * as firebase from 'firebase';
 
 @Injectable({
     providedIn: 'root'
@@ -32,26 +33,13 @@ export class AuthenticationService {
         this.loginWithMobileSocial = false;
     }
 
-    public checkAuth(): Observable<firebase.User> {
-        return this.ngFireAuth.authState.pipe(
-            exhaustMap(user => user ? from(this.setUserData(user)).pipe(map(_ => user)) : of(user)),
-            take(1)
-        );
-    }
-
-    public login(type: 'google.com'): Observable<void> {
-        return of(null)
-            .pipe(
-                exhaustMap(_ => {
-                    if (this.platform.is('capacitor')) {
-                        this.loginWithMobileSocial = true;
-                        return this.mobileSocialAuth(type);
-                    } else {
-                        return this.webSocialAuth(new auth.GoogleAuthProvider());
-                    }
-                }),
-                exhaustMap(user => this.setUserData(user))
-            );
+    public async login(type: 'google.com'): Promise<firebase.User> {
+        if (this.platform.is('capacitor')) {
+            this.loginWithMobileSocial = true;
+            return this.mobileSocialAuth(type);
+        } else {
+            return this.webSocialAuth(new auth.GoogleAuthProvider());
+        }
     }
 
     public logout(): Observable<void> {
@@ -65,20 +53,33 @@ export class AuthenticationService {
                     }
                 }),
                 tap(_ => {
-                    this.userDataService.removeUser();
                     this.loginWithMobileSocial = false;
                 })
             );
     }
 
-    private mobileSocialAuth(type: 'google.com'): Observable<firebase.User> {
-        return cfaSignIn(type);
+    private mobileSocialAuth(type: 'google.com'): Promise<firebase.User> {
+        return new Promise(resolve => {
+            this.ngFireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
+                cfaSignIn(type).subscribe(user => {
+                    this.setUserData(user).subscribe(() => {
+                        resolve(user)
+                    });
+                });
+            });
+        });
     }
 
-    // Auth providers
-    private webSocialAuth(provider): Observable<firebase.User> {
-        return from(this.ngFireAuth.auth.signInWithPopup(provider))
-            .pipe(map(authorization => authorization.user));
+    private webSocialAuth(provider): Promise<firebase.User> {
+        return new Promise(resolve => {
+            this.ngFireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
+                this.ngFireAuth.auth.signInWithPopup(provider).then(auth => {
+                    this.setUserData(auth.user).subscribe(() => {
+                        resolve(auth.user)
+                    });
+                });
+            });
+        });
     }
 
     private setUserData(user: firebase.User): Observable<void> {

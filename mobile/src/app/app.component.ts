@@ -24,13 +24,11 @@ export class AppComponent {
   }
 
   initializeApp() {
-    forkJoin([from(this.platform.ready()), this.authService.checkAuth()])
-      .subscribe({
-        next: data => {
-          this.statusBar.styleDefault();
-          this.router.navigate(['home/tabs/map']);
-          this.splashScreen.hide();
-        }
-      });
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.router.navigate(['home/tabs/map']);
+      this.splashScreen.hide();
+    });
+    // });
   }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from 'services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -8,15 +9,17 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./modules/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./modules/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./modules/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfilePageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'position-piker',
-    loadChildren: () => import('./modules/position-piker/position-piker.module').then( m => m.PositionPikerPageModule)
+    loadChildren: () => import('./modules/position-piker/position-piker.module').then(m => m.PositionPikerPageModule),
+    canActivate: [AuthGuardService]
   }
 
 ];
@@ -26,4 +29,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

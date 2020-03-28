@@ -44,13 +44,17 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   public async loginWithSocial() {
-    this.loadingElement.present();
-    this.authService.login('google.com')
-      .subscribe({
-        next: () => this.onUserLogged(),
-        error: err => window.alert(`error on login: ${err}`),
-        complete: () => console.log('login complete')
-      });
+    try {
+      this.loadingElement.present();
+      const user = await this.authService.login('google.com')
+      if (user) {
+        console.log('login complete')
+        this.onUserLogged();
+      }
+    } catch (err) {
+      window.alert(`error on login: ${err}`);
+      console.log('login error');
+    }
   }
 
   onUserLogged() {

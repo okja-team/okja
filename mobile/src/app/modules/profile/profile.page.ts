@@ -38,11 +38,20 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.translateConfigService.getDefaultLanguage();
   }
 
+  ngOnInit() {
 
-  // --------------- HOOK METHODS ---------------//
-  // --------------------------------------------//
+  }
 
-  async ngOnInit() {
+  ngOnDestroy(): void {
+
+  }
+
+
+  ionViewDidEnter() {
+    this.onEnter();
+  }
+
+  async onEnter() {
     const loading = await this.loadingCtrl.create();
     loading.present();
 
@@ -50,13 +59,8 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.getProrile()
 
     await loading.dismiss();
-
   }
 
-  ngOnDestroy(): void { }
-
-  // -------------- PUBLIC METHODS --------------//
-  // --------------------------------------------//
 
   public onClickHideInfo() {
     this.showInfo = false;
@@ -92,7 +96,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     return this.getCapability(role) ? 'cap-enabled' : '';
   }
 
-  public getAvaibleClass(){
+  public getAvaibleClass() {
     return this.profile.isAvailable ? 'cap-enabled' : '';
   }
 
@@ -131,13 +135,13 @@ export class ProfilePage implements OnInit, OnDestroy {
     }
   }
 
-  private async showToast(): Promise<void> {
-    const t = await this.toast.create({ message: 'Le informazioni inserite non sembrano essere corrette' })
-    t.present();
-    setTimeout(() => {
-      t.dismiss();
-    }, 2000);
-  }
+  // private async showToast(): Promise<void> {
+  //   const t = await this.toast.create({ message: 'Le informazioni inserite non sembrano essere corrette' })
+  //   t.present();
+  //   setTimeout(() => {
+  //     t.dismiss();
+  //   }, 2000);
+  // }
 
 }
 

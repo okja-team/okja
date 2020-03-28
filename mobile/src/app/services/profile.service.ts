@@ -13,12 +13,11 @@ export class ProfileService {
 
   private profile: Observable<Profile>;
   private profileDoc: AngularFirestoreDocument<Profile>;
-
   private publishProfileDoc: AngularFirestoreDocument<Profile>;
 
   constructor(
-    private afStore: AngularFirestore,
-    public ngFireAuth: AngularFireAuth,
+    private readonly afStore: AngularFirestore,
+    private readonly ngFireAuth: AngularFireAuth,
   ) {
 
   }

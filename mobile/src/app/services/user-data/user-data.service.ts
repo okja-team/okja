@@ -1,33 +1,24 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, from } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { User } from './user.interface';
-import { skipWhile, tap } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({ providedIn: 'root' })
 export class UserDataService {
-  private user$: BehaviorSubject<User>;
 
-  constructor(private afStore: AngularFirestore) {
-    this.user$ = new BehaviorSubject(null);
+  constructor(
+    private readonly afStore: AngularFirestore,
+    private readonly ngFireAuth: AngularFireAuth,
+  ) {
   }
 
   public getUser(): Observable<User> {
-    return this.user$.asObservable().pipe(skipWhile(user => user === null));
+    const userDoc = this.afStore.doc<User>(`users/${this.ngFireAuth.auth.currentUser.uid}}`);
+    return userDoc.valueChanges();
   }
 
   public setUser(user: User): Observable<void> {
-    return this.storeUser(user).pipe(tap(_ => {
-      this.user$.next(user);
-    }));
-  }
-
-  public removeUser() {
-    this.user$.complete();
-    this.user$ = new BehaviorSubject(null);
-  }
-
-  private storeUser(user: User): Observable<void> {
     return from(this.afStore.doc(`users/${user.uid}`).set(user, { merge: true }));
   }
 }
