@@ -2,14 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Profile } from 'models/class/profile';
 import { ModalController, LoadingController } from '@ionic/angular';
 import { FilterPage } from 'modules/filter/filter.page';
-import { UserDataService } from 'services/user-data/user-data.service';
-import { User } from 'services/user-data/user.interface';
+import { UserDataService } from 'services/user-data.service';
+import { User } from 'models/inteface/user.interface';
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { ActiveProfilesService } from 'active-profiles.service';
 import { Plugins } from '@capacitor/core';
 import { TranslateConfigService } from 'services/translate-config.service';
-import { AuthenticationService } from 'services/authentication/authentication.service';
+import { AuthenticationService } from 'services/authentication.service';
 const { Geolocation } = Plugins;
 
 @Component({

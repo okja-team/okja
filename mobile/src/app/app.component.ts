@@ -5,7 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { forkJoin, from } from 'rxjs';
-import { AuthenticationService } from 'services/authentication/authentication.service';
+import { AuthenticationService } from 'services/authentication.service';
+import { BackButtonService } from 'services/back-button.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent {
     private readonly splashScreen: SplashScreen,
     private readonly statusBar: StatusBar,
     private readonly router: Router,
-    private readonly authService: AuthenticationService
+    private readonly backButtonService: BackButtonService
   ) {
     this.initializeApp();
   }
@@ -28,6 +29,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.router.navigate(['home/tabs/map']);
       this.splashScreen.hide();
+      this.backButtonService.registerBackButton();
     });
     // });
   }

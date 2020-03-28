@@ -6,7 +6,7 @@ import { ProfileService } from '../../services/profile.service';
 import { Router } from '@angular/router';
 import { TranslateConfigService } from '../../services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { UserDataService } from '../../services/user-data/user-data.service';
+import { UserDataService } from '../../services/user-data.service';
 import { Roles } from 'models/enums/roles.enum';
 import { Profile } from 'models/class/profile';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { TranslateConfigService } from '../../services/translate-config.service';
 import { LoadingController } from '@ionic/angular';
 import { ProfileService } from '../../services/profile.service';

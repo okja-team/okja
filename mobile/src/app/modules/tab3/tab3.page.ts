@@ -1,4 +1,4 @@
-import { AuthenticationService } from 'services/authentication/authentication.service';
+import { AuthenticationService } from 'services/authentication.service';
 import { Component } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { TranslateConfigService } from 'services/translate-config.service';

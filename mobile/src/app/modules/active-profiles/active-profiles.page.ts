@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { User } from 'services/user-data/user.interface';
+import { User } from 'models/inteface/user.interface';
 
 declare const google: any;
 

@@ -1,7 +1,7 @@
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { User } from './user-data/user.interface';
+import { User } from '../models/inteface/user.interface';
 import { Profile } from 'models/class/profile';
 import { Roles } from 'models/enums/roles.enum';
 import { AngularFireAuth } from '@angular/fire/auth';
