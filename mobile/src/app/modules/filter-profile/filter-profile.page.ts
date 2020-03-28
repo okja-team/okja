@@ -9,6 +9,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 import { ActiveProfilesService } from 'active-profiles.service';
 import { Plugins } from '@capacitor/core';
 import { TranslateConfigService } from 'services/translate-config.service';
+import { AuthenticationService } from 'services/authentication/authentication.service';
 const { Geolocation } = Plugins;
 
 @Component({
@@ -28,16 +29,19 @@ export class FilterProfilePage implements OnInit, OnDestroy {
 
   constructor(
     private modalController: ModalController,
-    private userDataService: UserDataService,
     public router: Router,
     private activeProfileService: ActiveProfilesService,
     private loadingCtrl: LoadingController,
-    private translactionServise: TranslateConfigService
-  ) { }
+    private translactionServise: TranslateConfigService,
+    private readonly authService: AuthenticationService
+  ) {
+    this.authService.loggedUser.subscribe(u => {
+      this.user = u;
+    })
+  }
 
   async ngOnInit() {
     await this.setLoading();
-    await this.getUserData();
     await this.initDataUsers();
   }
 
@@ -56,13 +60,13 @@ export class FilterProfilePage implements OnInit, OnDestroy {
 
   async openFilterModal() {
     const modal: HTMLIonModalElement =
-       await this.modalController.create({
-          component: FilterPage,
-          componentProps: {
-            distance: this.distanceFilter,
-            availability: this.availabilityFilter
-          }
-    });
+      await this.modalController.create({
+        component: FilterPage,
+        componentProps: {
+          distance: this.distanceFilter,
+          availability: this.availabilityFilter
+        }
+      });
 
     modal.onDidDismiss().then((filters) => {
       this.distanceFilter = filters.data.distance;
@@ -137,19 +141,14 @@ export class FilterProfilePage implements OnInit, OnDestroy {
   async getActiveProfiles() {
     this.loadingElement.present();
     this.activeProfileService.getActiveProfile()
-    .pipe(untilDestroyed(this))
-    .subscribe(profiles => {
-      this.activeProfiles = this.filterProfiles(profiles);
-      console.log(this.activeProfiles[0]);
-      this.loadingElement.dismiss();
-    });
+      .pipe(untilDestroyed(this))
+      .subscribe(profiles => {
+        this.activeProfiles = this.filterProfiles(profiles);
+        console.log(this.activeProfiles[0]);
+        this.loadingElement.dismiss();
+      });
   }
 
-  async getUserData() {
-    this.userDataService.getUser().subscribe((data) => {
-      this.user = data;
-    });
-  }
 
   goToProfile() {
     this.router.navigate(['profile']);
