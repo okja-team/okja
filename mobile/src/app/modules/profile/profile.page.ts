@@ -120,14 +120,12 @@ export class ProfilePage implements OnInit, OnDestroy {
   private getProfileSwitchMap(profile: Profile) {
     if (profile) {
       this.hasProfile = true;
-      console.log(profile);
       return of(profile);
     } else {
       return this.userDataService.getUser().pipe(map(user => {
         this.hasProfile = false;
         profile = new Profile();
         this.profileService.setProfileByUser(profile, user);
-        console.log(profile);
         return profile;
       }));
     }

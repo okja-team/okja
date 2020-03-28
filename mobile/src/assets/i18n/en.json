@@ -1,13 +1,9 @@
 {
     "LOGIN_PAGE": {
-        "TITLE": "Log In",
+        "TITLE": "Welcome to<br> I FOR YOU",
         "SIGN_IN_GOOGLE": "Login with Google",
         "SIGN_IN_FACEBOOK": "Login with Facebook",
-        "EMAIL": "Email",
-        "PASSWORD": "Password",
-        "SIGN_UP_LINK": "SIGN UP",
-        "SIGN_UP": "Don't have an account?",
-        "SIGN_IN": "Login"
+        "DESCR": "If you are between 18 and 64 years old, you can provide your local community with any kind of support - for instance, grocery home delivery. As a volunteer, you can share your spare time and skills to respond to any needs in your community and promote targeted social support when and where it is needed."
     },
     "REGISTRATION_PAGE": {
         "TITLE": "Register User",
@@ -50,7 +46,7 @@
         "SURNAME": "Surname",
         "COUNTRY": "Country",
         "CITY": "City",
-        "ADDRESS": "Address",
+        "ADDRESS": "Place",
         "PHONE": "Phone",
         "SKYPE" : "Skype",
         "MESSAGE_HELP": "I can help you with:",

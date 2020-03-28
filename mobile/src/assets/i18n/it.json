@@ -1,7 +1,7 @@
 {
     "LOGIN_PAGE": {
         "TITLE": "Benvenuto in<br/>I FOR YOU",
-        "DESCR": "I for you is an application that allows you to et in touch quickly and easily with people who can offer practical support, in this moment of emergence with corona virus (covid-19), to those who need it most, who are in difficulty or who are alone.",
+        "DESCR": "Condividi la tua disponibilità (nella fascia tra 18 e 64 anni) per i servizi che vuoi condividere con la comunità. Per esempio, puoi dare disponibilità ad effettuare il servizio di consegna spesa a domicilio. Il volontario è una persona che per sua libera scelta, in modo personale, spontaneo e gratuito, mette a disposizione tempo e capacità per svolgere attività a supporto della comunità, promuovendo risposte ai bisogni delle persone a seconda delle circostanze.",
         "SIGN_IN_GOOGLE": "Accedi con Google",
         "SIGN_IN_FACEBOOK": "Accedi con Facebook"
     },
@@ -46,7 +46,7 @@
         "SURNAME": "Cognome",
         "COUNTRY": "Nazione",
         "CITY": "Città",
-        "ADDRESS": "Indirizzo",
+        "ADDRESS": "Località",
         "PHONE": "Telefono",
         "SKYPE" : "Skype",
         "BISOGNO_AIUTO": "Ho bisogno di aiuto",
