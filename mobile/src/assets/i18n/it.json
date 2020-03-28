@@ -11,8 +11,10 @@
         "PASSWORD": "Password",
         "REGISTER": "Registrami"
     },
-    "MAP_PAGE": {
-        "TITLE": "Map"
+    "POSITION_PICKER": {
+        "TITLE": "Condividi la tua posizione per aiutare i tuoi vicini.",
+        "SAVE" : "Salva la mia posizione",
+        "DISCLAIMER" : "I dati relativi alla tua posizione esatta non verranno registrati o condivisi"
     },
     "CARDS_PAGE": {
         "TITLE": "Volontari vicino a te!",

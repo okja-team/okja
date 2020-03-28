@@ -8,6 +8,7 @@ import { PositionPikerPageRoutingModule } from './position-piker-routing.module'
 
 import { PositionPikerPage } from './position-piker.page';
 import { AgmCoreModule } from '@agm/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { AgmCoreModule } from '@agm/core';
     IonicModule,
     PositionPikerPageRoutingModule,
     AgmCoreModule,
+    TranslateModule.forChild()
   ],
   declarations: [PositionPikerPage]
 })

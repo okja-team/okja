@@ -11,8 +11,10 @@
         "PASSWORD": "Password",
         "REGISTER": "Register"
     },
-    "MAP_PAGE": {
-        "TITLE": "Map"
+    "POSITION_PICKER": {
+        "TITLE": "Share your location to help your neighbors.",
+        "SAVE" : "Save my position",
+        "DISCLAIMER" : "your exact location data will not be recorded or shared"
     },
     "CARDS_PAGE": {
         "TITLE": "Helpers near you!",

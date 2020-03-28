@@ -5,6 +5,7 @@ import { LoadingController, Platform } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
 import { GeolocationService } from 'services/geolocation.service';
 import { take } from 'rxjs/operators';
+import { TranslateConfigService } from 'services/translate-config.service';
 
 @Component({
   selector: 'app-position-piker',
@@ -15,18 +16,19 @@ export class PositionPikerPage implements OnInit, OnDestroy {
 
   profile: Profile;
   public lat: any; public lng: any;
-  showingCurrent = true;
   address: string;
   retrievedAddress: any;
   reversedAddress = '';
   isMobileApp = false;
 
   constructor(
-    private profileService: ProfileService,
-    private loadingCtrl: LoadingController,
-    private geoService: GeolocationService,
-    private platform: Platform
+    private readonly profileService: ProfileService,
+    private readonly loadingCtrl: LoadingController,
+    private readonly geoService: GeolocationService,
+    private readonly platform: Platform,
+    private readonly translateConfigService: TranslateConfigService,
   ) {
+    this.translateConfigService.getDefaultLanguage();
     this.isMobileApp = this.platform.is('capacitor');
   }
 
