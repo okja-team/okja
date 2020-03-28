@@ -32,8 +32,16 @@
 
 .buttonsContainer {
   margin-top: 2em;
+  .facebook {
+    --background: var(--dusky-blue);
+  }
+  .google {
+    --background: var(--faded-red);
+  }
 }
 
-.buttonsContainer ion-button{
+.buttonsContainer ion-button {
+  --border-radius: 27.5px;
   margin-top: 2em;
+  font-weight: bold;
 }

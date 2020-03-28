@@ -15,8 +15,9 @@
     </ion-row>
     <ion-row class="buttonsContainer">
       <ion-col>
-        <ion-button expand="block" [disabled]="true">{{ "LOGIN_PAGE.SIGN_IN_FACEBOOK" | translate }}</ion-button>
-        <ion-button expand="block" (click)="loginWithSocial()">
+        <ion-button expand="block" [disabled]="true" class="facebook">
+          {{ "LOGIN_PAGE.SIGN_IN_FACEBOOK" | translate }}</ion-button>
+        <ion-button expand="block" (click)="loginWithSocial()" class="google">
           {{ "LOGIN_PAGE.SIGN_IN_GOOGLE" | translate }}</ion-button>
       </ion-col>
     </ion-row>

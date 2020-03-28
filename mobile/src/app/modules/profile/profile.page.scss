@@ -81,15 +81,13 @@
 }
 
 .transparent {
-  --opacity: 0.45;
-  --background: #ffffff;
+  --background: #ffffff73;
   --border-radius: 27.5px;
   --color: var(--dark-slate-blue);
   font-weight: bold;
 }
 
 .save {
-  --opacity: 1;
   --color: #ffffff;
   --background: #6dd400;
   font-weight: bold;
