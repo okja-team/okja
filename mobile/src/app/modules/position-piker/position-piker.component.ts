@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { LoadingController, Platform } from '@ionic/angular';
+import { LoadingController, Platform, ModalController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
 import { GeolocationService } from 'services/geolocation.service';
 import { take } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { IPosition } from 'models/inteface/position.interface';
   templateUrl: './position-piker.component.html',
   styleUrls: ['./position-piker.component.scss'],
 })
-export class PositionPikerComponent implements OnInit, OnDestroy{
+export class PositionPikerComponent implements OnInit, OnDestroy {
 
   @Input() position: IPosition;
 
@@ -30,6 +30,7 @@ export class PositionPikerComponent implements OnInit, OnDestroy{
     private readonly geoService: GeolocationService,
     private readonly platform: Platform,
     private readonly translateConfigService: TranslateConfigService,
+    private readonly modalController: ModalController
   ) {
     this.translateConfigService.getDefaultLanguage();
     this.isMobileApp = this.platform.is('capacitor');
@@ -64,13 +65,20 @@ export class PositionPikerComponent implements OnInit, OnDestroy{
     await loader.dismiss();
   }
 
-  savePosition() {
+  async savePosition() {
     if (this.lat && this.lng) {
+
       if (this.reversedAddress) {
         this.profile.address = this.reversedAddress;
       }
+
       this.profile.position = { lat: this.lat, lng: this.lng };
-      this.profileService.addProfile(this.profile);
+      await this.profileService.addProfile(this.profile).toPromise();
+
+      this.modalController.dismiss({
+        address: this.profile.address
+      });
+
     } else {
       window.alert(`no position selected`);
     }
