@@ -19,7 +19,7 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   // Binding
   public Page = {
-    help : Roles
+    help: Roles
   }
 
   public showInfo = true;
@@ -42,9 +42,15 @@ export class ProfilePage implements OnInit, OnDestroy {
   // --------------- HOOK METHODS ---------------//
   // --------------------------------------------//
 
-  ngOnInit() {
+  async ngOnInit() {
+    const loading = await this.loadingCtrl.create();
+    loading.present();
+
     this.showInfo = true;
-    this.subscriptions();
+    this.getProrile()
+
+    await loading.dismiss();
+
   }
 
   ngOnDestroy(): void { }
@@ -52,35 +58,56 @@ export class ProfilePage implements OnInit, OnDestroy {
   // -------------- PUBLIC METHODS --------------//
   // --------------------------------------------//
 
-  public onClickHideInfo(){
+  public onClickHideInfo() {
     this.showInfo = false;
   }
 
   public async saveProfile() {
-    const loading = await this.loadingCtrl.create({
-      message: this.translateConfigService.translateInstant('PROFILE_PAGE.LOADER_MESSAGE'),
-      spinner: 'crescent',
-    });
-    loading.present();
 
-    this.profileService.addProfile(this.profile);
+    const loading = await this.loadingCtrl.create();
+
+    await loading.present();
+    await this.profileService.addProfile(this.profile).toPromise()
     await loading.dismiss();
-  }
 
-  public goToHome() {
     this.navCtrl.navigateRoot('home/tabs/map');
   }
+
+
 
   public async setPosition() {
     await this.saveProfile();
     this.router.navigate(['position-piker']);
   }
 
+  public toggleCapability(role: Roles) {
+    const val = !this.getCapability(role);
+    this.profileService.setCapability(this.profile, role, val);
+  }
+  public getCapability(role: Roles) {
+    return this.profileService.getCapability(this.profile, role);
+  }
+
+  public getCapabilityClass(role: Roles) {
+    return this.getCapability(role) ? 'cap-enabled' : '';
+  }
+
+  public getAvaibleClass(){
+    return this.profile.isAvailable ? 'cap-enabled' : '';
+  }
+
+  public toggleIsAvaible() {
+    this.profile.isAvailable = !this.profile.isAvailable
+    if (this.profile.isAvailable) {
+      this.profile.isHelper = true;
+    }
+  }
+
   // ------------- PRIVATE METHODS --------------//
   // --------------------------------------------//
 
-  private subscriptions() {
-    this.profileService.getProfile()
+  private getProrile() {
+    return this.profileService.getProfile()
       .pipe(
         switchMap(profile => this.getProfileSwitchMap(profile)),
         untilDestroyed(this)
@@ -106,10 +133,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     }
   }
 
-  public segmentChanged(event: CustomEvent): void {
-    this.profile.isHelper = event.detail.value === 'helper';
-  }
-
   private async showToast(): Promise<void> {
     const t = await this.toast.create({ message: 'Le informazioni inserite non sembrano essere corrette' })
     t.present();
@@ -118,13 +141,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     }, 2000);
   }
 
-  public toggleCapability(role: Roles) {
-    const val = !this.getCapability(role);
-    this.profileService.setCapability(this.profile, role, val);
-  }
-  public getCapability(role: Roles) {
-    return this.profileService.getCapability(this.profile, role);
-  }
 }
 
 

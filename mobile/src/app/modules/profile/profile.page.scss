@@ -66,11 +66,32 @@
   padding: 0px !important;
 }
 
+.cap-enabled {
+  border: 1px solid red;
+
+  img-button {
+    opacity: 1 !important;
+  }
+  text-button {
+    opacity: 1 !important;
+  }
+  check {
+    opacity: 1 !important;
+  }
+}
+
 .transparent {
   --opacity: 0.45;
   --background: #ffffff;
   --border-radius: 27.5px;
   --color: var(--dark-slate-blue);
+  font-weight: bold;
+}
+
+.save {
+  --opacity: 1;
+  --color: #ffffff;
+  --background: #6dd400;
   font-weight: bold;
 }
 

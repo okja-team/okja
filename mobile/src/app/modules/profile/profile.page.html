@@ -82,22 +82,22 @@
         </div>
       </ion-col>
     </ion-row>
-    <ion-row (click)="toggleCapability(Page.help.Food)">
+    <ion-row (click)="toggleCapability(Page.help.Food)" [ngClass]="getCapabilityClass(Page.help.Food)">
       <ion-col size="4">
         <div class="img-button">
           <img src="assets/images/icon/ico_supermarket.svg" />
-          <img src="assets/images/icon/ico_correct.svg" class="check"/>
+          <img src="assets/images/icon/ico_correct.svg" class="check" />
         </div>
       </ion-col>
-      <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center" >
+      <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center">
         {{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}
       </ion-col>
     </ion-row>
-    <ion-row (click)="toggleCapability(Page.help.Pharmacy)">
+    <ion-row (click)="toggleCapability(Page.help.Pharmacy)" [ngClass]="getCapabilityClass(Page.help.Pharmacy)">
       <ion-col size="4">
         <div class="img-button">
           <img src="assets/images/icon/ico_drug.svg" />
-          <img src="assets/images/icon/ico_correct.svg" class="check"/>
+          <img src="assets/images/icon/ico_correct.svg" class="check" />
         </div>
       </ion-col>
       <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center">
@@ -109,59 +109,22 @@
         {{ 'PROFILE_PAGE.AVAILABLE' | translate }}
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row (click)="toggleIsAvaible()" [ngClass]="getAvaibleClass()">
       <ion-col size="4">
         <div class="img-button">
           <img src="assets/images/icon/ico_support.svg" />
-          <img src="assets/images/icon/ico_correct.svg" class="check"/>
+          <img src="assets/images/icon/ico_correct.svg" class="check" />
         </div>
       </ion-col>
       <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center">
         {{ 'PROFILE_PAGE.YESIAM' | translate }}
       </ion-col>
     </ion-row>
-    <!-- <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-label></ion-label>
-          <ion-toggle [checked]="getCapability(help.Food)"
-            (ionChange)="">
-          </ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label></ion-label>
-          <ion-toggle [checked]="getCapability(help.Pharmacy)"
-            (ionChange)="setCapability(help.Pharmacy, $event.detail.checked)"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.MAIL' | translate }}</ion-label>
-          <ion-toggle [checked]="getCapability(help.Mail)"
-            (ionChange)="setCapability(help.Mail, $event.detail.checked)">
-          </ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>{{ 'PROFILE_PAGE.ROLE_TYPE.COMPANY' | translate }}</ion-label>
-          <ion-toggle [checked]="getCapability(help.Company)"
-            (ionChange)="setCapability(help.Company, $event.detail.checked)"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>{{ 'PROFILE_PAGE.AVAILABLE' | translate }}</ion-label>
-          <ion-toggle [(ngModel)]="profile.isAvailable"></ion-toggle>
-        </ion-item>
-      </ion-col>
-    </ion-row> -->
     <div class="buttonsContainer">
       <ion-row>
         <ion-col>
-          <ion-button expand="block" (click)="saveProfile()" class="transparent">
+          <ion-button expand="block" (click)="saveProfile()" class="transparent save">
             {{ 'PROFILE_PAGE.SAVE' | translate }}
-          </ion-button>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-button expand="block" (click)="goToHome()" class="transparent">
-            {{ 'PROFILE_PAGE.CLOSE' | translate }}
           </ion-button>
         </ion-col>
       </ion-row>
