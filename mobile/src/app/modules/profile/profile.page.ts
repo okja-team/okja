@@ -17,11 +17,14 @@ import { Profile } from 'models/class/profile';
 })
 export class ProfilePage implements OnInit, OnDestroy {
 
+  // Binding
+  public Page = {
+    help: Roles
+  }
+
   public showInfo = true;
   public profile: Profile;
   public hasProfile = false;
-  public help = Roles;
-  public img: string;
 
   constructor(
     private readonly loadingCtrl: LoadingController,
@@ -39,9 +42,15 @@ export class ProfilePage implements OnInit, OnDestroy {
   // --------------- HOOK METHODS ---------------//
   // --------------------------------------------//
 
-  ngOnInit() {
+  async ngOnInit() {
+    const loading = await this.loadingCtrl.create();
+    loading.present();
+
     this.showInfo = true;
-    this.subscriptions();
+    this.getProrile()
+
+    await loading.dismiss();
+
   }
 
   ngOnDestroy(): void { }
@@ -49,35 +58,56 @@ export class ProfilePage implements OnInit, OnDestroy {
   // -------------- PUBLIC METHODS --------------//
   // --------------------------------------------//
 
-  public onClickHideInfo(){
+  public onClickHideInfo() {
     this.showInfo = false;
   }
 
   public async saveProfile() {
-    const loading = await this.loadingCtrl.create({
-      message: this.translateConfigService.translateInstant('PROFILE_PAGE.LOADER_MESSAGE'),
-      spinner: 'crescent',
-    });
-    loading.present();
 
-    this.profileService.addProfile(this.profile);
-    loading.dismiss();
-  }
+    const loading = await this.loadingCtrl.create();
 
-  public goToHome() {
+    await loading.present();
+    await this.profileService.addProfile(this.profile).toPromise()
+    await loading.dismiss();
+
     this.navCtrl.navigateRoot('home/tabs/map');
   }
+
+
 
   public async setPosition() {
     await this.saveProfile();
     this.router.navigate(['position-piker']);
   }
 
+  public toggleCapability(role: Roles) {
+    const val = !this.getCapability(role);
+    this.profileService.setCapability(this.profile, role, val);
+  }
+  public getCapability(role: Roles) {
+    return this.profileService.getCapability(this.profile, role);
+  }
+
+  public getCapabilityClass(role: Roles) {
+    return this.getCapability(role) ? 'cap-enabled' : '';
+  }
+
+  public getAvaibleClass(){
+    return this.profile.isAvailable ? 'cap-enabled' : '';
+  }
+
+  public toggleIsAvaible() {
+    this.profile.isAvailable = !this.profile.isAvailable
+    if (this.profile.isAvailable) {
+      this.profile.isHelper = true;
+    }
+  }
+
   // ------------- PRIVATE METHODS --------------//
   // --------------------------------------------//
 
-  private subscriptions() {
-    this.profileService.getProfile()
+  private getProrile() {
+    return this.profileService.getProfile()
       .pipe(
         switchMap(profile => this.getProfileSwitchMap(profile)),
         untilDestroyed(this)
@@ -90,21 +120,15 @@ export class ProfilePage implements OnInit, OnDestroy {
   private getProfileSwitchMap(profile: Profile) {
     if (profile) {
       this.hasProfile = true;
-      console.log(profile);
       return of(profile);
     } else {
       return this.userDataService.getUser().pipe(map(user => {
         this.hasProfile = false;
         profile = new Profile();
         this.profileService.setProfileByUser(profile, user);
-        console.log(profile);
         return profile;
       }));
     }
-  }
-
-  public segmentChanged(event: CustomEvent): void {
-    this.profile.isHelper = event.detail.value === 'helper';
   }
 
   private async showToast(): Promise<void> {
@@ -115,12 +139,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     }, 2000);
   }
 
-  setCapability(role: Roles, value: boolean) {
-    this.profileService.setCapability(this.profile, role, value);
-  }
-  getCapability(role: Roles) {
-    return this.profileService.getCapability(this.profile, role);
-  }
 }
 
 

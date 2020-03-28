@@ -21,7 +21,7 @@
 
 .description {
   font-family: Montserrat;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -32,8 +32,16 @@
 
 .buttonsContainer {
   margin-top: 2em;
+  .facebook {
+    --background: var(--dusky-blue);
+  }
+  .google {
+    --background: var(--faded-red);
+  }
 }
 
-.buttonsContainer ion-button{
+.buttonsContainer ion-button {
+  --border-radius: 27.5px;
   margin-top: 2em;
+  font-weight: bold;
 }

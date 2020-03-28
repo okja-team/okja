@@ -1,14 +1,8 @@
 .page {
-  height: 100%;
-  padding: 2em;
-
-  img {
-    width: 150px;
-    max-width: none;
-  }
+  --padding-start: 2em;
+  --padding-end: 2em;
 
   ion-item {
-    margin-top: 0.5em;
     --background: transparent;
     --color: white;
     --border-color: white;
@@ -20,6 +14,96 @@
   font-family: Montserrat;
   font-size: 24px;
   font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  padding-top: 2em;
+}
+
+.titleContainer {
+  padding-bottom: 2em;
+}
+
+.img-title {
+  width: 150px;
+  max-width: none;
+}
+
+.img-button {
+  width: 86px;
+  height: 86px;
+  max-width: none;
+  opacity: 0.7;
+  background-color: #ffffff;
+  border-radius: 100em;
+
+  img {
+    padding: 1em;
+    opacity: 0.7;
+  }
+}
+
+.text-button {
+  opacity: 0.7;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+.check {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  margin-right: 10px;
+  padding: 0px !important;
+}
+
+.cap-enabled {
+  &.text-button{
+    opacity: 1 !important;
+  }
+  &.img-button {
+    opacity: 1 !important;
+  }
+  img {
+    opacity: 1 !important;
+  }
+  .check{
+    opacity: 1 !important;
+  }
+}
+
+.transparent {
+  --background: #ffffff73;
+  --border-radius: 27.5px;
+  --color: var(--dark-slate-blue);
+  font-weight: bold;
+}
+
+.save {
+  --color: #ffffff;
+  --background: #6dd400;
+  font-weight: bold;
+}
+
+.buttonsContainer {
+  padding-top: 2em;
+}
+
+.helpContainer {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
