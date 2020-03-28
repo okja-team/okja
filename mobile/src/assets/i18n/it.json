@@ -18,7 +18,8 @@
     },
     "CARDS_PAGE": {
         "TITLE": "Volontari vicino a te!",
-        "NEAR_YOU": "circa {{distance}} vicino a te",
+        "NEAR_YOU": "vicino a te",
+        "ABOUT_NEAR_YOU": "circa {{distance}} vicino a te",
         "NO_DISTANCE_LIMIT": "nessun limite di distanza"
     },
     "FILTER_PAGE": {

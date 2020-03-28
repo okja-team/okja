@@ -2,15 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Profile } from 'models/class/profile';
 import { ModalController, LoadingController } from '@ionic/angular';
 import { FilterPage } from 'modules/filter/filter.page';
-import { UserDataService } from 'services/user-data.service';
 import { User } from 'models/inteface/user.interface';
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { ActiveProfilesService } from 'active-profiles.service';
-import { Plugins } from '@capacitor/core';
-import { TranslateConfigService } from 'services/translate-config.service';
 import { AuthenticationService } from 'services/authentication.service';
-const { Geolocation } = Plugins;
+import { GeolocationService } from 'services/geolocation.service';
+import { ProfilePosition } from 'models/class/profile-position';
 
 @Component({
   selector: 'app-filter-profile',
@@ -21,34 +19,49 @@ export class FilterProfilePage implements OnInit, OnDestroy {
 
   activeProfiles: Profile[] = [];
   user: User;
-  userPosition: any;
+  userLogged = false;
+  userPosition: ProfilePosition;
   distanceFilter = 5000;
   availabilityFilter = 'all_time';
+  avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
+  avatarPhoto = '';
 
   private loadingElement: HTMLIonLoadingElement;
 
   constructor(
     private modalController: ModalController,
+    private readonly geoService: GeolocationService,
     public router: Router,
     private activeProfileService: ActiveProfilesService,
     private loadingCtrl: LoadingController,
-    private translactionServise: TranslateConfigService,
     private readonly authService: AuthenticationService
   ) {
-    this.authService.loggedUser.subscribe(u => {
-      this.user = u;
-    })
+    this.setSubscriptions();
   }
 
   async ngOnInit() {
     await this.setLoading();
-    await this.initDataUsers();
+    await this.initData();
   }
 
   ngOnDestroy(): void {
   }
 
   ionViewDidEnter() {
+    this.refreshData();
+  }
+
+  setSubscriptions() {
+    this.avatarPhoto = this.avatarPlaceHolder;
+    this.authService.loggedUser.subscribe((user) => {
+      if (user) {
+        this.userLogged = true;
+        this.avatarPhoto = user.photoURL ? user.photoURL : this.avatarPlaceHolder;
+      } else {
+        this.userLogged = false;
+        this.avatarPhoto = this.avatarPlaceHolder;
+      }
+    });
   }
 
   private async setLoading() {
@@ -77,48 +90,14 @@ export class FilterProfilePage implements OnInit, OnDestroy {
     await modal.present();
   }
 
-  computeDistance(position) {
-    const lat1 = position.lat;
-    const lon1 = position.lng;
-    const lat2 = this.userPosition.latitude;
-    const lon2 = this.userPosition.longitude;
-
-    if ((lat1 === lat2) && (lon1 === lon2)) {
-      return 0;
-    } else {
-      const radlat1 = Math.PI * lat1 / 180;
-      const radlat2 = Math.PI * lat2 / 180;
-      const theta = lon1 - lon2;
-      const radtheta = Math.PI * theta / 180;
-      let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-      if (dist > 1) {
-        dist = 1;
-      }
-      dist = Math.acos(dist);
-      dist = dist * 180 / Math.PI;
-      dist = dist * 60 * 1.1515;
-      dist = dist * 1000.609344;
-      return Math.trunc(dist);
-    }
+  computeRoundDistance = (position) => {
+    return this.geoService.computeRoundDistance(position, this.userPosition);
   }
 
-  computeRoundDistance(position) {
-    let distance = this.computeDistance(position);
-    distance = Math.round(distance / 500) * 500;
-    let unit;
-    if (distance >= 1000) {
-      distance = Math.round(distance / 1000);
-      unit = this.translactionServise.translateInstant('COMMON.UNIT_DISTANCE_K');
-    } else {
-      unit = this.translactionServise.translateInstant('COMMON.UNIT_DISTANCE');
-    }
-    return distance + unit;
-  }
-
-  sortProfiles(profiles) {
+  sortProfiles(profiles: Profile[]) {
     profiles.sort((a, b) => {
-      const dist1 = this.computeDistance(a.position);
-      const dist2 = this.computeDistance(b.position);
+      const dist1 = this.geoService.computeDistance(a.position, this.userPosition);
+      const dist2 = this.geoService.computeDistance(b.position, this.userPosition);
       if (dist1 > dist2) {
         return 1;
       } else {
@@ -133,7 +112,7 @@ export class FilterProfilePage implements OnInit, OnDestroy {
     profiles = this.sortProfiles(profiles);
     profiles = profiles.slice(0, 20);
     if (this.distanceFilter !== 9999) {
-      profiles = profiles.filter(x => this.computeDistance(x.position) < this.distanceFilter);
+      profiles = profiles.filter(x => this.geoService.computeDistance(x.position, this.userPosition) < this.distanceFilter);
     }
     return profiles;
   }
@@ -144,25 +123,34 @@ export class FilterProfilePage implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(profiles => {
         this.activeProfiles = this.filterProfiles(profiles);
-        console.log(this.activeProfiles[0]);
         this.loadingElement.dismiss();
       });
   }
 
 
   goToProfile() {
-    this.router.navigate(['profile']);
+    if (this.userLogged) {
+      this.router.navigate(['profile']);
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
-  async initDataUsers() {
-    this.loadingElement.present();
-    Geolocation.getCurrentPosition().then((resp) => {
-      this.userPosition = resp.coords;
+  async initData() {
+    try {
+      this.loadingElement.present();
+      this.userPosition = await this.geoService.getCurrentPosition();
       this.getActiveProfiles();
-      this.loadingElement.dismiss();
-    }).catch((error) => {
+
+    } catch (error) {
       console.log('Error getting location', error);
-    });
+    };
+  }
+
+  async refreshData() {
+    this.userPosition = await this.geoService.getCurrentPosition();
+    this.activeProfiles = this.filterProfiles(this.activeProfiles);
+
   }
 
 }

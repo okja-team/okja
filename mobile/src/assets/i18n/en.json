@@ -18,7 +18,8 @@
     },
     "CARDS_PAGE": {
         "TITLE": "Helpers near you!",
-        "NEAR_YOU": "about {{distance}} near you",
+        "NEAR_YOU": "near you",
+        "ABOUT_NEAR_YOU": "about {{distance}} near you",
         "NO_DISTANCE_LIMIT": "no distance limit"
     },
     "FILTER_PAGE": {

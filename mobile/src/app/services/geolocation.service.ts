@@ -3,6 +3,7 @@ import { ProfilePosition } from 'models/class/profile-position';
 import { NativeGeocoderOptions, NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { Platform } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
+import { TranslateConfigService } from './translate-config.service';
 const { Geolocation } = Plugins;
 
 @Injectable({
@@ -11,8 +12,9 @@ const { Geolocation } = Plugins;
 export class GeolocationService {
 
   constructor(
-    private nativeGeocoder: NativeGeocoder,
-    private readonly platform: Platform
+    private readonly nativeGeocoder: NativeGeocoder,
+    private readonly platform: Platform,
+    private readonly translactionServise: TranslateConfigService
   ) { }
 
   approximateLocation(geo: ProfilePosition) {
@@ -75,5 +77,43 @@ export class GeolocationService {
         return { position: p, address: fAddress };
       }
     }
+  }
+
+  public computeDistance(position: ProfilePosition, userPosition: ProfilePosition) {
+    const lat1 = position.lat;
+    const lon1 = position.lng;
+    const lat2 = userPosition.lat;
+    const lon2 = userPosition.lng;
+
+    if ((lat1 === lat2) && (lon1 === lon2)) {
+      return 0;
+    } else {
+      const radlat1 = Math.PI * lat1 / 180;
+      const radlat2 = Math.PI * lat2 / 180;
+      const theta = lon1 - lon2;
+      const radtheta = Math.PI * theta / 180;
+      let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      dist = Math.acos(dist);
+      dist = dist * 180 / Math.PI;
+      dist = dist * 60 * 1.1515;
+      dist = dist * 1000.609344;
+      return Math.trunc(dist);
+    }
+  }
+
+  public computeRoundDistance(position: ProfilePosition, userPosition: ProfilePosition) {
+    let distance = this.computeDistance(position, userPosition);
+    distance = Math.round(distance / 500) * 500;
+    let unit;
+    if (distance >= 1000) {
+      distance = Math.round(distance / 1000);
+      unit = this.translactionServise.translateInstant('COMMON.UNIT_DISTANCE_K');
+    } else {
+      unit = this.translactionServise.translateInstant('COMMON.UNIT_DISTANCE');
+    }
+    return distance + unit;
   }
 }
