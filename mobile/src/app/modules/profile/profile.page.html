@@ -82,25 +82,29 @@
         </div>
       </ion-col>
     </ion-row>
-    <ion-row (click)="toggleCapability(Page.help.Food)" [ngClass]="getCapabilityClass(Page.help.Food)">
+    <ion-row (click)="toggleCapability(Page.help.Food)" class="ion-align-items-center ion-justify-content-center">
       <ion-col size="4">
-        <div class="img-button">
+        <div class="img-button" [ngClass]="getCapabilityClass(Page.help.Food)">
           <img src="assets/images/icon/ico_supermarket.svg" />
           <img src="assets/images/icon/ico_correct.svg" class="check" />
         </div>
       </ion-col>
-      <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center">
-        {{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}
+      <ion-col size="8" 
+        class="text-button ion-text-uppercase"  
+        [ngClass]="getCapabilityClass(Page.help.Food)">
+        <div>{{ 'PROFILE_PAGE.ROLE_TYPE.FOOD' | translate }}</div>
       </ion-col>
     </ion-row>
-    <ion-row (click)="toggleCapability(Page.help.Pharmacy)" [ngClass]="getCapabilityClass(Page.help.Pharmacy)">
+    <ion-row (click)="toggleCapability(Page.help.Pharmacy)" class="ion-align-items-center ion-justify-content-center" >
       <ion-col size="4">
-        <div class="img-button">
+        <div class="img-button" [ngClass]="getCapabilityClass(Page.help.Pharmacy)">
           <img src="assets/images/icon/ico_drug.svg" />
           <img src="assets/images/icon/ico_correct.svg" class="check" />
         </div>
       </ion-col>
-      <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center">
+      <ion-col size="8" 
+      class="text-button ion-text-uppercase"
+      [ngClass]="getCapabilityClass(Page.help.Pharmacy)">
         {{ 'PROFILE_PAGE.ROLE_TYPE.FARMACY' | translate }}
       </ion-col>
     </ion-row>
@@ -109,15 +113,17 @@
         {{ 'PROFILE_PAGE.AVAILABLE' | translate }}
       </ion-col>
     </ion-row>
-    <ion-row (click)="toggleIsAvaible()" [ngClass]="getAvaibleClass()">
+    <ion-row (click)="toggleIsAvaible()" class="ion-align-items-center ion-justify-content-center">
       <ion-col size="4">
-        <div class="img-button">
+        <div class="img-button" [ngClass]="getAvaibleClass()">
           <img src="assets/images/icon/ico_support.svg" />
           <img src="assets/images/icon/ico_correct.svg" class="check" />
         </div>
       </ion-col>
-      <ion-col size="8" class="text-button ion-text-center ion-text-uppercase ion-align-items-center">
-        {{ 'PROFILE_PAGE.YESIAM' | translate }}
+      <ion-col size="8" 
+      class="text-button ion-text-uppercase"
+      [ngClass]="getAvaibleClass()">
+        <div>{{ 'PROFILE_PAGE.YESIAM' | translate }}</div>
       </ion-col>
     </ion-row>
     <div class="buttonsContainer">

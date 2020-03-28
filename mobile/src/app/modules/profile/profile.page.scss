@@ -67,15 +67,16 @@
 }
 
 .cap-enabled {
-  border: 1px solid red;
-
-  img-button {
+  &.text-button{
     opacity: 1 !important;
   }
-  text-button {
+  &.img-button {
     opacity: 1 !important;
   }
-  check {
+  img {
+    opacity: 1 !important;
+  }
+  .check{
     opacity: 1 !important;
   }
 }
