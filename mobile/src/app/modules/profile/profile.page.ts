@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoadingController, NavController, ToastController } from '@ionic/angular';
+import { LoadingController, NavController, ToastController, ModalController } from '@ionic/angular';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ProfileService } from '../../services/profile.service';
@@ -9,6 +9,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 import { UserDataService } from '../../services/user-data.service';
 import { Roles } from 'models/enums/roles.enum';
 import { Profile } from 'models/class/profile';
+import { PositionPikerComponent } from 'modules/position-piker/position-piker.page';
 
 @Component({
   selector: 'app-profile',
@@ -34,6 +35,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     private readonly navCtrl: NavController,
     private readonly router: Router,
     private readonly toast: ToastController,
+    private readonly modalController : ModalController
   ) {
     this.translateConfigService.getDefaultLanguage();
   }
@@ -77,11 +79,16 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.navCtrl.navigateRoot('home/tabs/map');
   }
 
-
-
-  public async setPosition() {
-    await this.saveProfile();
-    this.router.navigate(['position-piker']);
+  async showModalPosiont() {
+    const modal = await this.modalController.create({
+      component: PositionPikerComponent,
+      componentProps: {
+        'position': this.profile.position
+      },
+      swipeToClose: true,
+      showBackdrop: true,
+    });
+    return modal.present();
   }
 
   public toggleCapability(role: Roles) {
