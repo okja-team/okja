@@ -21,7 +21,7 @@ export class FilterProfilePage implements OnInit, OnDestroy {
   user: User;
   userLogged = false;
   userPosition: ProfilePosition;
-  distanceFilter = 5000;
+  distanceFilter = 9999;
   availabilityFilter = 'all_time';
   avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
   avatarPhoto = '';

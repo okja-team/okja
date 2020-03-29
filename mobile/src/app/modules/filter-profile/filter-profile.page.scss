@@ -28,10 +28,15 @@
     padding: 2vw;
   }
 
-  #cards-list {
+  .cards-list {
     background-color: var(--ion-color-light-shade) !important;
     padding-bottom: 60px;
   }
+  
+  .card-item{
+    margin: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);  }
 
   #content {
     height: 100%;
