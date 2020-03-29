@@ -29,12 +29,12 @@
     },
     "SETTINGS_PAGE": {
         "TITLE": "Settings",
-        "PRIVACY": "Privacy information",
-        "DELETE": "Delete your account",
+        "PRIVACY": "Privacy Policy",
+        "TERMS" : "Terms of Services",
+        "DELETE": "Delete your data",
         "LOGOUT": "Logout",
         "LANGUAGE_SELECT": {
-            "PLACEHOLDER": "Choose language",
-            "LABEL": "Change language",
+            "LABEL": "Select the app language",
             "LIST": {
                 "IT": "Italian",
                 "EN": "English"
