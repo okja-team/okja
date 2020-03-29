@@ -6,6 +6,7 @@ import { Plugins } from '@capacitor/core';
 import { TranslateConfigService } from './translate-config.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { IGeoWeb } from 'models/inteface/geo-web.innterface';
 
 const { Geolocation } = Plugins;
 
@@ -49,15 +50,35 @@ export class GeolocationService {
     return reversedAddress;
   }
 
-  formatGeoWebAddress(retrievedAddress: any): string {
-    //TODO
+  formatGeoWebAddress(retrievedAddress: IGeoWeb[]): string {
+    let subLocality = '';
+    let locality = '';
+    let administrativeArea = '';
+    let postalCode = '';
+    let countryName = '';
+    retrievedAddress.forEach(element => {
+      if (element.types.includes('sublocality')) {
+        subLocality = element.short_name ? element.short_name + ', ' : '';
+      }
+      if (element.types.includes('locality')) {
+        locality = element.short_name ? element.short_name + ', ' : '';
+      }
+      if (!subLocality && !locality && element.types.includes('administrative_area_level_3')) {
+        subLocality = element.short_name ? element.short_name + ', ' : '';
+      }
+      if (element.types.includes('administrative_area_level_1')) {
+        administrativeArea = element.short_name ? element.short_name + ', ' : '';
+      }
+      if (element.types.includes('postal_code')) {
+        postalCode = element.short_name ? element.short_name + ', ' : '';
+      }
+      if (element.types.includes('country')) {
+        countryName = element.long_name ? element.long_name : '';
+      }
 
-    const subLocality = retrievedAddress[1] ? retrievedAddress[1].long_name + ', ' : '';
-    const prov = retrievedAddress[2] ? retrievedAddress[2].short_name + ', ' : ''
-    const locality = retrievedAddress[3] ? retrievedAddress[3].long_name + ', ' : '';
-    const postalCode = retrievedAddress[4] ? retrievedAddress[4].short_name + ', ' : '';
-    const countryName = retrievedAddress[3] ? retrievedAddress[3].long_name : '';
-    const reversedAddress = subLocality + prov + locality + postalCode + countryName;
+
+    });
+    const reversedAddress = subLocality + locality + administrativeArea + postalCode + countryName;
     return reversedAddress;
   }
 
@@ -76,7 +97,6 @@ export class GeolocationService {
       const res = await this.reverseGeoWeb(lat, lng)
       if (res && res.results) {
         const reverseAddress = this.formatGeoWebAddress(res.results[0].address_components);
-        console.log(reverseAddress);
         return reverseAddress;
       }
     }
@@ -142,7 +162,9 @@ export class GeolocationService {
   }
 
   public async reverseGeoWeb(lat: number, lng: number): Promise<any> {
-    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=' + environment.GMaps.apiKey).toPromise();
+    return this.http.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${environment.GMaps.apiKey}`
+    ).toPromise();
 
   }
 }
