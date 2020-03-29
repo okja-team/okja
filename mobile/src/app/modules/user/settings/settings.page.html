@@ -1,0 +1,47 @@
+<ion-content class="app-background page">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="title">
+        {{ 'SETTINGS_PAGE.TITLE' | translate }}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-select placeholder="{{ 'SETTINGS_PAGE.LANGUAGE_SELECT.LABEL' | translate }}"
+          cancelText="{{ 'COMMON.CANCEL_BUTTON' | translate }}" [(ngModel)]="selectedLanguage"
+          (ionChange)="languageChanged()" interface="action-sheet" class="ui-select">
+          <ion-select-option value="it">{{ 'SETTINGS_PAGE.LANGUAGE_SELECT.LIST.IT' | translate }}</ion-select-option>
+          <ion-select-option value="en">{{ 'SETTINGS_PAGE.LANGUAGE_SELECT.LIST.EN' | translate }}</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ui-settings-group">
+      <ion-grid>
+        <ion-row>
+          <ion-col (click)="openPrivacyPage()">
+            {{ 'SETTINGS_PAGE.TERMS'  | translate }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col (click)="openPrivacyPage()">
+            {{ 'SETTINGS_PAGE.PRIVACY'  | translate }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+    <ion-row *ngIf="userLogged" class="push-down">
+      <ion-col>
+        <ion-button expand="block" (click)="logout()" class="ui-button ui-button-delete">
+          {{ 'SETTINGS_PAGE.LOGOUT'  | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="userLogged">
+      <ion-col>
+        <ion-button expand="block" (click)="deleteButton()" class="ui-button ui-button-delete">
+          {{ 'SETTINGS_PAGE.DELETE'  | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

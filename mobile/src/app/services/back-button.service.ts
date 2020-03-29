@@ -12,7 +12,7 @@ export class BackButtonService {
 
   exitFromPage = [
     '/home/tabs/map',
-    '/home/tabs/info',
+    '/home/tabs/setting',
     '/home/tabs/list'
   ];
 

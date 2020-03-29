@@ -5,10 +5,10 @@ import { TranslateConfigService } from 'services/translate-config.service';
 
 @Component({
   selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  templateUrl: 'settings.page.html',
+  styleUrls: ['settings.page.scss']
 })
-export class Tab3Page {
+export class SettingsPage {
 
   public selectedLanguage: string;
 

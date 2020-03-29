@@ -28,12 +28,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'info',
+        path: 'settings',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../user/settings/settings.module').then(m => m.Tab3PageModule)
           }
         ]
       },
