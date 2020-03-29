@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { LoadingController, Platform, ModalController } from '@ionic/angular';
+import { LoadingController, Platform, ModalController, NavParams } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
 import { GeolocationService } from 'services/geolocation.service';
 import { take } from 'rxjs/operators';
@@ -30,10 +30,12 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
     private readonly geoService: GeolocationService,
     private readonly platform: Platform,
     private readonly translateConfigService: TranslateConfigService,
-    private readonly modalController: ModalController
+    private readonly modalController: ModalController,
+    private readonly navParams: NavParams
   ) {
     this.translateConfigService.getDefaultLanguage();
     this.isMobileApp = this.platform.is('capacitor');
+    this.profile = this.navParams.get('profile');
   }
 
   ngOnInit() {
@@ -42,14 +44,7 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    this.profileService.getProfile()
-      .pipe(
-        take(1),
-        untilDestroyed(this))
-      .subscribe(profile => {
-        this.profile = profile;
-        this.getSavedPosition();
-      });
+    this.getSavedPosition();
   }
 
   async geocodeAddress() {
@@ -65,7 +60,7 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
     await loader.dismiss();
   }
 
-  async savePosition() {
+  async returnPosition() {
     if (this.lat && this.lng) {
 
       if (this.reversedAddress) {
@@ -73,10 +68,9 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
       }
 
       this.profile.position = { lat: this.lat, lng: this.lng };
-      await this.profileService.addProfile(this.profile).toPromise();
 
       this.modalController.dismiss({
-        address: this.profile.address
+        profile: this.profile
       });
 
     } else {
@@ -100,6 +94,8 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
     await loader.present();
 
     if (this.profile && this.profile.position
+      && this.profile.position.lat
+      && this.profile.position.lng
       && this.profile.position.lat !== 0
       && this.profile.position.lng !== 0
       && this.address

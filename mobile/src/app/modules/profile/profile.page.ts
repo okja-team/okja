@@ -35,7 +35,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     private readonly navCtrl: NavController,
     private readonly router: Router,
     private readonly toast: ToastController,
-    private readonly modalController : ModalController
+    private readonly modalController: ModalController
   ) {
     this.translateConfigService.getDefaultLanguage();
   }
@@ -65,7 +65,14 @@ export class ProfilePage implements OnInit, OnDestroy {
 
 
   public onClickHideInfo() {
-    this.showInfo = false;
+    const p = this.profile.position;
+    if (p && p.lat && p.lat != 0 && p.lng && p.lng != 0) {
+      this.showInfo = false;
+
+    } else {
+      const message = this.translateConfigService.translateInstant('PROFILE_PAGE.SET_POSITION_MESSAGE');
+      this.showToast(message);
+    }
   }
 
   public async saveProfile() {
@@ -83,12 +90,14 @@ export class ProfilePage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: PositionPikerComponent,
       componentProps: {
-        'position': this.profile.position
+        'profile': this.profile
       },
       swipeToClose: true,
       showBackdrop: true,
     });
-    return modal.present();
+    modal.present();
+    const detail = await modal.onDidDismiss();
+    this.profile = detail.data.profile;
   }
 
   public toggleCapability(role: Roles) {
@@ -142,13 +151,13 @@ export class ProfilePage implements OnInit, OnDestroy {
     }
   }
 
-  // private async showToast(): Promise<void> {
-  //   const t = await this.toast.create({ message: 'Le informazioni inserite non sembrano essere corrette' })
-  //   t.present();
-  //   setTimeout(() => {
-  //     t.dismiss();
-  //   }, 2000);
-  // }
+  private async showToast(message: string): Promise<void> {
+    const t = await this.toast.create({ message: message })
+    t.present();
+    setTimeout(() => {
+      t.dismiss();
+    }, 2000);
+  }
 
 }
 

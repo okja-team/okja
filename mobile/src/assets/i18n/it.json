@@ -69,7 +69,8 @@
         "SIGN_UP": "Registra",
         "CLOSE": "Chiudi",
         "POSITION": "Condividi la tua posizione",
-        "LOADER_MESSAGE": "Salvataggio profilo in corso"
+        "LOADER_MESSAGE": "Salvataggio profilo in corso",
+        "SET_POSITION_MESSAGE": "Per aiutarci è necessario condividere la tua posizione"
     },
     "TAB1_PAGE": {
         "HELP": "vuole aiutarti!",
