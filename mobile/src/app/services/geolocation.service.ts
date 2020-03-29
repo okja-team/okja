@@ -4,11 +4,10 @@ import { NativeGeocoderOptions, NativeGeocoder } from '@ionic-native/native-geoc
 import { Platform } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 import { TranslateConfigService } from './translate-config.service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { IGeoWeb } from 'models/inteface/geo-web.innterface';
 
 const { Geolocation } = Plugins;
+declare const google: any;
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,6 @@ export class GeolocationService {
     private readonly nativeGeocoder: NativeGeocoder,
     private readonly platform: Platform,
     private readonly translactionServise: TranslateConfigService,
-    private readonly http: HttpClient,
   ) { }
 
   approximateLocation(geo: ProfilePosition) {
@@ -50,7 +48,7 @@ export class GeolocationService {
     return reversedAddress;
   }
 
-  formatGeoWebAddress(retrievedAddress: IGeoWeb[]): string {
+  formatGeoWebAddress(retrievedAddress: IGeoWeb[] = []): string {
     let subLocality = '';
     let locality = '';
     let administrativeArea = '';
@@ -75,8 +73,6 @@ export class GeolocationService {
       if (element.types.includes('country')) {
         countryName = element.long_name ? element.long_name : '';
       }
-
-
     });
     const reversedAddress = subLocality + locality + administrativeArea + postalCode + countryName;
     return reversedAddress;
@@ -95,10 +91,11 @@ export class GeolocationService {
     }
     else {
       const res = await this.reverseGeoWeb(lat, lng)
-      if (res && res.results) {
-        const reverseAddress = this.formatGeoWebAddress(res.results[0].address_components);
+      if (res && res[0].address_components) {
+        const reverseAddress = this.formatGeoWebAddress(res[0].address_components);
         return reverseAddress;
       }
+
     }
   }
 
@@ -161,10 +158,18 @@ export class GeolocationService {
     return distance + unit;
   }
 
-  public async reverseGeoWeb(lat: number, lng: number): Promise<any> {
-    return this.http.get(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${environment.GMaps.apiKey}`
-    ).toPromise();
+  reverseGeoWeb(lat: number, lng: number): Promise<any> {
+    return new Promise(resolve => {
+      if (navigator.geolocation) {
+        const geocoder = new google.maps.Geocoder();
+        const latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode({ location: latlng }, (results, status) => {
+          resolve(results);
+        });
+      }
+    });
+
+
 
   }
 }

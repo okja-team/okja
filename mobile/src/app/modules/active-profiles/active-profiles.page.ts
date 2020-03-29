@@ -1,6 +1,5 @@
 import { ActiveProfilesService } from 'active-profiles.service';
 import { AgmMap } from '@agm/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { CardProfileComponent } from 'component/card-profile/card-profile.component';
 import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
 import {
@@ -14,7 +13,6 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
 import { ProfileService } from 'services/profile.service';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { User } from 'models/inteface/user.interface';
