@@ -1,15 +1,42 @@
-.page{
-    padding: 2em;
+.page {
+  --padding-top: 1em;
+  --padding-start: 1em;
+  --padding-end: 1em;
 }
 
 .title {
-    font-family: Montserrat;
-    font-size: 24px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #ffffff;
-    padding-top: 2em;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+
+.ui-select {
+  opacity: 0.4;
+  border-radius: 8px;
+  background-color: #000000;
+  --placeholder-color: #ffffff;
+  --placeholder-opacity: 1;
+}
+
+.ui-settings-group {
+  color: #ffffff;
+  opacity: 0.4;
+  border-radius: 8px;
+  background-color: #000000;
+  margin-top: 1em;
+
+  ion-row:nth-child(1) {
+    border-bottom: 1px solid #ffffff;
   }
+}
+
+.push-down {
+  padding-top: 3em;
+}

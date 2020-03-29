@@ -29,11 +29,12 @@
     },
     "SETTINGS_PAGE": {
         "TITLE": "Impostazioni",
-        "PRIVACY": "Informazioni sulla privacy",
-        "DELETE": "Elimina il tuo account",
-        "LOGOUT": "Logout",
+        "PRIVACY": "Informazioni sulla Privacy",
+        "TERMS" : "Termine di Servizio",
+        "DELETE": "Elimina i tuoi dati",
+        "LOGOUT": "Esci",
         "LANGUAGE_SELECT": {
-            "LABEL": "Cambia lingua",
+            "LABEL": "Selezione la lingua",
             "LIST": {
                 "IT": "Italiano",
                 "EN": "Inglese"
