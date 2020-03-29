@@ -1,15 +1,11 @@
-<ion-tabs class="tab">
+<ion-tabs>
 
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="list">
       <ion-icon src='assets/images/icon/ico_home.svg'></ion-icon>
     </ion-tab-button>
 
-    <ion-tab-button tab="map">
-      <div class="main-container">
-        <ion-icon src='assets/images/icon/ico_main_cta.svg'></ion-icon>
-      </div>
-    </ion-tab-button>
+    <ion-tab-button [disabled]=true> </ion-tab-button>
 
     <ion-tab-button tab="settings">
       <ion-icon src='assets/images/icon/ico_info.svg'></ion-icon>
@@ -17,3 +13,15 @@
   </ion-tab-bar>
 
 </ion-tabs>
+
+<ion-fab class="main-fab"
+  horizontal="center"
+  vertical="bottom"
+  edge>
+  <ion-fab-button color="transparent"
+    class="main-container"
+    (click)="onMainClick()">
+    <ion-icon class="main-icon"
+      src='assets/images/icon/ico_main_cta.svg'></ion-icon>
+  </ion-fab-button>
+</ion-fab>
