@@ -51,14 +51,14 @@
     <div class="buttonsContainer">
       <ion-row>
         <ion-col>
-          <ion-button expand="block" (click)="setPosition()" class="transparent">
+          <ion-button expand="block" (click)="showModalPosiont()" class="ui-button">
             {{ 'PROFILE_PAGE.POSITION' | translate }}
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-button expand="block" (click)="onClickHideInfo()" class="transparent">
+          <ion-button expand="block" (click)="onClickHideInfo()" class="ui-button">
             {{ 'PROFILE_PAGE.NEXT' | translate }}
           </ion-button>
         </ion-col>
@@ -123,7 +123,7 @@
     <div class="buttonsContainer">
       <ion-row>
         <ion-col>
-          <ion-button expand="block" (click)="saveProfile()" class="transparent save">
+          <ion-button expand="block" (click)="saveProfile()" class="ui-button ui-button-green">
             {{ 'PROFILE_PAGE.SAVE' | translate }}
           </ion-button>
         </ion-col>

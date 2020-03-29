@@ -15,13 +15,7 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfilePageModule),
     canActivate: [AuthGuardService]
-  },
-  {
-    path: 'position-piker',
-    loadChildren: () => import('./modules/position-piker/position-piker.module').then(m => m.PositionPikerPageModule),
-    canActivate: [AuthGuardService]
   }
-
 ];
 @NgModule({
   imports: [

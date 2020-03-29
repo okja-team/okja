@@ -4,6 +4,9 @@ import { NativeGeocoderOptions, NativeGeocoder } from '@ionic-native/native-geoc
 import { Platform } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 import { TranslateConfigService } from './translate-config.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 const { Geolocation } = Plugins;
 
 @Injectable({
@@ -14,7 +17,8 @@ export class GeolocationService {
   constructor(
     private readonly nativeGeocoder: NativeGeocoder,
     private readonly platform: Platform,
-    private readonly translactionServise: TranslateConfigService
+    private readonly translactionServise: TranslateConfigService,
+    private readonly http: HttpClient,
   ) { }
 
   approximateLocation(geo: ProfilePosition) {
@@ -45,6 +49,18 @@ export class GeolocationService {
     return reversedAddress;
   }
 
+  formatGeoWebAddress(retrievedAddress: any): string {
+    //TODO
+
+    const subLocality = retrievedAddress[1] ? retrievedAddress[1].long_name + ', ' : '';
+    const prov = retrievedAddress[2] ? retrievedAddress[2].short_name + ', ' : ''
+    const locality = retrievedAddress[3] ? retrievedAddress[3].long_name + ', ' : '';
+    const postalCode = retrievedAddress[4] ? retrievedAddress[4].short_name + ', ' : '';
+    const countryName = retrievedAddress[3] ? retrievedAddress[3].long_name : '';
+    const reversedAddress = subLocality + prov + locality + postalCode + countryName;
+    return reversedAddress;
+  }
+
   async reverseGeocoding(lat: number, lng: number, maxResult: number = 5): Promise<string> {
     const options: NativeGeocoderOptions = {
       useLocale: true,
@@ -55,6 +71,14 @@ export class GeolocationService {
       const retrievedAddress = result[0];
       const reverseAddress = this.formatAddress(retrievedAddress);
       return reverseAddress;
+    }
+    else {
+      const res = await this.reverseGeoWeb(lat, lng)
+      if (res && res.results) {
+        const reverseAddress = this.formatGeoWebAddress(res.results[0].address_components);
+        console.log(reverseAddress);
+        return reverseAddress;
+      }
     }
   }
 
@@ -115,5 +139,10 @@ export class GeolocationService {
       unit = this.translactionServise.translateInstant('COMMON.UNIT_DISTANCE');
     }
     return distance + unit;
+  }
+
+  public async reverseGeoWeb(lat: number, lng: number): Promise<any> {
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=' + environment.GMaps.apiKey).toPromise();
+
   }
 }

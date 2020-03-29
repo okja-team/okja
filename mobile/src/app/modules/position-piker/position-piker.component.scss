@@ -1,0 +1,41 @@
+.page {
+  --padding-start: 2em;
+  --padding-end: 2em;
+}
+
+.title {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+
+.message {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.map-size {
+  height: 50vh;
+  width: 100%;
+}
+
+agm-map {
+  .gm-svpc {
+    display: none;
+  }
+}

@@ -27,6 +27,8 @@
 
 @import "./theme/custom-light-variables";
 
+/* Move to UI theme */
+
 .map-modal-card .modal-wrapper {
   height: 50%;
   top: 50%;
@@ -35,4 +37,17 @@
   background: transparent;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
+}
+
+.ui-button {
+  --background: #ffffff73;
+  --border-radius: 27.5px;
+  --color: var(--dark-slate-blue);
+  font-weight: bold;
+}
+
+.ui-button-green {
+  --color: #ffffff;
+  --background: #6dd400;
+  font-weight: bold;
 }

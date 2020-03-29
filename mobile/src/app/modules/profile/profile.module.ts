@@ -7,6 +7,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
+import { PositionPikerComponentModule } from 'modules/position-piker/position-piker.module';
+
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { ProfilePage } from './profile.page';
     ReactiveFormsModule,
     IonicModule,
     ProfilePageRoutingModule,
+    PositionPikerComponentModule,
     TranslateModule.forChild()
   ],
   declarations: [ProfilePage]

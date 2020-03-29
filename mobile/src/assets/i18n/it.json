@@ -11,8 +11,10 @@
         "PASSWORD": "Password",
         "REGISTER": "Registrami"
     },
-    "MAP_PAGE": {
-        "TITLE": "Map"
+    "POSITION_PICKER": {
+        "TITLE": "Condividi la tua posizione per aiutare i tuoi vicini.",
+        "SAVE" : "Salva la mia posizione",
+        "DISCLAIMER" : "I dati relativi alla tua posizione esatta non verranno registrati o condivisi"
     },
     "CARDS_PAGE": {
         "TITLE": "Volontari vicino a te!",
@@ -67,7 +69,8 @@
         "SIGN_UP": "Registra",
         "CLOSE": "Chiudi",
         "POSITION": "Condividi la tua posizione",
-        "LOADER_MESSAGE": "Salvataggio profilo in corso"
+        "LOADER_MESSAGE": "Salvataggio profilo in corso",
+        "SET_POSITION_MESSAGE": "Per aiutarci è necessario condividere la tua posizione"
     },
     "TAB1_PAGE": {
         "HELP": "vuole aiutarti!",

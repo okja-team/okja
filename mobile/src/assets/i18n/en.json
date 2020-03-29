@@ -11,8 +11,10 @@
         "PASSWORD": "Password",
         "REGISTER": "Register"
     },
-    "MAP_PAGE": {
-        "TITLE": "Map"
+    "POSITION_PICKER": {
+        "TITLE": "Share your location to help your neighbors.",
+        "SAVE" : "Save my position",
+        "DISCLAIMER" : "your exact location data will not be recorded or shared"
     },
     "CARDS_PAGE": {
         "TITLE": "Helpers near you!",
@@ -64,7 +66,8 @@
         "SIGN_UP": "Sign up",
         "CLOSE": "Close",
         "POSITION": "Share your location",
-        "LOADER_MESSAGE": "Saving your profile"
+        "LOADER_MESSAGE": "Saving your profile",
+        "SET_POSITION_MESSAGE": "To help us you need to share your location"
     },
     "TAB1_PAGE":{
         "HELP": "wants help you!",

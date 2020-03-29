@@ -1,50 +1,50 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { LoadingController, Platform } from '@ionic/angular';
+import { LoadingController, Platform, ModalController, NavParams } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
 import { GeolocationService } from 'services/geolocation.service';
 import { take } from 'rxjs/operators';
+import { TranslateConfigService } from 'services/translate-config.service';
+import { IPosition } from 'models/inteface/position.interface';
 
 @Component({
   selector: 'app-position-piker',
-  templateUrl: './position-piker.page.html',
-  styleUrls: ['./position-piker.page.scss'],
+  templateUrl: './position-piker.component.html',
+  styleUrls: ['./position-piker.component.scss'],
 })
-export class PositionPikerPage implements OnInit, OnDestroy {
+export class PositionPikerComponent implements OnInit, OnDestroy {
+
+  @Input() position: IPosition;
 
   profile: Profile;
   public lat: any; public lng: any;
-  showingCurrent = true;
   address: string;
   retrievedAddress: any;
   reversedAddress = '';
   isMobileApp = false;
 
   constructor(
-    private profileService: ProfileService,
-    private loadingCtrl: LoadingController,
-    private geoService: GeolocationService,
-    private platform: Platform
+    private readonly profileService: ProfileService,
+    private readonly loadingCtrl: LoadingController,
+    private readonly geoService: GeolocationService,
+    private readonly platform: Platform,
+    private readonly translateConfigService: TranslateConfigService,
+    private readonly modalController: ModalController,
+    private readonly navParams: NavParams
   ) {
+    this.translateConfigService.getDefaultLanguage();
     this.isMobileApp = this.platform.is('capacitor');
+    this.profile = this.navParams.get('profile');
   }
 
   ngOnInit() {
   }
-
   ngOnDestroy() {
   }
 
   ionViewDidEnter() {
-    this.profileService.getProfile()
-      .pipe(
-        take(1),
-        untilDestroyed(this))
-      .subscribe(profile => {
-        this.profile = profile;
-        this.getSavedPosition();
-      });
+    this.getSavedPosition();
   }
 
   async geocodeAddress() {
@@ -60,13 +60,19 @@ export class PositionPikerPage implements OnInit, OnDestroy {
     await loader.dismiss();
   }
 
-  savePosition() {
+  async returnPosition() {
     if (this.lat && this.lng) {
+
       if (this.reversedAddress) {
         this.profile.address = this.reversedAddress;
       }
+
       this.profile.position = { lat: this.lat, lng: this.lng };
-      this.profileService.addProfile(this.profile);
+
+      this.modalController.dismiss({
+        profile: this.profile
+      });
+
     } else {
       window.alert(`no position selected`);
     }
@@ -88,6 +94,8 @@ export class PositionPikerPage implements OnInit, OnDestroy {
     await loader.present();
 
     if (this.profile && this.profile.position
+      && this.profile.position.lat
+      && this.profile.position.lng
       && this.profile.position.lat !== 0
       && this.profile.position.lng !== 0
       && this.address

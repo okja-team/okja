@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PositionPikerPage } from './position-piker.page';
+import { PositionPikerComponent } from './position-piker.component';
 
-describe('PositionPikerPage', () => {
-  let component: PositionPikerPage;
-  let fixture: ComponentFixture<PositionPikerPage>;
+describe('PositionPikerComponent', () => {
+  let component: PositionPikerComponent;
+  let fixture: ComponentFixture<PositionPikerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PositionPikerPage ],
+      declarations: [ PositionPikerComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PositionPikerPage);
+    fixture = TestBed.createComponent(PositionPikerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
