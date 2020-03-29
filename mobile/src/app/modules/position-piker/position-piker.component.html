@@ -1,0 +1,50 @@
+<ion-content class="app-background page">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="title">
+          {{ 'POSITION_PICKER.TITLE' | translate }}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <agm-map [usePanning]="true" [latitude]="lat" [longitude]="lng" [zoom]="12" [disableDefaultUI]="false"
+        class="map-size">
+        <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]=true (dragEnd)="onDragEnd($event)">
+        </agm-marker>
+      </agm-map>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="message">
+          {{ 'POSITION_PICKER.DISCLAIMER' | translate }}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="3">
+        <ion-button (click)="getCurrentPosition()" class="ui-button">
+          <ion-icon name="locate-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="8" push="1">
+        <ion-button (click)="returnPosition()" expand="block" class="ui-button ui-button-green">
+          {{ 'POSITION_PICKER.SAVE' | translate }}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<!-- for the future features -->
+<!-- <ion-grid *ngIf="isMobileApp">
+  <ion-item>
+    <ion-label position="stacked">Inserisci indirizzo manualmente</ion-label>
+    <ion-input type="text" [(ngModel)]="address" name="address"></ion-input>
+  </ion-item>
+  <ion-button color="success" (click)="geocodeAddress()" expand="full" class="ion-margin">
+    Cerca Indirizzo</ion-button>
+  <ion-item>
+    <ion-label position="stacked">{{ reversedAddress}} <Address></Address>
+    </ion-label>
+  </ion-item>
+</ion-grid> -->

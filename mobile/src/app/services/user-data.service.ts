@@ -1,11 +1,14 @@
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable, from, } from 'rxjs';
 import { User } from '../models/inteface/user.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({ providedIn: 'root' })
 export class UserDataService {
+
+  private user: Observable<User>;
+  private userDoc: AngularFirestoreDocument<User>;
 
   constructor(
     private readonly afStore: AngularFirestore,
@@ -14,8 +17,9 @@ export class UserDataService {
   }
 
   public getUser(): Observable<User> {
-    const userDoc = this.afStore.doc<User>(`users/${this.ngFireAuth.auth.currentUser.uid}}`);
-    return userDoc.valueChanges();
+    this.userDoc = this.afStore.doc<User>(`users/${this.ngFireAuth.auth.currentUser.uid}`);
+    this.user = this.userDoc.valueChanges();
+    return this.user;
   }
 
   public setUser(user: User): Observable<void> {

@@ -14,9 +14,9 @@ export class CardProfileComponent implements OnInit {
   @Input() profileSelected: Profile;
 
   constructor(
-    private translactionServise: TranslateConfigService
+    private readonly translactionServise: TranslateConfigService
   ) {
-    translactionServise.getDefaultLanguage();
+    this.translactionServise.getDefaultLanguage();
   }
 
   ngOnInit() { }
