@@ -1,48 +1,69 @@
 .container {
   // height: 7.5em;
-  margin: 5px;
+  margin: 0.9375rem;
+}
+
+.grid-container {
+  padding: 0;
+}
+
+ion-col {
+  padding: 0;
 }
 
 .roleContainer {
-  padding-top: 0.2em;
+  margin-left: 0.9375rem;
 }
 .roleChip {
-  font-size: 2.5vw;
-  border-radius: 0px;
-  font-weight: 500;
+  font-size: 0.5625rem;
+  border-radius: 0;
+  font-weight: 600;
   color: white;
   text-transform: uppercase;
-  height: 20px;
+  height: 0.8125rem;
+  width: 4.0625rem;
+  margin: 0 0.3125rem 0 0;
+  display: flex;
+  justify-content: center;
 }
+
 .userName {
-  margin-left: 4px;
-  font-size: 4.5vw;
-  font-weight: 700;
+  margin-left: 0.9375rem;
+  font-size: 1.125rem;
+  line-height: 1.125rem;
+  font-weight: 600;
   font-family: Montserrat;
   color: black;
 }
+
 .userAvatar {
-  border-radius: 4vw;
+  border-radius: 0.5rem;
+  height: 3.1875rem;
+  width: 3.1875rem;
   //   padding: 2vw;
 }
+
 .nearYou {
-  font-size: 3.5vw;
+  margin-left: 0.9375rem;
+  padding: 0.1875rem 0;
+  font-size: 0.625rem;
   font-weight: 400;
   font-family: Montserrat;
   color: black;
 }
 
 .distance {
-  margin-left: 4px;
-  font-size: 3.5vw;
-  font-weight: bold;
+  font-size: 0.625rem;
+  font-weight: 600;
   font-family: Montserrat;
   color: black;
+  padding: 0;
 }
+
 p {
-  margin: 0em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
+  margin: 0;
+  //padding-top: 0.2em;
+  //padding-bottom: 0.2em;
 }
 
 .scrollCapability {
@@ -55,11 +76,10 @@ p {
 }
 
 .userInfo {
-    height: 70%;
-    width: 70%;
-    display: block;
-    color: black;
-    float: right;
-    margin-top: -8px;
-  }
+  height: 2.1875rem;
+  width: 2.1875rem;
+  display: block;
+  color: black;
+  margin: 0 0 0 auto;
+}
 

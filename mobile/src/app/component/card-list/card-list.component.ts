@@ -33,7 +33,7 @@ export class CardListComponent implements OnInit {
   getColorFromRoleType(roleType: Roles): string {
     switch (roleType) {
       case Roles.Food:
-        return '#046506';
+        return '#3fc05e';
       case Roles.Pharmacy:
         return '#df8c8c';
       default:

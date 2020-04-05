@@ -57,3 +57,13 @@
   font-family: Montserrat;
   font-weight: 500;
 }
+
+.modal-wrapper {
+  position: fixed;
+  bottom: 0;
+  --height: 94%;
+}
+
+ion-backdrop {
+  background-color: var(--ion-color-warning-contrast);
+}

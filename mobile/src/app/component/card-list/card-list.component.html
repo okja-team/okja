@@ -1,11 +1,11 @@
 <div class="container">
-  <ion-grid style="vertical-align:middle;">
-    <ion-row>
-      <ion-col size="3">
+  <ion-grid class="grid-container">
+    <ion-row >
+      <ion-col size="2">
         <img class="userAvatar"
           src="{{profile.photoURL}}">
       </ion-col>
-      <ion-col size="7">
+      <ion-col size="8">
         <ion-row class="userName">{{ profile.name }}</ion-row>
         <ion-row class="nearYou"
           *ngIf="profile.position">
