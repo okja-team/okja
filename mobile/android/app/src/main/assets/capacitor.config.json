@@ -13,10 +13,6 @@
       "permissions": {
         "google": ["profile", "https://www.googleapis.com/auth/drive"]
       }
-    },
-    "SplashScreen": {
-      "launchAutoHide": true,
-      "androidSplashResourceName": "screen"
     }
   }
 }

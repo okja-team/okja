@@ -5,6 +5,7 @@ import { User } from '../models/inteface/user.interface';
 import { Profile } from 'models/class/profile';
 import { Roles } from 'models/enums/roles.enum';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { UserDataService } from './user-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,13 @@ export class ProfileService {
   constructor(
     private readonly afStore: AngularFirestore,
     private readonly ngFireAuth: AngularFireAuth,
+    private readonly userDataService: UserDataService
   ) {
 
   }
 
   getProfile(): Observable<Profile> {
-    this.profileDoc = this.afStore.doc(`profiles/${this.ngFireAuth.auth.currentUser.uid}`);
+    this.profileDoc = this.afStore.doc(`profiles/${this.userDataService.getId()}`);
     this.profile = this.profileDoc.valueChanges();
     return this.profile;
   }
@@ -38,16 +40,16 @@ export class ProfileService {
     } else {
       this.unpublishProfile(profile);
     }
-    return from(this.afStore.doc(`profiles/${this.ngFireAuth.auth.currentUser.uid}`).set(Object.assign({}, profile, { merge: true })));
+    return from(this.afStore.doc(`profiles/${this.userDataService.getId()}`).set(Object.assign({}, profile, { merge: true })));
   }
 
   publishProfile(profile: Profile) {
-    this.publishProfileDoc = this.afStore.collection('active_profiles').doc(this.ngFireAuth.auth.currentUser.uid);
+    this.publishProfileDoc = this.afStore.collection('active_profiles').doc(this.userDataService.getId());
     return this.publishProfileDoc.set(Object.assign({}, profile));
   }
 
   unpublishProfile(profile: Profile) {
-    this.publishProfileDoc = this.afStore.collection('active_profiles').doc(this.ngFireAuth.auth.currentUser.uid);
+    this.publishProfileDoc = this.afStore.collection('active_profiles').doc(this.userDataService.getId());
     return this.publishProfileDoc.delete();
   }
 
