@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
+  "config": {
+    "ionic_sass": "./sass.config.js"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
