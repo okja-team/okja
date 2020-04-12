@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoadingController, NavController, ToastController, ModalController } from '@ionic/angular';
+import { NavController, ToastController, ModalController } from '@ionic/angular';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ProfileService } from '../../services/profile.service';
-import { Router } from '@angular/router';
 import { TranslateConfigService } from '../../services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { UserDataService } from '../../services/user-data.service';
 import { Roles } from 'models/enums/roles.enum';
 import { Profile } from 'models/class/profile';
 import { PositionPikerComponent } from 'modules/position-piker/position-piker.component';
+import { LoaderService } from 'services/loader.service';
 
 @Component({
   selector: 'app-profile',
@@ -28,12 +28,11 @@ export class ProfilePage implements OnInit, OnDestroy {
   public hasProfile = false;
 
   constructor(
-    private readonly loadingCtrl: LoadingController,
+    private readonly loaderService: LoaderService,
     private readonly userDataService: UserDataService,
     private readonly profileService: ProfileService,
     private readonly translateConfigService: TranslateConfigService,
     private readonly navCtrl: NavController,
-    private readonly router: Router,
     private readonly toast: ToastController,
     private readonly modalController: ModalController
   ) {
@@ -54,13 +53,10 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   async onEnter() {
-    const loading = await this.loadingCtrl.create();
-    loading.present();
-
+    await this.loaderService.showLoader();
     this.showInfo = true;
     this.getProrile()
-
-    await loading.dismiss();
+    await this.loaderService.hideLoader();
   }
 
 
@@ -76,13 +72,9 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   public async saveProfile() {
-
-    const loading = await this.loadingCtrl.create();
-
-    await loading.present();
+    await this.loaderService.showLoader();
     await this.profileService.addProfile(this.profile).toPromise()
-    await loading.dismiss();
-
+    await this.loaderService.hideLoader();
     this.navCtrl.navigateRoot('home/tabs/map');
   }
 

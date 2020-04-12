@@ -9,14 +9,14 @@ import {
   ViewChild
 } from '@angular/core';
 import { GeolocationService } from 'services/geolocation.service';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
-import { ProfileService } from 'services/profile.service';
 import { Router } from '@angular/router';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { User } from 'models/inteface/user.interface';
 import { AuthenticationService } from 'services/authentication.service';
+import { LoaderService } from 'services/loader.service';
 
 declare const google: any;
 
@@ -65,8 +65,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     translactionServise: TranslateConfigService,
     public readonly router: Router,
     private readonly activeProfileSerive: ActiveProfilesService,
-    private readonly profileService: ProfileService,
-    private readonly loadingCtrl: LoadingController,
+    private readonly loaderService: LoaderService,
     private readonly modalController: ModalController,
     private readonly geoService: GeolocationService,
     private readonly authService: AuthenticationService,
@@ -110,19 +109,20 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   async repositionMap() {
-    const loader = await this.loadingCtrl.create();
-    await loader.present();
+    try {
+      await this.loaderService.showLoader();
+      const geo = await this.geoService.getCurrentPosition();
+      if (geo) {
+        this.lat = geo.lat;
+        this.lng = geo.lng;
+      }
+      await this.loaderService.hideLoader();
+    }
+    catch (err) {
+      await this.loaderService.hideLoader();
+      window.alert(`error on repositionMap: ${err}`);
 
-    const geo = await this.geoService.getCurrentPosition();
-    if (geo) {
-      this.lat = geo.lat;
-      this.lng = geo.lng;
-    } 
-    // else if (this.userProfile && this.userProfile.position) {
-    //   this.lat = this.userProfile.position.lat;
-    //   this.lng = this.userProfile.position.lng;
-    // }
-    await loader.dismiss();
+    }
   }
 
   async presentModal() {
@@ -137,18 +137,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     });
     return modal.present();
   }
-
-  // setProfile() {
-  //   this.profileService.getProfile()
-  //     .pipe(take(1), untilDestroyed(this))
-  //     .subscribe(p => {
-  //       this.userProfile = p;
-  //       if (p && p.position && p.position.lat && p.position.lng) {
-  //         this.lat = p.position.lat;
-  //         this.lng = p.position.lng;
-  //       }
-  //     });
-  // }
 
   getOpacity(p: Profile): number {
     if (
