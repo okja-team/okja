@@ -50,7 +50,7 @@ export class AuthenticationService {
                     });
 
             } else {
-                this.ngFireAuth.auth.signOut()
+                this.ngFireAuth.signOut()
                     .then(() => {
                         this.router.navigate(['home/tabs/map']);
                         resolve();
@@ -61,7 +61,7 @@ export class AuthenticationService {
 
     private mobileSocialAuth(type: 'google.com'): Promise<firebase.User> {
         return new Promise(resolve => {
-            this.ngFireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            this.ngFireAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
                 .then(() => {
                     cfaSignIn(type)
                         .subscribe(user => {
@@ -76,9 +76,9 @@ export class AuthenticationService {
 
     private webSocialAuth(provider): Promise<firebase.User> {
         return new Promise(resolve => {
-            this.ngFireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            this.ngFireAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
                 .then(() => {
-                    this.ngFireAuth.auth.signInWithPopup(provider)
+                    this.ngFireAuth.signInWithPopup(provider)
                         .then(userCredentials => {
                             this.setUserData(userCredentials.user)
                                 .subscribe(() => {
