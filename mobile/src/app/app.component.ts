@@ -4,8 +4,6 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { forkJoin, from } from 'rxjs';
-import { AuthenticationService } from 'services/authentication.service';
 import { BackButtonService } from 'services/back-button.service';
 
 @Component({
@@ -31,6 +29,5 @@ export class AppComponent {
       this.splashScreen.hide();
       this.backButtonService.registerBackButton();
     });
-    // });
   }
 }

@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { User } from 'models/inteface/user.interface';
-import { AuthenticationService } from 'services/authentication.service';
 import { LoaderService } from 'services/loader.service';
 
 declare const google: any;
@@ -54,12 +53,8 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   lat: any;
   lng: any;
   map: any;
-  avatarPhoto = '';
-  userLogged = false;
   user: User;
   userProfile: Profile;
-
-  avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
 
   constructor(
     translactionServise: TranslateConfigService,
@@ -68,8 +63,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     private readonly loaderService: LoaderService,
     private readonly modalController: ModalController,
     private readonly geoService: GeolocationService,
-    private readonly authService: AuthenticationService,
-
   ) {
     translactionServise.getDefaultLanguage();
     this.setSubscriptions();
@@ -89,17 +82,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   setSubscriptions() {
-    this.avatarPhoto = this.avatarPlaceHolder;
-    this.authService.loggedUser.subscribe((user) => {
-      if (user) {
-        this.userLogged = true;
-        this.avatarPhoto = user.photoURL ? user.photoURL : this.avatarPlaceHolder;
-      } else {
-        this.userLogged = false;
-        this.avatarPhoto = this.avatarPlaceHolder;
-      }
-    });
-
     this.activeProfileSerive.getActiveProfile()
       .pipe(untilDestroyed(this))
       .subscribe(x => {
@@ -148,15 +130,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     }
     return this.opacityNotSelected;
   }
-
-  goToProfile() {
-    if (this.userLogged) {
-      this.router.navigate(['profile']);
-    } else {
-      this.router.navigate(['login']);
-    }
-  }
-
   mapReady(event: any) {
     this.map = event;
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('avatarPhoto'));

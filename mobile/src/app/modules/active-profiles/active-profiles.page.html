@@ -1,6 +1,9 @@
+<app-avatar></app-avatar>
+
 <ion-content [fullscreen]="true">
 
-  <agm-map [hidden]="hiddenMap"
+  <agm-map class="map-custom"
+    [hidden]="hiddenMap"
     #AgmMap
     (mapReady)="mapReady($event)"
     [latitude]="lat"
@@ -10,15 +13,9 @@
     (mapClick)="closeCard()"
     [disableDefaultUI]="false">
 
-    <div id="avatarPhoto"
-      class="avatarPhotoContainer">
-      <ion-avatar class="avatarPhoto"
-        (click)="goToProfile()">
-        <img [src]="avatarPhoto">
-      </ion-avatar>
-    </div>
 
-    <agm-marker-cluster #makerCluster [styles]='clusterStyles'>
+    <agm-marker-cluster #makerCluster
+      [styles]='clusterStyles'>
       <agm-marker *ngFor="let p of activeProfile"
         [latitude]="p.position.lat"
         [longitude]="p.position.lng"
