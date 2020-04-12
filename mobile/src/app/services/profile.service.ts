@@ -34,7 +34,6 @@ export class ProfileService {
     this.profileDoc.delete();
   }
   addProfile(profile: Profile) {
-    console.log(profile)
     if (profile.isAvailable && profile.position && profile.position.lat && profile.position.lng) {
       this.publishProfile(profile);
     } else {

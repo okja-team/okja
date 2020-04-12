@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Profile } from 'models/class/profile';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { FilterPage } from 'modules/filter/filter.page';
 import { User } from 'models/inteface/user.interface';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { ActiveProfilesService } from 'active-profiles.service';
 import { AuthenticationService } from 'services/authentication.service';
 import { GeolocationService } from 'services/geolocation.service';
 import { ProfilePosition } from 'models/class/profile-position';
+import { LoaderService } from 'services/loader.service';
 
 @Component({
   selector: 'app-filter-profile',
@@ -26,21 +27,18 @@ export class FilterProfilePage implements OnInit, OnDestroy {
   avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
   avatarPhoto = '';
 
-  private loadingElement: HTMLIonLoadingElement;
-
   constructor(
     private modalController: ModalController,
     private readonly geoService: GeolocationService,
     public router: Router,
     private activeProfileService: ActiveProfilesService,
-    private loadingCtrl: LoadingController,
+    private loaderService: LoaderService,
     private readonly authService: AuthenticationService
   ) {
     this.setSubscriptions();
   }
 
   async ngOnInit() {
-    await this.setLoading();
     await this.initData();
   }
 
@@ -64,13 +62,6 @@ export class FilterProfilePage implements OnInit, OnDestroy {
     });
   }
 
-  private async setLoading() {
-    this.loadingElement = await this.loadingCtrl.create({
-      message: '',
-      spinner: 'crescent',
-    });
-  }
-
   async openFilterModal() {
     const modal: HTMLIonModalElement =
       await this.modalController.create({
@@ -81,10 +72,10 @@ export class FilterProfilePage implements OnInit, OnDestroy {
         }
       });
 
-    modal.onDidDismiss().then((filters) => {
+    modal.onDidDismiss().then(async (filters) => {
       this.distanceFilter = filters.data.distance;
       this.availabilityFilter = filters.data.availability;
-      this.getActiveProfiles();
+      await this.getActiveProfiles();
     });
 
     await modal.present();
@@ -118,13 +109,12 @@ export class FilterProfilePage implements OnInit, OnDestroy {
   }
 
   async getActiveProfiles() {
-    this.loadingElement.present();
     this.activeProfileService.getActiveProfile()
       .pipe(untilDestroyed(this))
-      .subscribe(profiles => {
-        this.activeProfiles = this.filterProfiles(profiles);
-        this.loadingElement.dismiss();
-      });
+      .subscribe(
+        profiles => {
+          this.activeProfiles = this.filterProfiles(profiles);
+        });
   }
 
 
@@ -138,18 +128,27 @@ export class FilterProfilePage implements OnInit, OnDestroy {
 
   async initData() {
     try {
-      this.loadingElement.present();
+      await this.loaderService.showLoader();
       this.userPosition = await this.geoService.getCurrentPosition();
-      this.getActiveProfiles();
-
-    } catch (error) {
-      console.log('Error getting location', error);
+      await this.getActiveProfiles();
+      await this.loaderService.hideLoader();
+    }
+    catch (error) {
+      this.loaderService.hideLoader();
+      window.alert(`error on initData: ${error}`);
+      console.log('Error getting inidData', error);
     };
   }
 
   async refreshData() {
-    this.userPosition = await this.geoService.getCurrentPosition();
-    this.activeProfiles = this.filterProfiles(this.activeProfiles);
+    try {
+      this.userPosition = await this.geoService.getCurrentPosition();
+      this.activeProfiles = this.filterProfiles(this.activeProfiles);
+    }
+    catch (error) {
+      window.alert(`error on refreshData: ${error}`);
+      console.log('Error getting refreshData', error);
+    }
 
   }
 
