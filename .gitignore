@@ -4,3 +4,7 @@ tools/output
 tools/mock.json
 tools/key
 .DS_Store
+.gitsecret/keys/random_seed
+!*.secret
+mobile/src/environments/environment.prod.ts
+mobile/src/environments/environment.ts
