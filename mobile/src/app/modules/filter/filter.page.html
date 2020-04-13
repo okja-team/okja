@@ -1,17 +1,10 @@
 <ion-content>
   <ion-item class="filter-header">
-    <h3>{{ 'FILTER_PAGE.FILTER_BY' | translate }}</h3>
+    <h3 class="title-header">{{ 'FILTER_PAGE.FILTER_BY' | translate }}</h3>
   </ion-item>
-  <div>
-    <span *ngIf="distanceFilter <= 10" class="distance-filter">{{ distanceFilter }}{{ 'COMMON.UNIT_DISTANCE_K' | translate }}</span>
-    <span *ngIf="distanceFilter > 10" class="distance-filter">∞</span>
-    <h2 class="filter-label">{{ 'FILTER_PAGE.DISTANCE' | translate }}</h2>
-  </div>
-  <ion-item (ionChange)="onChangeDistance()">
-    <ion-range [(ngModel)]="distanceFilter" min="0" max="15" step="5"></ion-range>
-  </ion-item>
-  <h2 class="filter-label">{{ 'FILTER_PAGE.AVAILABILITY' | translate }}</h2>
+
   <div id="availability-list">
+    <h2 class="filter-label">{{ 'FILTER_PAGE.AVAILABILITY' | translate }}</h2>
     <ng-container *ngFor="let type of availabilityFilterList" >
       <ion-chip *ngIf="type == availabilityFilter" class="availabilityChip selectedChip">
         {{ 'COMMON.AVAILABILITY_TYPES.' + type.toUpperCase() | translate }}
@@ -22,9 +15,20 @@
     </ng-container>
   </div>
 
+  <div class="distance-group">
+    <h2 class="filter-label">{{ 'FILTER_PAGE.DISTANCE' | translate }}</h2>
+    <span *ngIf="distanceFilter <= 10" class="distance-filter">{{ distanceFilter }}{{ 'COMMON.UNIT_DISTANCE_K' | translate }}</span>
+    <span *ngIf="distanceFilter > 10" class="distance-filter">∞</span>
+    <ion-item (ionChange)="onChangeDistance()" class="distance-range">
+      <ion-range [(ngModel)]="distanceFilter" min="0" max="15" step="5" class="distance-range-selector"></ion-range>
+    </ion-item>
+  </div>
+
   <div class="button-group">
-    <ion-button id="resetButton" color="medium" size="large" (click)="resetFilters()">Reset</ion-button>
+    <ion-button id="resetButton" color="contrast" size="large" (click)="resetFilters()">Reset</ion-button>
     <ion-button id="applyButton" color="primary" size="large" (click)="closeModal()">Apply</ion-button>
   </div>
   
 </ion-content>
+
+
