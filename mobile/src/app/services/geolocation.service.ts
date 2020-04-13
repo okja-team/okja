@@ -5,6 +5,7 @@ import { Platform } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 import { TranslateConfigService } from './translate-config.service';
 import { IGeoWeb } from 'models/inteface/geo-web.innterface';
+import { retryAsync } from 'ts-retry';
 
 const { Geolocation } = Plugins;
 declare const google: any;
@@ -14,13 +15,15 @@ declare const google: any;
 })
 export class GeolocationService {
 
+  static retryOptions = { delay: 1000, maxTry: 3 };
+
   constructor(
     private readonly nativeGeocoder: NativeGeocoder,
     private readonly platform: Platform,
     private readonly translactionServise: TranslateConfigService,
   ) { }
 
-  approximateLocation(geo: ProfilePosition) {
+  private approximateLocation(geo: ProfilePosition) {
     const apx: ProfilePosition = {
       lat: Math.floor(geo.lat * 1000 + 0.5) / 1000,
       lng: Math.floor(geo.lng * 1000 + 0.5) / 1000
@@ -28,17 +31,7 @@ export class GeolocationService {
     return apx;
 
   }
-
-  async getCurrentPosition(): Promise<ProfilePosition> {
-    const position = await Geolocation.getCurrentPosition();
-    const p: ProfilePosition = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-    return this.approximateLocation(p);
-  }
-
-  formatAddress(retrievedAddress: any): string {
+  private formatAddress(retrievedAddress: any): string {
     const subLocality = retrievedAddress.subLocality ? retrievedAddress.subLocality + ', ' : '';
     const locality = retrievedAddress.locality ? retrievedAddress.locality + ', ' : '';
     const administrativeArea = retrievedAddress.administrativeArea ? retrievedAddress.administrativeArea + ', ' : '';
@@ -48,7 +41,7 @@ export class GeolocationService {
     return reversedAddress;
   }
 
-  formatGeoWebAddress(retrievedAddress: IGeoWeb[] = []): string {
+  private formatGeoWebAddress(retrievedAddress: IGeoWeb[] = []): string {
     let subLocality = '';
     let locality = '';
     let administrativeArea = '';
@@ -78,46 +71,77 @@ export class GeolocationService {
     return reversedAddress;
   }
 
-  async reverseGeocoding(lat: number, lng: number, maxResult: number = 5): Promise<string> {
-    const options: NativeGeocoderOptions = {
-      useLocale: true,
-      maxResults: maxResult
-    };
-    if (lat && lng && this.platform.is('capacitor')) {
-      const result = await this.nativeGeocoder.reverseGeocode(lat, lng, options);
-      const retrievedAddress = result[0];
-      const reverseAddress = this.formatAddress(retrievedAddress);
-      return reverseAddress;
-    }
-    else {
-      const res = await this.reverseGeoWeb(lat, lng)
-      if (res && res[0].address_components) {
-        const reverseAddress = this.formatGeoWebAddress(res[0].address_components);
-        return reverseAddress;
-      }
-
-    }
+  private async reverseGeoWeb(lat: number, lng: number): Promise<any> {
+    return await retryAsync(async () => {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          const geocoder = new google.maps.Geocoder();
+          const latlng = new google.maps.LatLng(lat, lng);
+          geocoder.geocode({ location: latlng }, (results, status) => {
+            resolve(results);
+          });
+        } else {
+          reject()
+        }
+      });
+    }, GeolocationService.retryOptions);
   }
 
-  async geocodeAddress(address: string, maxResult: number = 5): Promise<{ position: ProfilePosition, address: string }> {
-    if (address && address !== '') {
+  public async getCurrentPosition(): Promise<ProfilePosition> {
+    return await retryAsync(async () => {
+      const position = await Geolocation.getCurrentPosition();
+      const p: ProfilePosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      return this.approximateLocation(p);
+    }, GeolocationService.retryOptions)
+  }
+
+  public async reverseGeocoding(lat: number, lng: number, maxResult: number = 5): Promise<string> {
+    return await retryAsync(async () => {
       const options: NativeGeocoderOptions = {
         useLocale: true,
         maxResults: maxResult
       };
-      if (this.platform.is('capacitor')) {
-        const result = await this.nativeGeocoder.forwardGeocode(address, options);
+      if (lat && lng && this.platform.is('capacitor')) {
+        const result = await this.nativeGeocoder.reverseGeocode(lat, lng, options);
         const retrievedAddress = result[0];
-        const p: ProfilePosition = {
-          lat: parseFloat(retrievedAddress.latitude),
-          lng: parseFloat(retrievedAddress.longitude)
-        };
-        const apx = this.approximateLocation(p);
-
-        const fAddress = await this.reverseGeocoding(apx.lat, apx.lng);
-        return { position: p, address: fAddress };
+        const reverseAddress = this.formatAddress(retrievedAddress);
+        return reverseAddress;
       }
-    }
+      else {
+        const res = await this.reverseGeoWeb(lat, lng)
+        if (res && res[0].address_components) {
+          const reverseAddress = this.formatGeoWebAddress(res[0].address_components);
+          return reverseAddress;
+        }
+      }
+    }, GeolocationService.retryOptions);
+  }
+
+
+  public async geocodeAddress(address: string, maxResult: number = 5): Promise<{ position: ProfilePosition, address: string }> {
+    return await retryAsync(async () => {
+      if (address && address !== '') {
+        const options: NativeGeocoderOptions = {
+          useLocale: true,
+          maxResults: maxResult
+        };
+        if (this.platform.is('capacitor')) {
+          const result = await this.nativeGeocoder.forwardGeocode(address, options);
+          const retrievedAddress = result[0];
+          const p: ProfilePosition = {
+            lat: parseFloat(retrievedAddress.latitude),
+            lng: parseFloat(retrievedAddress.longitude)
+          };
+          const apx = this.approximateLocation(p);
+
+          const fAddress = await this.reverseGeocoding(apx.lat, apx.lng);
+          return { position: p, address: fAddress };
+        }
+      }
+    }, GeolocationService.retryOptions);
   }
 
   public computeDistance(position: ProfilePosition, userPosition: ProfilePosition) {
@@ -156,20 +180,5 @@ export class GeolocationService {
       unit = this.translactionServise.translateInstant('COMMON.UNIT_DISTANCE');
     }
     return distance + unit;
-  }
-
-  reverseGeoWeb(lat: number, lng: number): Promise<any> {
-    return new Promise(resolve => {
-      if (navigator.geolocation) {
-        const geocoder = new google.maps.Geocoder();
-        const latlng = new google.maps.LatLng(lat, lng);
-        geocoder.geocode({ location: latlng }, (results, status) => {
-          resolve(results);
-        });
-      }
-    });
-
-
-
   }
 }

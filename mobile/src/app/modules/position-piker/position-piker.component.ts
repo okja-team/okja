@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ProfileService } from '../../services/profile.service';
-import { untilDestroyed } from 'ngx-take-until-destroy';
-import { LoadingController, Platform, ModalController, NavParams } from '@ionic/angular';
+import { Platform, ModalController, NavParams } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
 import { GeolocationService } from 'services/geolocation.service';
-import { take } from 'rxjs/operators';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { IPosition } from 'models/inteface/position.interface';
+import { LoaderService } from 'services/loader.service';
 
 @Component({
   selector: 'app-position-piker',
@@ -25,8 +23,7 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
   isMobileApp = false;
 
   constructor(
-    private readonly profileService: ProfileService,
-    private readonly loadingCtrl: LoadingController,
+    private readonly loaderService: LoaderService,
     private readonly geoService: GeolocationService,
     private readonly platform: Platform,
     private readonly translateConfigService: TranslateConfigService,
@@ -48,8 +45,7 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
   }
 
   async geocodeAddress() {
-    const loader = await this.loadingCtrl.create();
-    await loader.present();
+    await this.loaderService.showLoader();
     if (this.address && this.address !== '') {
       const geo = await this.geoService.geocodeAddress(this.address);
       this.lat = geo.position.lat;
@@ -57,7 +53,7 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
       this.reversedAddress = geo.address;
     }
 
-    await loader.dismiss();
+    await this.loaderService.hideLoader();
   }
 
   async returnPosition() {
@@ -79,20 +75,23 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
   }
 
   async onDragEnd(event) {
-    const loader = await this.loadingCtrl.create();
-    await loader.present();
-
-    this.lat = event.coords.lat;
-    this.lng = event.coords.lng;
-    const reversedAddress = await this.geoService.reverseGeocoding(this.lat, this.lng);
-    this.reversedAddress = reversedAddress;
-    await loader.dismiss();
+    try {
+      await this.loaderService.showLoader();
+      this.lat = event.coords.lat;
+      this.lng = event.coords.lng;
+      const reversedAddress = await this.geoService.reverseGeocoding(this.lat, this.lng);
+      this.reversedAddress = reversedAddress;
+      await this.loaderService.hideLoader();
+    }
+    catch (error) {
+      await this.loaderService.hideLoader();
+      window.alert(`error on onDragEnd: ${error}`);
+      console.log('Error getting onDragEnd', error);
+    }
   }
 
   async getSavedPosition() {
-    const loader = await this.loadingCtrl.create();
-    await loader.present();
-
+    await this.loaderService.showLoader();
     if (this.profile && this.profile.position
       && this.profile.position.lat
       && this.profile.position.lng
@@ -106,19 +105,24 @@ export class PositionPikerComponent implements OnInit, OnDestroy {
     } else {
       await this.getCurrentPosition();
     }
-    await loader.dismiss();
+    await this.loaderService.hideLoader();
   }
 
   async getCurrentPosition() {
-    const loader = await this.loadingCtrl.create();
-    await loader.present();
-
-    const geo = await this.geoService.getCurrentPosition();
-    this.lat = geo.lat;
-    this.lng = geo.lng;
-    const reversedAddress = await this.geoService.reverseGeocoding(geo.lat, geo.lng);
-    this.reversedAddress = reversedAddress;
-    await loader.dismiss();
+    try {
+      await this.loaderService.showLoader();
+      const geo = await this.geoService.getCurrentPosition();
+      this.lat = geo.lat;
+      this.lng = geo.lng;
+      const reversedAddress = await this.geoService.reverseGeocoding(geo.lat, geo.lng);
+      this.reversedAddress = reversedAddress;
+      await this.loaderService.hideLoader();
+    }
+    catch (error) {
+      await this.loaderService.hideLoader();
+      window.alert(`error on getCurrentPosition: ${error}`);
+      console.log('Error getting getCurrentPosition', error);
+    }
   }
 }
 
