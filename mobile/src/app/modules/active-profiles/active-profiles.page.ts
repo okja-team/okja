@@ -9,7 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { GeolocationService } from 'services/geolocation.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
 import { Router } from '@angular/router';
 import { TranslateConfigService } from 'services/translate-config.service';
@@ -62,18 +62,17 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
 
   constructor(
-    translactionServise: TranslateConfigService,
-    public readonly router: Router,
+    private readonly translactionServise: TranslateConfigService,
+    private readonly router: Router,
     private readonly activeProfileSerive: ActiveProfilesService,
     private readonly loaderService: LoaderService,
     private readonly modalController: ModalController,
     private readonly geoService: GeolocationService,
     private readonly authService: AuthenticationService,
-
+    private readonly toastController: ToastController
   ) {
-    translactionServise.getDefaultLanguage();
+    this.translactionServise.getDefaultLanguage();
     this.setSubscriptions();
-
   }
 
   ngOnInit(): void {
@@ -82,7 +81,26 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
+  }
+
+  private async showWelcomeMessage() {
+    const toast = await this.toastController.create({
+      cssClass: 'toast-welcome',
+      duration: 0,
+      header: this.translactionServise.translateInstant("WELCOME.TITLE"),
+      message: this.translactionServise.translateInstant("WELCOME.MESSAGE"),
+      buttons: [
+        {
+          side: 'end',
+          text: this.translactionServise.translateInstant("WELCOME.CTA"),
+          handler: () => {
+            this.goToProfile();
+          }
+        }
+      ]
+    });
+    toast.present();
   }
 
   ionViewDidLeave() {
@@ -97,8 +115,9 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
       } else {
         this.userLogged = false;
         this.avatarPhoto = this.avatarPlaceHolder;
+        this.showWelcomeMessage();
       }
-    });
+    })
 
     this.activeProfileSerive.getActiveProfile()
       .pipe(untilDestroyed(this))
