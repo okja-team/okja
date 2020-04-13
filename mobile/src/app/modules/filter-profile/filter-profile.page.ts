@@ -2,11 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Profile } from 'models/class/profile';
 import { ModalController } from '@ionic/angular';
 import { FilterPage } from 'modules/filter/filter.page';
-import { User } from 'models/inteface/user.interface';
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { ActiveProfilesService } from 'active-profiles.service';
-import { AuthenticationService } from 'services/authentication.service';
 import { GeolocationService } from 'services/geolocation.service';
 import { ProfilePosition } from 'models/class/profile-position';
 import { LoaderService } from 'services/loader.service';
@@ -19,13 +17,9 @@ import { LoaderService } from 'services/loader.service';
 export class FilterProfilePage implements OnInit, OnDestroy {
 
   activeProfiles: Profile[] = [];
-  user: User;
-  userLogged = false;
   userPosition: ProfilePosition;
   distanceFilter = 9999;
   availabilityFilter = 'all_time';
-  avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
-  avatarPhoto = '';
 
   constructor(
     private modalController: ModalController,
@@ -33,9 +27,7 @@ export class FilterProfilePage implements OnInit, OnDestroy {
     public router: Router,
     private activeProfileService: ActiveProfilesService,
     private loaderService: LoaderService,
-    private readonly authService: AuthenticationService
   ) {
-    this.setSubscriptions();
   }
 
   async ngOnInit() {
@@ -47,19 +39,6 @@ export class FilterProfilePage implements OnInit, OnDestroy {
 
   ionViewDidEnter() {
     this.refreshData();
-  }
-
-  setSubscriptions() {
-    this.avatarPhoto = this.avatarPlaceHolder;
-    this.authService.loggedUser.subscribe((user) => {
-      if (user) {
-        this.userLogged = true;
-        this.avatarPhoto = user.photoURL ? user.photoURL : this.avatarPlaceHolder;
-      } else {
-        this.userLogged = false;
-        this.avatarPhoto = this.avatarPlaceHolder;
-      }
-    });
   }
 
   async openFilterModal() {
@@ -115,15 +94,6 @@ export class FilterProfilePage implements OnInit, OnDestroy {
         profiles => {
           this.activeProfiles = this.filterProfiles(profiles);
         });
-  }
-
-
-  goToProfile() {
-    if (this.userLogged) {
-      this.router.navigate(['profile']);
-    } else {
-      this.router.navigate(['login']);
-    }
   }
 
   async initData() {

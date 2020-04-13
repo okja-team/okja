@@ -1,95 +1,98 @@
 {
-    "LOGIN_PAGE": {
-        "TITLE": "Welcome to<br> I FOR YOU",
-        "SIGN_IN_GOOGLE": "Login with Google",
-        "SIGN_IN_FACEBOOK": "Login with Facebook",
-        "DESCR": "If you are between 18 and 64 years old, you can provide your local community with any kind of support - for instance, grocery home delivery. As a volunteer, you can share your spare time and skills to respond to any needs in your community and promote targeted social support when and where it is needed."
-    },
-    "WELCOME" : {
-        "TITLE" : "Welcome to I FOR YOU",
-        "MESSAGE" : "Wou can provide your local community with any kind of support. You can share your spare time and skills to respond to any needs in your community.",
-        "CTA" : "Sig in!"
-    },
-    "REGISTRATION_PAGE": {
-        "TITLE": "Register User",
-        "EMAIL": "Email",
-        "PASSWORD": "Password",
-        "REGISTER": "Register"
-    },
-    "POSITION_PICKER": {
-        "TITLE": "Share your location to help your neighbors.",
-        "SAVE" : "Save my position",
-        "DISCLAIMER" : "your exact location data will not be recorded or shared"
-    },
-    "CARDS_PAGE": {
-        "TITLE": "Helpers near you!",
-        "NEAR_YOU": "near you",
-        "ABOUT_NEAR_YOU": "about {{distance}} near you",
-        "NO_DISTANCE_LIMIT": "no distance limit"
-    },
-    "FILTER_PAGE": {
-        "FILTER_BY": "Filtra per",
-        "DISTANCE": "Distanza",
-        "AVAILABILITY": "Disponibilità"
-    },
-    "SETTINGS_PAGE": {
-        "TITLE": "Settings",
-        "PRIVACY": "Privacy Policy",
-        "TERMS" : "Terms of Services",
-        "DELETE": "Delete your data",
-        "LOGOUT": "Logout",
-        "LANGUAGE_SELECT": {
-            "LABEL": "Select the app language",
-            "LIST": {
-                "IT": "Italian",
-                "EN": "English"
-            }
-        }
-    },
-    "PROFILE_PAGE":{
-        "TITLE": "Profile",
-        "FIRST_MESSAGE": "Hey, I can take care of you.",	
-        "CONFIG_MESSAGE" : "Can You go to the market? Pharmacy?",
-        "NAME": "Name",
-        "SURNAME": "Surname",
-        "COUNTRY": "Country",
-        "CITY": "City",
-        "ADDRESS": "Place",
-        "PHONE": "Phone",
-        "SKYPE" : "Skype",
-        "MESSAGE_HELP": "I can help you with:",
-        "AVAILABLE": "You ara available to help people, help us?",
-        "ROLE_TYPE": {
-            "FOOD": "food",
-            "FARMACY": "farmacy",
-            "MAIL": "mail",
-            "COMPANY": "company"
-        },
-        "YESIAM" : "Yes, I am!",
-        "NEXT" : "How do you want to help?",
-        "SAVE": "Save",
-        "SIGN_UP": "Sign up",
-        "CLOSE": "Close",
-        "POSITION": "Share your location",
-        "LOADER_MESSAGE": "Saving your profile",
-        "SET_POSITION_MESSAGE": "To help us you need to share your location"
-    },
-    "COMMON": {
-        "UNIT_DISTANCE": "m",
-        "UNIT_DISTANCE_K": "km",
-        "ACTIVITY_TYPES": {
-            "FOOD": "Food",
-            "PHARMACY": "Pharmacy",
-            "MAIL": "Mail",
-            "COMPANY": "Company"
-        },
-        "OK_BUTTON": "Ok",
-        "CANCEL_BUTTON": "Cancel",
-        "AVAILABILITY_TYPES": {
-            "ALL_TIME": "All time",
-            "MORNING": "Morning",
-            "AFTER_NOON": "After noon",
-            "EVENING": "Evening"
-        }
+  "LOGIN_PAGE": {
+    "TITLE": "Welcome to<br> I FOR YOU",
+    "SIGN_IN_GOOGLE": "Login with Google",
+    "SIGN_IN_FACEBOOK": "Login with Facebook",
+    "DESCR": "If you are between 18 and 64 years old, you can provide your local community with any kind of support - for instance, grocery home delivery. As a volunteer, you can share your spare time and skills to respond to any needs in your community and promote targeted social support when and where it is needed."
+  },
+  "WELCOME": {
+    "TITLE": "Welcome to I FOR YOU",
+    "MESSAGE": "Wou can provide your local community with any kind of support. You can share your spare time and skills to respond to any needs in your community.",
+    "CTA": "Sig in!"
+  },
+  "REGISTRATION_PAGE": {
+    "TITLE": "Register User",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "REGISTER": "Register"
+  },
+  "POSITION_PICKER": {
+    "TITLE": "Share your location to help your neighbors.",
+    "SAVE": "Save my position",
+    "DISCLAIMER": "your exact location data will not be recorded or shared"
+  },
+  "CARDS_PAGE": {
+    "TITLE": "Helpers near you!",
+    "NEAR_YOU": "near you",
+    "ABOUT_NEAR_YOU": "about {{distance}} near you",
+    "NO_DISTANCE_LIMIT": "no distance limit"
+  },
+  "FILTER_PAGE": {
+    "FILTER_BY": "Filtra per",
+    "DISTANCE": "Distanza",
+    "AVAILABILITY": "Disponibilità"
+  },
+  "SETTINGS_PAGE": {
+    "TITLE": "Settings",
+    "PRIVACY": "Privacy Policy",
+    "TERMS": "Terms of Services",
+    "DELETE": "Delete your data",
+    "LOGOUT": "Logout",
+    "LANGUAGE_SELECT": {
+      "LABEL": "Select the app language",
+      "LIST": {
+        "IT": "Italian",
+        "EN": "English"
+      }
     }
+  },
+  "PROFILE_PAGE": {
+    "TITLE": "Profile",
+    "FIRST_MESSAGE": "Hey, I can take care of you.",
+    "CONFIG_MESSAGE": "Can You go to the market? Pharmacy?",
+    "NAME": "Name",
+    "SURNAME": "Surname",
+    "COUNTRY": "Country",
+    "CITY": "City",
+    "ADDRESS": "Place",
+    "PHONE": "Phone",
+    "SKYPE": "Skype",
+    "MESSAGE_HELP": "I can help you with:",
+    "AVAILABLE": "You ara available to help people, help us?",
+    "ROLE_TYPE": {
+      "FOOD": "food",
+      "FARMACY": "farmacy",
+      "MAIL": "mail",
+      "COMPANY": "company"
+    },
+    "YESIAM": "Yes, I am!",
+    "NEXT": "How do you want to help?",
+    "SAVE": "Save",
+    "SIGN_UP": "Sign up",
+    "CLOSE": "Close",
+    "POSITION": "Share your location",
+    "LOADER_MESSAGE": "Saving your profile",
+    "SET_POSITION_MESSAGE": "To help us you need to share your location"
+  },
+  "COMMON": {
+    "UNIT_DISTANCE": "m",
+    "UNIT_DISTANCE_K": "km",
+    "ACTIVITY_TYPES": {
+      "FOOD": "Food",
+      "PHARMACY": "Pharmacy",
+      "MAIL": "Mail",
+      "COMPANY": "Company"
+    },
+    "OK_BUTTON": "Ok",
+    "CANCEL_BUTTON": "Cancel",
+    "AVAILABILITY_TYPES": {
+      "ALL_TIME": "All time",
+      "MORNING": "Morning",
+      "AFTER_NOON": "After noon",
+      "EVENING": "Evening"
+    }
+  },
+  "EXIT": {
+    "BACK_BUTTON": "Press back again to exit App"
+  }
 }

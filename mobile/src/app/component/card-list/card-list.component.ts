@@ -3,6 +3,8 @@ import { Profile } from 'models/class/profile';
 import { ICapability } from 'models/inteface/capability.interfae';
 import { Roles } from 'models/enums/roles.enum';
 import { TranslateConfigService } from 'services/translate-config.service';
+import { ModalController } from '@ionic/angular';
+import { CardProfileComponent } from 'component/card-profile/card-profile.component';
 
 @Component({
   selector: 'app-card-list',
@@ -16,7 +18,9 @@ export class CardListComponent implements OnInit {
 
 
   constructor(
-    private translactionServise: TranslateConfigService
+    private translactionServise: TranslateConfigService,
+    private readonly modalController: ModalController,
+
   ) {
     translactionServise.getDefaultLanguage();
   }
@@ -43,6 +47,23 @@ export class CardListComponent implements OnInit {
 
   computeRoundDistanceFunction(position) {
     return this.computeRoundDistance(position);
+  }
+
+  onContactClick() {
+    this.presentModal();
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: CardProfileComponent,
+      componentProps: {
+        'profileSelected': this.profile
+      },
+      swipeToClose: true,
+      showBackdrop: true,
+      cssClass: 'map-modal-card'
+    });
+    return modal.present();
   }
 
 }
