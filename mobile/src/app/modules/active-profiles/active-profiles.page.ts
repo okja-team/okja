@@ -15,8 +15,8 @@ import { Router } from '@angular/router';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { User } from 'models/inteface/user.interface';
-import { AuthenticationService } from 'services/authentication.service';
 import { LoaderService } from 'services/loader.service';
+import { AuthenticationService } from 'services/authentication.service';
 
 declare const google: any;
 
@@ -54,22 +54,13 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   lat: any;
   lng: any;
   map: any;
-  avatarPhoto = '';
-  userLogged = false;
-  user: User;
-  userProfile: Profile;
-
-  avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
 
   constructor(
     private readonly translactionServise: TranslateConfigService,
-    private readonly router: Router,
     private readonly activeProfileSerive: ActiveProfilesService,
     private readonly loaderService: LoaderService,
     private readonly modalController: ModalController,
     private readonly geoService: GeolocationService,
-    private readonly authService: AuthenticationService,
-    private readonly toastController: ToastController
   ) {
     this.translactionServise.getDefaultLanguage();
     this.setSubscriptions();
@@ -84,41 +75,10 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   async ionViewDidEnter() {
   }
 
-  private async showWelcomeMessage() {
-    const toast = await this.toastController.create({
-      cssClass: 'toast-welcome',
-      duration: 5000,
-      header: this.translactionServise.translateInstant("WELCOME.TITLE"),
-      message: this.translactionServise.translateInstant("WELCOME.MESSAGE"),
-      buttons: [
-        {
-          side: 'end',
-          text: this.translactionServise.translateInstant("WELCOME.CTA"),
-          handler: () => {
-            this.goToProfile();
-          }
-        }
-      ]
-    });
-    toast.present();
-  }
-
-  ionViewDidLeave() {
+  async ionViewDidLeave() {
   }
 
   setSubscriptions() {
-    this.avatarPhoto = this.avatarPlaceHolder;
-    this.authService.loggedUser.subscribe((user) => {
-      if (user) {
-        this.userLogged = true;
-        this.avatarPhoto = user.photoURL ? user.photoURL : this.avatarPlaceHolder;
-      } else {
-        this.userLogged = false;
-        this.avatarPhoto = this.avatarPlaceHolder;
-        this.showWelcomeMessage();
-      }
-    })
-
     this.activeProfileSerive.getActiveProfile()
       .pipe(untilDestroyed(this))
       .subscribe(x => {
@@ -167,15 +127,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     }
     return this.opacityNotSelected;
   }
-
-  goToProfile() {
-    if (this.userLogged) {
-      this.router.navigate(['profile']);
-    } else {
-      this.router.navigate(['login']);
-    }
-  }
-
   mapReady(event: any) {
     this.map = event;
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('avatarPhoto'));
