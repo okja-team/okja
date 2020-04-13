@@ -7,7 +7,7 @@ import { IPosition } from 'models/inteface/position.interface';
 import { LoaderService } from 'services/loader.service';
 
 @Component({
-  selector: 'app-position-piker',
+  selector: 'user-position-piker',
   templateUrl: './position-piker.component.html',
   styleUrls: ['./position-piker.component.scss'],
 })

@@ -22,7 +22,7 @@ declare const google: any;
   templateUrl: 'map.page.html',
   styleUrls: ['map.page.scss']
 })
-export class ActiveProfilesPage implements OnInit, OnDestroy {
+export class MapPage implements OnInit, OnDestroy {
 
   @ViewChild('AgmMap', { static: true }) agmMap: AgmMap;
 

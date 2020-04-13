@@ -12,7 +12,7 @@ import { PositionPikerComponent } from 'modules/user/position-piker/position-pik
 import { LoaderService } from 'services/loader.service';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'user-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })

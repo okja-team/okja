@@ -4,7 +4,7 @@ import { TranslateConfigService } from 'services/translate-config.service';
 import { LoaderService } from 'services/loader.service';
 
 @Component({
-  selector: 'app-tab3',
+  selector: 'user-settings',
   templateUrl: 'settings.page.html',
   styleUrls: ['settings.page.scss']
 })

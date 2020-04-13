@@ -9,7 +9,7 @@ import { Profile } from 'models/class/profile';
 import { LoaderService } from 'services/loader.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'user-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
