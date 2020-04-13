@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { ActiveProfilesPage } from './active-profiles.page';
+import { ActiveProfilesPage } from './map.page';
 
 describe('ActiveProfilesPage', () => {
   let component: ActiveProfilesPage;

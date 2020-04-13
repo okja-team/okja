@@ -18,9 +18,9 @@ import { LoaderService } from 'services/loader.service';
 declare const google: any;
 
 @Component({
-  selector: 'active-profiles',
-  templateUrl: 'active-profiles.page.html',
-  styleUrls: ['active-profiles.page.scss']
+  selector: 'map',
+  templateUrl: 'map.page.html',
+  styleUrls: ['map.page.scss']
 })
 export class ActiveProfilesPage implements OnInit, OnDestroy {
 
