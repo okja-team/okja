@@ -87,7 +87,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   private async showWelcomeMessage() {
     const toast = await this.toastController.create({
       cssClass: 'toast-welcome',
-      duration: 0,
+      duration: 5000,
       header: this.translactionServise.translateInstant("WELCOME.TITLE"),
       message: this.translactionServise.translateInstant("WELCOME.MESSAGE"),
       buttons: [
