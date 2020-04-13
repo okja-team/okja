@@ -1,7 +1,3 @@
-ion-content ion-toolbar {
-  --background: translucent;
-}
-
 agm-map {
   height: 100%;
 }
@@ -10,15 +6,6 @@ agm-map {
   .gm-svpc {
     display: none;
   }
-}
-
-.avatarPhotoContainer {
-  margin-top: 1em;
-  margin-right: 1em;
-}
-
-.avatarPhoto {
-  border: 4px solid white;
 }
 
 .status-grid {

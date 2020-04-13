@@ -1,98 +1,101 @@
 {
-    "LOGIN_PAGE": {
-        "TITLE": "Benvenuto in<br/>I FOR YOU",
-        "DESCR": "Condividi la tua disponibilità (nella fascia tra 18 e 64 anni) per i servizi che vuoi condividere con la comunità. Per esempio, puoi dare disponibilità ad effettuare il servizio di consegna spesa a domicilio. Il volontario è una persona che per sua libera scelta, in modo personale, spontaneo e gratuito, mette a disposizione tempo e capacità per svolgere attività a supporto della comunità, promuovendo risposte ai bisogni delle persone a seconda delle circostanze.",
-        "SIGN_IN_GOOGLE": "Accedi con Google",
-        "SIGN_IN_FACEBOOK": "Accedi con Facebook"
-    },
-    "WELCOME" : {
-        "TITLE" : "Bevenuto in I FOR YOU",
-        "MESSAGE" : "Condividi la tua disponibilità con la comunità. Mettendo a disposizione tempo e capacità per svolgere attività a supporto della comunità, promuovendo risposte ai bisogni delle persone",
-        "CTA" : "Registrati!"
-    },
-    "REGISTRATION_PAGE": {
-        "TITLE": "Registrazione utente",
-        "EMAIL": "Email",
-        "PASSWORD": "Password",
-        "REGISTER": "Registrami"
-    },
-    "POSITION_PICKER": {
-        "TITLE": "Condividi la tua posizione per aiutare i tuoi vicini.",
-        "SAVE" : "Salva la mia posizione",
-        "DISCLAIMER" : "I dati relativi alla tua posizione esatta non verranno registrati o condivisi"
-    },
-    "CARDS_PAGE": {
-        "TITLE": "Volontari vicino a te!",
-        "NEAR_YOU": "vicino a te",
-        "ABOUT_NEAR_YOU": "circa {{distance}} vicino a te",
-        "NO_DISTANCE_LIMIT": "nessun limite di distanza"
-    },
-    "FILTER_PAGE": {
-        "FILTER_BY": "Filtra per",
-        "DISTANCE": "Distanza",
-        "AVAILABILITY": "Disponibilità"
-    },
-    "SETTINGS_PAGE": {
-        "TITLE": "Impostazioni",
-        "PRIVACY": "Informazioni sulla Privacy",
-        "TERMS" : "Termine di Servizio",
-        "DELETE": "Elimina i tuoi dati",
-        "LOGOUT": "Esci",
-        "LANGUAGE_SELECT": {
-            "LABEL": "Selezione la lingua",
-            "LIST": {
-                "IT": "Italiano",
-                "EN": "Inglese"
-            }
-        }
-    },
-    "PROFILE_PAGE":{
-        "TITLE": "Profilo",
-        "FIRST_MESSAGE": "Hey, posso prendermi cura di te!",	
-        "CONFIG_MESSAGE" : "Puoi fare la spesa? Puoi andare in farmacia?",
-        "NAME": "Nome",
-        "SURNAME": "Cognome",
-        "COUNTRY": "Nazione",
-        "CITY": "Città",
-        "ADDRESS": "Località",
-        "PHONE": "Telefono",
-        "SKYPE" : "Skype",
-        "BISOGNO_AIUTO": "Ho bisogno di aiuto",
-        "POSSO_AIUTARE": "Posso aiutare",
-        "MESSAGE_HELP": "Ho bisogno di aiuto con:",
-        "MESSAGE_HELPER": "Posso aiutarti con:",
-        "AVAILABLE": "Sei disponibile ad aiutare le persone, ci aiuti?",
-        "ROLE_TYPE": {
-            "FOOD": "Spesa",
-            "FARMACY": "Farmacia",
-            "MAIL": "Posta",
-            "COMPANY": "Compagnia"
-        },
-        "YESIAM" : "Si, ci sono!",
-        "NEXT" : "Come vuoi aiutare?",
-        "SAVE": "Salva",
-        "SIGN_UP": "Registra",
-        "CLOSE": "Chiudi",
-        "POSITION": "Condividi la tua posizione",
-        "LOADER_MESSAGE": "Salvataggio profilo in corso",
-        "SET_POSITION_MESSAGE": "Per aiutarci è necessario condividere la tua posizione"
-    },
-    "COMMON": {
-        "UNIT_DISTANCE": "m",
-        "UNIT_DISTANCE_K": "km",
-        "ACTIVITY_TYPES": {
-            "FOOD": "Spesa",
-            "PHARMACY": "Medicine",
-            "MAIL": "Posta",
-            "COMPANY": "Compagnia"
-        },
-        "OK_BUTTON": "Scegli",
-        "CANCEL_BUTTON": "Annulla",
-        "AVAILABILITY_TYPES": {
-            "ALL_TIME": "Sempre",
-            "MORNING": "Mattina",
-            "AFTER_NOON": "Pomeriggio",
-            "EVENING": "Sera"
-        }
+  "LOGIN_PAGE": {
+    "TITLE": "Benvenuto in<br/>I FOR YOU",
+    "DESCR": "Condividi la tua disponibilità (nella fascia tra 18 e 64 anni) per i servizi che vuoi condividere con la comunità. Per esempio, puoi dare disponibilità ad effettuare il servizio di consegna spesa a domicilio. Il volontario è una persona che per sua libera scelta, in modo personale, spontaneo e gratuito, mette a disposizione tempo e capacità per svolgere attività a supporto della comunità, promuovendo risposte ai bisogni delle persone a seconda delle circostanze.",
+    "SIGN_IN_GOOGLE": "Accedi con Google",
+    "SIGN_IN_FACEBOOK": "Accedi con Facebook"
+  },
+  "WELCOME": {
+    "TITLE": "Bevenuto in I FOR YOU",
+    "MESSAGE": "Condividi la tua disponibilità con la comunità. Mettendo a disposizione tempo e capacità per svolgere attività a supporto della comunità, promuovendo risposte ai bisogni delle persone",
+    "CTA": "Registrati!"
+  },
+  "REGISTRATION_PAGE": {
+    "TITLE": "Registrazione utente",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "REGISTER": "Registrami"
+  },
+  "POSITION_PICKER": {
+    "TITLE": "Condividi la tua posizione per aiutare i tuoi vicini.",
+    "SAVE": "Salva la mia posizione",
+    "DISCLAIMER": "I dati relativi alla tua posizione esatta non verranno registrati o condivisi"
+  },
+  "CARDS_PAGE": {
+    "TITLE": "Volontari vicino a te!",
+    "NEAR_YOU": "vicino a te",
+    "ABOUT_NEAR_YOU": "circa {{distance}} vicino a te",
+    "NO_DISTANCE_LIMIT": "nessun limite di distanza"
+  },
+  "FILTER_PAGE": {
+    "FILTER_BY": "Filtra per",
+    "DISTANCE": "Distanza",
+    "AVAILABILITY": "Disponibilità"
+  },
+  "SETTINGS_PAGE": {
+    "TITLE": "Impostazioni",
+    "PRIVACY": "Informazioni sulla Privacy",
+    "TERMS": "Termine di Servizio",
+    "DELETE": "Elimina i tuoi dati",
+    "LOGOUT": "Esci",
+    "LANGUAGE_SELECT": {
+      "LABEL": "Selezione la lingua",
+      "LIST": {
+        "IT": "Italiano",
+        "EN": "Inglese"
+      }
     }
+  },
+  "PROFILE_PAGE": {
+    "TITLE": "Profilo",
+    "FIRST_MESSAGE": "Hey, posso prendermi cura di te!",
+    "CONFIG_MESSAGE": "Puoi fare la spesa? Puoi andare in farmacia?",
+    "NAME": "Nome",
+    "SURNAME": "Cognome",
+    "COUNTRY": "Nazione",
+    "CITY": "Città",
+    "ADDRESS": "Località",
+    "PHONE": "Telefono",
+    "SKYPE": "Skype",
+    "BISOGNO_AIUTO": "Ho bisogno di aiuto",
+    "POSSO_AIUTARE": "Posso aiutare",
+    "MESSAGE_HELP": "Ho bisogno di aiuto con:",
+    "MESSAGE_HELPER": "Posso aiutarti con:",
+    "AVAILABLE": "Sei disponibile ad aiutare le persone, ci aiuti?",
+    "ROLE_TYPE": {
+      "FOOD": "Spesa",
+      "FARMACY": "Farmacia",
+      "MAIL": "Posta",
+      "COMPANY": "Compagnia"
+    },
+    "YESIAM": "Si, ci sono!",
+    "NEXT": "Come vuoi aiutare?",
+    "SAVE": "Salva",
+    "SIGN_UP": "Registra",
+    "CLOSE": "Chiudi",
+    "POSITION": "Condividi la tua posizione",
+    "LOADER_MESSAGE": "Salvataggio profilo in corso",
+    "SET_POSITION_MESSAGE": "Per aiutarci è necessario condividere la tua posizione"
+  },
+  "COMMON": {
+    "UNIT_DISTANCE": "m",
+    "UNIT_DISTANCE_K": "km",
+    "ACTIVITY_TYPES": {
+      "FOOD": "Spesa",
+      "PHARMACY": "Medicine",
+      "MAIL": "Posta",
+      "COMPANY": "Compagnia"
+    },
+    "OK_BUTTON": "Scegli",
+    "CANCEL_BUTTON": "Annulla",
+    "AVAILABILITY_TYPES": {
+      "ALL_TIME": "Sempre",
+      "MORNING": "Mattina",
+      "AFTER_NOON": "Pomeriggio",
+      "EVENING": "Sera"
+    }
+  },
+  "EXIT": {
+    "BACK_BUTTON": "Premi nuovamente back per uscire"
+  }
 }

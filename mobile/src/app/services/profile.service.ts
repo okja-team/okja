@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/inteface/user.interface';
 import { Profile } from 'models/class/profile';
 import { Roles } from 'models/enums/roles.enum';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { UserDataService } from './user-data.service';
 
 @Injectable({
@@ -18,7 +17,6 @@ export class ProfileService {
 
   constructor(
     private readonly afStore: AngularFirestore,
-    private readonly ngFireAuth: AngularFireAuth,
     private readonly userDataService: UserDataService
   ) {
 
