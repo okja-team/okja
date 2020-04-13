@@ -1,11 +1,10 @@
-<app-avatar></app-avatar>
-<ion-toolbar>
-  <ion-title class="pageTitle">{{ 'CARDS_PAGE.TITLE' | translate }}</ion-title>
-</ion-toolbar>
 
-<ion-content color="light-shade"
-  [fullscreen]="true">
+<ion-content color="light-shade" [fullscreen]="true">
+  <app-avatar></app-avatar>
   <div id="content">
+    <ion-toolbar>
+      <ion-title class="pageTitle">{{ 'CARDS_PAGE.TITLE' | translate }}</ion-title>
+    </ion-toolbar>
     <!-- ABILITAZIONE FILTRI TEMPORANEA -->
     <ion-item lines="none">
       <ion-chip class="filterChip"
