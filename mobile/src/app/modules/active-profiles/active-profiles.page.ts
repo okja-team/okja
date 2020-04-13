@@ -9,14 +9,11 @@ import {
   ViewChild
 } from '@angular/core';
 import { GeolocationService } from 'services/geolocation.service';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
-import { Router } from '@angular/router';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { User } from 'models/inteface/user.interface';
 import { LoaderService } from 'services/loader.service';
-import { AuthenticationService } from 'services/authentication.service';
 
 declare const google: any;
 
