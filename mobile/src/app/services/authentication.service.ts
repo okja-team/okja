@@ -41,51 +41,70 @@ export class AuthenticationService {
     }
 
     public logout(): Promise<void> {
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             if (this.platform.is('capacitor')) {
                 cfaSignOut()
-                    .subscribe(() => {
-                        this.router.navigate(['home/tabs/map']);
-                        resolve();
-                    });
+                    .subscribe(
+                        (res) => {
+                            this.router.navigate(['home/tabs/map']);
+                            resolve(res);
+                        },
+                        (err) => {
+                            reject(err);
+                        });
 
             } else {
-                this.ngFireAuth.auth.signOut()
+                this.ngFireAuth.signOut()
                     .then(() => {
                         this.router.navigate(['home/tabs/map']);
                         resolve();
-                    });
+                    })
+                    .catch((e => reject(e)));
             }
         });
     }
 
     private mobileSocialAuth(type: 'google.com'): Promise<firebase.User> {
-        return new Promise(resolve => {
-            this.ngFireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        return new Promise((resolve, reject) => {
+            this.ngFireAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
                 .then(() => {
                     cfaSignIn(type)
-                        .subscribe(user => {
-                            this.setUserData(user)
-                                .subscribe(() => {
-                                    resolve(user)
-                                });
-                        });
+                        .subscribe(
+                            (user) => {
+                                this.setUserData(user)
+                                    .subscribe(
+                                        (res) => {
+                                            resolve(user);
+                                        },
+                                        (err => {
+                                            reject(err);
+                                        }));
+                            },
+                            (err) => {
+                                reject(err);
+                            });
                 });
         });
     }
 
     private webSocialAuth(provider): Promise<firebase.User> {
-        return new Promise(resolve => {
-            this.ngFireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        return new Promise((resolve, reject) => {
+            this.ngFireAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
                 .then(() => {
-                    this.ngFireAuth.auth.signInWithPopup(provider)
+                    this.ngFireAuth.signInWithPopup(provider)
                         .then(userCredentials => {
                             this.setUserData(userCredentials.user)
-                                .subscribe(() => {
-                                    resolve(userCredentials.user)
-                                });
-                        });
-                });
+                                .subscribe(
+                                    (res) => {
+                                        resolve(userCredentials.user)
+                                    },
+                                    (err) => {
+                                        reject(err);
+                                    });
+                        })
+                        .catch(err => reject(err));
+                })
+                .catch(err => reject(err));
         });
     }
 

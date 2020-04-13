@@ -1,7 +1,7 @@
 import { AuthenticationService } from 'services/authentication.service';
 import { Component } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
 import { TranslateConfigService } from 'services/translate-config.service';
+import { LoaderService } from 'services/loader.service';
 
 @Component({
   selector: 'app-tab3',
@@ -17,7 +17,7 @@ export class SettingsPage {
   constructor(
     private readonly translateConfigService: TranslateConfigService,
     private readonly authService: AuthenticationService,
-    private readonly loadingCtrl: LoadingController,
+    private readonly loaderService: LoaderService,
 
   ) {
     this.authService.loggedUser.subscribe(u => {
@@ -30,10 +30,15 @@ export class SettingsPage {
   }
 
   public async logout() {
-    const loadingElement = await this.loadingCtrl.create();
-    await loadingElement.present();
+    try {
+    await this.loaderService.showLoader();
     await this.authService.logout();
-    await loadingElement.dismiss();
+    await this.loaderService.hideLoader();
+    }
+    catch(error) {
+      window.alert(`error on logout: ${error}`);
+      console.log('logout error');
+    }
   }
 
   public openPrivacyPage() {

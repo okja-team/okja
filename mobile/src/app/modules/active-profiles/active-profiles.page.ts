@@ -9,14 +9,14 @@ import {
   ViewChild
 } from '@angular/core';
 import { GeolocationService } from 'services/geolocation.service';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
-import { ProfileService } from 'services/profile.service';
 import { Router } from '@angular/router';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { User } from 'models/inteface/user.interface';
 import { AuthenticationService } from 'services/authentication.service';
+import { LoaderService } from 'services/loader.service';
 
 declare const google: any;
 
@@ -62,19 +62,17 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
 
   constructor(
-    translactionServise: TranslateConfigService,
-    public readonly router: Router,
+    private readonly translactionServise: TranslateConfigService,
+    private readonly router: Router,
     private readonly activeProfileSerive: ActiveProfilesService,
-    private readonly profileService: ProfileService,
-    private readonly loadingCtrl: LoadingController,
+    private readonly loaderService: LoaderService,
     private readonly modalController: ModalController,
     private readonly geoService: GeolocationService,
     private readonly authService: AuthenticationService,
-
+    private readonly toastController: ToastController
   ) {
-    translactionServise.getDefaultLanguage();
+    this.translactionServise.getDefaultLanguage();
     this.setSubscriptions();
-
   }
 
   ngOnInit(): void {
@@ -83,7 +81,26 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
+  }
+
+  private async showWelcomeMessage() {
+    const toast = await this.toastController.create({
+      cssClass: 'toast-welcome',
+      duration: 5000,
+      header: this.translactionServise.translateInstant("WELCOME.TITLE"),
+      message: this.translactionServise.translateInstant("WELCOME.MESSAGE"),
+      buttons: [
+        {
+          side: 'end',
+          text: this.translactionServise.translateInstant("WELCOME.CTA"),
+          handler: () => {
+            this.goToProfile();
+          }
+        }
+      ]
+    });
+    toast.present();
   }
 
   ionViewDidLeave() {
@@ -98,8 +115,9 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
       } else {
         this.userLogged = false;
         this.avatarPhoto = this.avatarPlaceHolder;
+        this.showWelcomeMessage();
       }
-    });
+    })
 
     this.activeProfileSerive.getActiveProfile()
       .pipe(untilDestroyed(this))
@@ -110,19 +128,20 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   }
 
   async repositionMap() {
-    const loader = await this.loadingCtrl.create();
-    await loader.present();
+    try {
+      await this.loaderService.showLoader();
+      const geo = await this.geoService.getCurrentPosition();
+      if (geo) {
+        this.lat = geo.lat;
+        this.lng = geo.lng;
+      }
+      await this.loaderService.hideLoader();
+    }
+    catch (err) {
+      await this.loaderService.hideLoader();
+      window.alert(`error on repositionMap: ${err}`);
 
-    const geo = await this.geoService.getCurrentPosition();
-    if (geo) {
-      this.lat = geo.lat;
-      this.lng = geo.lng;
-    } 
-    // else if (this.userProfile && this.userProfile.position) {
-    //   this.lat = this.userProfile.position.lat;
-    //   this.lng = this.userProfile.position.lng;
-    // }
-    await loader.dismiss();
+    }
   }
 
   async presentModal() {
@@ -137,18 +156,6 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     });
     return modal.present();
   }
-
-  // setProfile() {
-  //   this.profileService.getProfile()
-  //     .pipe(take(1), untilDestroyed(this))
-  //     .subscribe(p => {
-  //       this.userProfile = p;
-  //       if (p && p.position && p.position.lat && p.position.lng) {
-  //         this.lat = p.position.lat;
-  //         this.lng = p.position.lng;
-  //       }
-  //     });
-  // }
 
   getOpacity(p: Profile): number {
     if (

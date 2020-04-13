@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { TranslateConfigService } from '../../services/translate-config.service';
-import { LoadingController } from '@ionic/angular';
 import { ProfileService } from '../../services/profile.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { take } from 'rxjs/operators';
 import { Profile } from 'models/class/profile';
+import { LoaderService } from 'services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +17,11 @@ import { Profile } from 'models/class/profile';
 export class LoginPage implements OnInit, OnDestroy {
   public isDarkMode = false;
 
-  private loadingElement: HTMLIonLoadingElement;
-
   constructor(
     private authService: AuthenticationService,
     private router: Router,
     private translateConfigService: TranslateConfigService,
-    private loadingCtrl: LoadingController,
+    private loaderService: LoaderService,
     private profileService: ProfileService,
   ) {
     this.translateConfigService.getDefaultLanguage();
@@ -31,27 +29,21 @@ export class LoginPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    await this.setLoading();
+    // await this.setLoading();
   }
 
   ngOnDestroy(): void { }
 
-  private async setLoading() {
-    this.loadingElement = await this.loadingCtrl.create({
-      message: '',
-      spinner: 'crescent',
-    });
-  }
-
   public async loginWithSocial() {
     try {
-      this.loadingElement.present();
+      await this.loaderService.showLoader();
       const user = await this.authService.login('google.com')
       if (user) {
         console.log('login complete')
         this.onUserLogged();
       }
     } catch (err) {
+      await this.loaderService.hideLoader();
       window.alert(`error on login: ${err}`);
       console.log('login error');
     }
@@ -71,7 +63,7 @@ export class LoginPage implements OnInit, OnDestroy {
     } else {
       await this.router.navigate(['profile']);
     }
-    this.loadingElement.dismiss();
+    await this.loaderService.hideLoader();
   }
 
 }
