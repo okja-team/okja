@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
-import { PositionPikerComponentModule } from 'modules/position-piker/position-piker.module';
+import { PositionPikerComponentModule } from 'modules/user/position-piker/position-piker.module';
 
 
 @NgModule({

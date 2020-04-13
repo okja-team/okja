@@ -1,16 +1,13 @@
 ion-toolbar {
   --background: var(--ion-color-primary);
-  background: var(--ion-color-primary);
-  color: white;
-  height: 23vw;
   --min-height: 23vw;
+  color: white;
 }
 
 .pageTitle {
   font-size: 6vw;
   font-weight: 700;
-  position: fixed;
-  bottom: 14px;
+  text-align: left;
   font-family: Montserrat;
 }
 

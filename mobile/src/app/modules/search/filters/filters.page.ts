@@ -3,11 +3,11 @@ import { ModalController, NavParams } from '@ionic/angular';
 import { AvailabilityType } from 'models/enums/availability.enum';
 
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter.page.html',
-  styleUrls: ['./filter.page.scss'],
+  selector: 'search-filter',
+  templateUrl: './filters.page.html',
+  styleUrls: ['./filters.page.scss'],
 })
-export class FilterPage {
+export class FiltersPage {
 
   distanceFilter = 5;
   availabilityFilter = 'all_time';

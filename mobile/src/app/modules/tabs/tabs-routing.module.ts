@@ -13,7 +13,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../active-profiles/active-profiles.module').then(m => m.ActiveProfilesPageModule)
+              import('../map/map.module').then(m => m.MapPageModule)
           }
         ]
       },
@@ -23,7 +23,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../filter-profile/filter-profile.module').then(m => m.FilterProfilePageModule)
+              import('../search/profiles/profiles.module').then(m => m.ProfilesPageModule)
           }
         ]
       },

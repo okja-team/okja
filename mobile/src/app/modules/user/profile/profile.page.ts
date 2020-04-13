@@ -2,17 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavController, ToastController, ModalController } from '@ionic/angular';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { ProfileService } from '../../services/profile.service';
-import { TranslateConfigService } from '../../services/translate-config.service';
+import { ProfileService } from '../../../services/profile.service';
+import { TranslateConfigService } from '../../../services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { UserDataService } from '../../services/user-data.service';
+import { UserDataService } from '../../../services/user-data.service';
 import { Roles } from 'models/enums/roles.enum';
 import { Profile } from 'models/class/profile';
-import { PositionPikerComponent } from 'modules/position-piker/position-piker.component';
+import { PositionPikerComponent } from 'modules/user/position-piker/position-piker.component';
 import { LoaderService } from 'services/loader.service';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'user-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })

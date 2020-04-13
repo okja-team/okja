@@ -2,19 +2,19 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { ActiveProfilesPage } from './active-profiles.page';
+import { MapPage } from './map.page';
 
 describe('ActiveProfilesPage', () => {
-  let component: ActiveProfilesPage;
-  let fixture: ComponentFixture<ActiveProfilesPage>;
+  let component: MapPage;
+  let fixture: ComponentFixture<MapPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ActiveProfilesPage],
+      declarations: [MapPage],
       imports: [IonicModule.forRoot(), ExploreContainerComponentModule]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ActiveProfilesPage);
+    fixture = TestBed.createComponent(MapPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
