@@ -9,13 +9,14 @@ import {
   ViewChild
 } from '@angular/core';
 import { GeolocationService } from 'services/geolocation.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
 import { Router } from '@angular/router';
 import { TranslateConfigService } from 'services/translate-config.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { User } from 'models/inteface/user.interface';
 import { LoaderService } from 'services/loader.service';
+import { AuthenticationService } from 'services/authentication.service';
 
 declare const google: any;
 
@@ -53,20 +54,16 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   lat: any;
   lng: any;
   map: any;
-  user: User;
-  userProfile: Profile;
 
   constructor(
-    translactionServise: TranslateConfigService,
-    public readonly router: Router,
+    private readonly translactionServise: TranslateConfigService,
     private readonly activeProfileSerive: ActiveProfilesService,
     private readonly loaderService: LoaderService,
     private readonly modalController: ModalController,
     private readonly geoService: GeolocationService,
   ) {
-    translactionServise.getDefaultLanguage();
+    this.translactionServise.getDefaultLanguage();
     this.setSubscriptions();
-
   }
 
   ngOnInit(): void {
@@ -75,10 +72,10 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
   }
 
-  ionViewDidLeave() {
+  async ionViewDidLeave() {
   }
 
   setSubscriptions() {

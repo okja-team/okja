@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { TranslateConfigService } from './translate-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,15 @@ export class BackButtonService {
   exitFromPage = [
     '/home/tabs/map',
     '/home/tabs/setting',
-    '/home/tabs/list'
+    '/home/tabs/list',
+    '/login'
   ];
 
   constructor(
     private readonly platform: Platform,
     private readonly router: Router,
-    private readonly toastCtrl: ToastController
+    private readonly toastCtrl: ToastController,
+    private readonly translactionServise: TranslateConfigService,
   ) { }
 
 
@@ -32,12 +35,7 @@ export class BackButtonService {
           if (tapIn < this.timePeriodToExit) {
             navigator['app'].exitApp()
           } else {
-            const toast = await this.toastCtrl.create({
-              message: 'Press back again to exit App',
-              duration: 3000,
-              position: 'bottom'
-            });
-            await toast.present();
+            await this.showExitMessage();
             this.lastTimeBackPress = new Date().getTime();
           }
         } else {
@@ -46,6 +44,15 @@ export class BackButtonService {
       })
 
     }
+  }
 
+  private async showExitMessage() {
+    const toast = await this.toastCtrl.create({
+      cssClass: 'toast-welcome',
+      duration: 3000,
+      position: 'bottom',
+      message: this.translactionServise.translateInstant('EXIT.BACK_BUTTON'),
+    });
+    toast.present();
   }
 }
