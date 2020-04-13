@@ -5,6 +5,11 @@
         "SIGN_IN_GOOGLE": "Accedi con Google",
         "SIGN_IN_FACEBOOK": "Accedi con Facebook"
     },
+    "WELCOME" : {
+        "TITLE" : "Bevenuto in I FOR YOU",
+        "MESSAGE" : "Condividi la tua disponibilità con la comunità. Mettendo a disposizione tempo e capacità per svolgere attività a supporto della comunità, promuovendo risposte ai bisogni delle persone",
+        "CTA" : "Registrati!"
+    },
     "REGISTRATION_PAGE": {
         "TITLE": "Registrazione utente",
         "EMAIL": "Email",
@@ -71,15 +76,6 @@
         "POSITION": "Condividi la tua posizione",
         "LOADER_MESSAGE": "Salvataggio profilo in corso",
         "SET_POSITION_MESSAGE": "Per aiutarci è necessario condividere la tua posizione"
-    },
-    "TAB1_PAGE": {
-        "HELP": "vuole aiutarti!",
-        "ROLE_TYPE": {
-            "food": "SPESA",
-            "pharmacy": "FARMACIA",
-            "mail": "POSTA",
-            "company": "COMPAGNIA"
-        }
     },
     "COMMON": {
         "UNIT_DISTANCE": "m",
