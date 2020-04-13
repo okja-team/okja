@@ -5,6 +5,11 @@
         "SIGN_IN_FACEBOOK": "Login with Facebook",
         "DESCR": "If you are between 18 and 64 years old, you can provide your local community with any kind of support - for instance, grocery home delivery. As a volunteer, you can share your spare time and skills to respond to any needs in your community and promote targeted social support when and where it is needed."
     },
+    "WELCOME" : {
+        "TITLE" : "Welcome to I FOR YOU",
+        "MESSAGE" : "Wou can provide your local community with any kind of support. You can share your spare time and skills to respond to any needs in your community.",
+        "CTA" : "Sig in!"
+    },
     "REGISTRATION_PAGE": {
         "TITLE": "Register User",
         "EMAIL": "Email",
@@ -68,15 +73,6 @@
         "POSITION": "Share your location",
         "LOADER_MESSAGE": "Saving your profile",
         "SET_POSITION_MESSAGE": "To help us you need to share your location"
-    },
-    "TAB1_PAGE":{
-        "HELP": "wants help you!",
-        "ROLE_TYPE": {
-            "food": "MARKET",
-            "pharmacy": "PHARMACY",
-            "mail": "MAIL",
-            "company": "COMPANY"
-        }
     },
     "COMMON": {
         "UNIT_DISTANCE": "m",

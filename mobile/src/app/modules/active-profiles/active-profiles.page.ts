@@ -9,7 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { GeolocationService } from 'services/geolocation.service';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Profile } from 'models/class/profile';
 import { ProfileService } from 'services/profile.service';
 import { Router } from '@angular/router';
@@ -62,19 +62,18 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   avatarPlaceHolder = 'assets/images/icon/ico_user_placeholder.svg';
 
   constructor(
-    translactionServise: TranslateConfigService,
-    public readonly router: Router,
+    private readonly translactionServise: TranslateConfigService,
+    private readonly router: Router,
     private readonly activeProfileSerive: ActiveProfilesService,
     private readonly profileService: ProfileService,
     private readonly loadingCtrl: LoadingController,
     private readonly modalController: ModalController,
     private readonly geoService: GeolocationService,
     private readonly authService: AuthenticationService,
-
+    private readonly toastController: ToastController
   ) {
-    translactionServise.getDefaultLanguage();
+    this.translactionServise.getDefaultLanguage();
     this.setSubscriptions();
-
   }
 
   ngOnInit(): void {
@@ -83,7 +82,26 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
+  }
+
+  private async showWelcomeMessage() {
+    const toast = await this.toastController.create({
+      cssClass: 'toast-welcome',
+      duration: 0,
+      header: this.translactionServise.translateInstant("WELCOME.TITLE"),
+      message: this.translactionServise.translateInstant("WELCOME.MESSAGE"),
+      buttons: [
+        {
+          side: 'end',
+          text: this.translactionServise.translateInstant("WELCOME.CTA"),
+          handler: () => {
+            this.goToProfile();
+          }
+        }
+      ]
+    });
+    toast.present();
   }
 
   ionViewDidLeave() {
@@ -98,8 +116,9 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
       } else {
         this.userLogged = false;
         this.avatarPhoto = this.avatarPlaceHolder;
+        this.showWelcomeMessage();
       }
-    });
+    })
 
     this.activeProfileSerive.getActiveProfile()
       .pipe(untilDestroyed(this))
@@ -117,7 +136,7 @@ export class ActiveProfilesPage implements OnInit, OnDestroy {
     if (geo) {
       this.lat = geo.lat;
       this.lng = geo.lng;
-    } 
+    }
     // else if (this.userProfile && this.userProfile.position) {
     //   this.lat = this.userProfile.position.lat;
     //   this.lng = this.userProfile.position.lng;
