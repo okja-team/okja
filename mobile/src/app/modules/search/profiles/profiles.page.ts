@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Profile } from 'models/class/profile';
 import { ModalController } from '@ionic/angular';
-import { FilterPage } from 'modules/filter/filter.page';
+import { FilterPage } from 'modules/search/filters/filters.page';
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { ActiveProfilesService } from 'active-profiles.service';
@@ -10,9 +10,9 @@ import { ProfilePosition } from 'models/class/profile-position';
 import { LoaderService } from 'services/loader.service';
 
 @Component({
-  selector: 'app-filter-profile',
-  templateUrl: 'filter-profile.page.html',
-  styleUrls: ['filter-profile.page.scss']
+  selector: 'profiles',
+  templateUrl: 'profiles.page.html',
+  styleUrls: ['profiles.page.scss']
 })
 export class FilterProfilePage implements OnInit, OnDestroy {
 

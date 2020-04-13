@@ -4,8 +4,8 @@ import { AvailabilityType } from 'models/enums/availability.enum';
 
 @Component({
   selector: 'app-filter',
-  templateUrl: './filter.page.html',
-  styleUrls: ['./filter.page.scss'],
+  templateUrl: './filters.page.html',
+  styleUrls: ['./filters.page.scss'],
 })
 export class FilterPage {
 

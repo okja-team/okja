@@ -14,4 +14,4 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule.forChild()
   ]
 })
-export class FilterPageModule {}
+export class FiltersPageModule {}

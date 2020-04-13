@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { FilterProfilePage } from './filter-profile.page';
+import { FilterProfilePage } from './profiles.page';
 
 describe('FilterProfilePage', () => {
   let component: FilterProfilePage;

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FilterPage } from './filter.page';
+import { FilterPage } from './filters.page';
 
 describe('FilterPage', () => {
   let component: FilterPage;
