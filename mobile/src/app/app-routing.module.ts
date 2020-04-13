@@ -9,11 +9,11 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./modules/login/login.module').then(m => m.LoginPageModule)
+    loadChildren: () => import('./modules/user/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfilePageModule),
+    loadChildren: () => import('./modules/user/profile/profile.module').then(m => m.ProfilePageModule),
     canActivate: [AuthGuardService]
   }
 ];

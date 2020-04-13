@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
-import { TranslateConfigService } from '../../services/translate-config.service';
-import { ProfileService } from '../../services/profile.service';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { TranslateConfigService } from '../../../services/translate-config.service';
+import { ProfileService } from '../../../services/profile.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { take } from 'rxjs/operators';
 import { Profile } from 'models/class/profile';
