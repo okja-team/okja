@@ -42,7 +42,8 @@
       "LABEL": "Selezione la lingua",
       "LIST": {
         "IT": "Italiano",
-        "EN": "Inglese"
+        "EN": "Inglese",
+        "RU": "Russo"
       }
     }
   },
@@ -88,6 +89,8 @@
     },
     "OK_BUTTON": "Scegli",
     "CANCEL_BUTTON": "Annulla",
+    "RESET_BUTTON": "Reset",
+    "APPLY_BUTTON": "Apply",
     "AVAILABILITY_TYPES": {
       "ALL_TIME": "Sempre",
       "MORNING": "Mattina",
