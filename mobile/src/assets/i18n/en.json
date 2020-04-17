@@ -7,7 +7,7 @@
   },
   "WELCOME": {
     "TITLE": "Welcome to I FOR YOU",
-    "MESSAGE": "Wou can provide your local community with any kind of support. You can share your spare time and skills to respond to any needs in your community.",
+    "MESSAGE": "You can provide your local community with any kind of support. You can share your spare time and skills to respond to any needs in your community.",
     "CTA": "Sig in!"
   },
   "REGISTRATION_PAGE": {
@@ -28,9 +28,9 @@
     "NO_DISTANCE_LIMIT": "no distance limit"
   },
   "FILTER_PAGE": {
-    "FILTER_BY": "Filtra per",
-    "DISTANCE": "Distanza",
-    "AVAILABILITY": "Disponibilità"
+    "FILTER_BY": "Filter by",
+    "DISTANCE": "Distance",
+    "AVAILABILITY": "Availability"
   },
   "SETTINGS_PAGE": {
     "TITLE": "Settings",
@@ -42,7 +42,8 @@
       "LABEL": "Select the app language",
       "LIST": {
         "IT": "Italian",
-        "EN": "English"
+        "EN": "English",
+        "RU": "Russian"
       }
     }
   },
@@ -58,7 +59,7 @@
     "PHONE": "Phone",
     "SKYPE": "Skype",
     "MESSAGE_HELP": "I can help you with:",
-    "AVAILABLE": "You ara available to help people, help us?",
+    "AVAILABLE": "You are available to help people, help us?",
     "ROLE_TYPE": {
       "FOOD": "food",
       "FARMACY": "farmacy",
@@ -85,6 +86,8 @@
     },
     "OK_BUTTON": "Ok",
     "CANCEL_BUTTON": "Cancel",
+    "RESET_BUTTON": "Reset",
+    "APPLY_BUTTON": "Apply",
     "AVAILABILITY_TYPES": {
       "ALL_TIME": "All time",
       "MORNING": "Morning",
