@@ -21,7 +21,7 @@
     "@agm/core": "^1.1.0",
     "@agm/js-marker-clusterer": "^1.1.0",
     "@angular/common": "~9.1.1",
-    "@angular/core": "~9.1.1",
+    "@angular/core": "~11.0.5",
     "@angular/fire": "^6.0.0",
     "@angular/forms": "~9.1.1",
     "@angular/platform-browser": "~9.1.1",
