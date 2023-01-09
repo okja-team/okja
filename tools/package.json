@@ -7,7 +7,7 @@
     "url": "https://github.com/okja-team/okja"
   },
   "dependencies": {
-    "firebase-admin": "^8.10.0",
+    "firebase-admin": "^11.4.1",
     "fs-extra": "^8.1.0"
   }
 }
